@@ -18,8 +18,10 @@ struct AddTransactionView: View {
     @State private var amount: Double = 0.0
     @State private var date: Date = .now
     @State private var paymentType: PaymentType = .cash
+    @State private var notes = ""
     
     @FocusState private var amountInputFocused: Bool
+    @FocusState private var notesInputFocused: Bool
     
     func save() {
         let newTransaction = Transaction(
@@ -40,16 +42,17 @@ struct AddTransactionView: View {
                     Text("Income")
                         .tag(TransactionType.income)
                 }
-                .pickerStyle(.segmented)
+                .pickerStyle(.palette)
                 
-                Section {
+                Section("Amount") {
                     TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         .focused($amountInputFocused)
                         .keyboardType(.decimalPad)
                 }
                 
-                Section {
+                Section("Date") {
                     DatePicker("Date", selection: $date, displayedComponents: .date)
+                        .datePickerStyle(.compact)
                 }
                 
                 if transactionType == .expense {
@@ -61,6 +64,12 @@ struct AddTransactionView: View {
                         Label("Credit Card", systemImage: "creditcard")
                             .tag(PaymentType.credit)
                     }
+                    .pickerStyle(.menu)
+                }
+                
+                Section("Notes") {
+                    TextEditor(text: $notes)
+                        .focused($notesInputFocused)
                 }
             }
             .navigationTitle("Add a New Transaction")
@@ -79,6 +88,18 @@ struct AddTransactionView: View {
                         dismiss()
                     } label: {
                         Text("Cancel")
+                    }
+                }
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button {
+                            amountInputFocused = false
+                            notesInputFocused = false
+                        } label: {
+                            Text("Done")
+                                .bold()
+                        }
                     }
                 }
             }

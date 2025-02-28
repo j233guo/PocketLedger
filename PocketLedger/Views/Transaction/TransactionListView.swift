@@ -8,6 +8,23 @@
 import SwiftData
 import SwiftUI
 
+struct TransactionListRowView: View {
+    var transaction: Transaction
+    
+    var body: some View {
+        HStack {
+            Image(systemName: transaction.category?.icon ?? "")
+            Text(transaction.category?.name ?? "")
+                .font(.headline)
+            Spacer()
+            let sign = transaction.transactionType == .expense ? "-" : "+"
+            Text("\(sign)\(formatCurrency(transaction.amount))")
+                .font(.headline)
+                .foregroundStyle(transaction.transactionType == .expense ? .primary : Color.green)
+        }
+    }
+}
+
 struct TransactionListView: View {
     @State private var showAddTransactionView: Bool = false
     
@@ -16,8 +33,8 @@ struct TransactionListView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(transactions) {
-                    Text("\($0.amount)")
+                ForEach(transactions) { transaction in
+                    TransactionListRowView(transaction: transaction)
                 }
             }
             .navigationTitle("Transactions")
