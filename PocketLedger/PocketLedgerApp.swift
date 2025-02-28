@@ -17,3 +17,13 @@ struct PocketLedgerApp: App {
         }
     }
 }
+
+func createPreviewModelContainer() -> ModelContainer? {
+    do {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try ModelContainer(for: Transaction.self, TransactionCategory.self, Card.self, configurations: config)
+        return container
+    } catch {
+        return nil
+    }
+}

@@ -5,12 +5,13 @@
 //  Created by Jiaming Guo on 2025-02-28.
 //
 
+import SwiftData
 import SwiftUI
 
 struct AddTransactionView: View {
     @Environment(\.dismiss) var dismiss
     
-    
+    @Query private var transactionCategories: [TransactionCategory]
     
     func save() {
         
@@ -19,7 +20,9 @@ struct AddTransactionView: View {
     var body: some View {
         NavigationStack {
             Form {
-                
+                ForEach(transactionCategories) { category in
+                    Text(category.name)
+                }
             }
             .navigationTitle("Add a New Transaction")
             .navigationBarTitleDisplayMode(.inline)
