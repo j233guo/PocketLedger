@@ -42,7 +42,8 @@ struct DefaultTransactionCategoryFactory {
         ("Healthcare", "heart.text.square"),
         ("Shopping", "bag.fill"),
         ("Travel", "airplane"),
-        ("Education", "book.fill")
+        ("Education", "book.fill"),
+        ("Miscellaneous", "cart.badge.questionmark")
     ]
     
     static func createDefaultCategories(modelContext: ModelContext) {

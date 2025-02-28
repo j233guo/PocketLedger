@@ -9,28 +9,31 @@ import Foundation
 import SwiftData
 
 enum TransactionType: String, Codable, CaseIterable {
-    case expense, income
+    case expense = "Expense"
+    case income = "Income"
 }
 
 enum PaymentType: String, Codable, CaseIterable {
-    case cash, debit, credit
+    case cash = "Cash"
+    case debit = "Debit"
+    case credit = "Credit Card"
 }
 
 @Model
 class Transaction {
+    var transactionType: TransactionType
     var amount: Double
     var date: Date
     var note: String?
-    var transactionType: TransactionType
     var paymentType: PaymentType?
     
     @Relationship var category: TransactionCategory?
     @Relationship var card: Card?
     
     init(
+        transactionType: TransactionType,
         amount: Double,
         date: Date,
-        transactionType: TransactionType,
         paymentType: PaymentType? = nil,
         category: TransactionCategory? = nil,
         card: Card? = nil

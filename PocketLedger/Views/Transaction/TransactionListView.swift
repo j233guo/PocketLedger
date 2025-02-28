@@ -5,15 +5,20 @@
 //  Created by Jiaming Guo on 2025-02-28.
 //
 
+import SwiftData
 import SwiftUI
 
 struct TransactionListView: View {
     @State private var showAddTransactionView: Bool = false
     
+    @Query private var transactions: [Transaction]
+    
     var body: some View {
         NavigationStack {
             List {
-                
+                ForEach(transactions) {
+                    Text("\($0.amount)")
+                }
             }
             .navigationTitle("Transactions")
             .toolbar {
@@ -31,5 +36,10 @@ struct TransactionListView: View {
 }
 
 #Preview {
-    TransactionListView()
+    if let container = createPreviewModelContainer() {
+        TransactionListView()
+            .modelContainer(container)
+    } else {
+        TransactionListView()
+    }
 }
