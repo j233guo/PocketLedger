@@ -13,7 +13,12 @@ class TransactionCategory {
     var name: String
     var icon: String // SF Symbol name
     var isCustom: Bool
-    var transactionType: TransactionType
+    var transactionTypeRawValue: String  // Store as String
+        
+    var transactionType: TransactionType {
+        get { TransactionType(rawValue: transactionTypeRawValue) ?? .expense }
+        set { transactionTypeRawValue = newValue.rawValue }
+    }
     
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
     
@@ -21,58 +26,41 @@ class TransactionCategory {
         self.name = name
         self.icon = icon
         self.isCustom = isCustom
-        self.transactionType = transactionType
+        self.transactionTypeRawValue = transactionType.rawValue
     }
 }
 
 struct DefaultTransactionCategoryFactory {
-    static let incomeCategories: [(name: String, icon: String)] = [
-        ("Payroll", "dollarsign.circle"),
-        ("Investments", "chart.line.uptrend.xyaxis"),
-        ("Gifts", "gift.fill"),
-    ]
-    
-    static let expenseCategories: [(name: String, icon: String)] = [
-        ("Dining", "fork.knife"),
-        ("Groceries", "cart.fill"),
-        ("Gas", "fuelpump.fill"),
-        ("Transportation", "car.fill"),
-        ("Entertainment", "film.stack"),
-        ("Utilities", "bolt.fill"),
-        ("Healthcare", "heart.text.square"),
-        ("Shopping", "bag.fill"),
-        ("Travel", "airplane"),
-        ("Education", "book.fill"),
-        ("Miscellaneous", "cart.badge.questionmark")
+    static let defaultCategories: [(name: String, icon: String, type: TransactionType)] = [
+        ("Payroll", "dollarsign.circle", .income),
+        ("Investments", "chart.line.uptrend.xyaxis", .income),
+        ("Gifts", "gift.fill", .income),
+        ("Dining", "fork.knife", .expense),
+        ("Groceries", "cart.fill", .expense),
+        ("Gas", "fuelpump.fill", .expense),
+        ("Transportation", "car.fill", .expense),
+        ("Entertainment", "film.stack", .expense),
+        ("Utilities", "bolt.fill", .expense),
+        ("Healthcare", "heart.text.square", .expense),
+        ("Shopping", "bag.fill", .expense),
+        ("Travel", "airplane", .expense),
+        ("Education", "book.fill", .expense),
+        ("Miscellaneous", "cart.badge.questionmark", .expense)
     ]
     
     static func createDefaultCategories(modelContext: ModelContext) {
         let descriptor = FetchDescriptor<TransactionCategory>()
         let existingCount = (try? modelContext.fetchCount(descriptor)) ?? 0
         guard existingCount == 0 else { return }
-        
-        // Create income categories
-        for category in incomeCategories {
+        defaultCategories.compactMap { $0 }.forEach { name, icon, category in
             let newCategory = TransactionCategory(
-                name: category.name,
-                icon: category.icon,
+                name: name,
+                icon: icon,
                 isCustom: false,
-                transactionType: .income
+                transactionType: category
             )
             modelContext.insert(newCategory)
         }
-        
-        // Create expense categories
-        for category in expenseCategories {
-            let newCategory = TransactionCategory(
-                name: category.name,
-                icon: category.icon,
-                isCustom: false,
-                transactionType: .expense
-            )
-            modelContext.insert(newCategory)
-        }
-        
         try? modelContext.save()
     }
 }

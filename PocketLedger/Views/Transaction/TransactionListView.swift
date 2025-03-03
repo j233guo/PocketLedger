@@ -22,8 +22,42 @@ struct TransactionListRowView: View {
                 .font(.headline)
                 .foregroundStyle(transaction.transactionType == .expense ? .primary : Color.green)
         }
+        .padding(5)
     }
 }
+
+#Preview {
+    let expenseCategory = TransactionCategory(
+        name: "Dining",
+        icon: "fork.knife",
+        isCustom: false,
+        transactionType: .expense
+    )
+    let incomeCategory = TransactionCategory(
+        name: "Payroll",
+        icon: "dollarsign.circle",
+        isCustom: false,
+        transactionType: .income
+    )
+    let expenseTransaction = Transaction(
+        transactionType: .expense,
+        amount: 20.0,
+        date: .now,
+        paymentType: .cash,
+        category: expenseCategory
+    )
+    let incomeTransaction = Transaction(
+        transactionType: .income,
+        amount: 100.0,
+        date: .now,
+        category: incomeCategory
+    )
+    List {
+        TransactionListRowView(transaction: expenseTransaction)
+        TransactionListRowView(transaction: incomeTransaction)
+    }
+}
+
 
 struct TransactionListView: View {
     @State private var showAddTransactionView: Bool = false

@@ -14,20 +14,38 @@ struct AddTransactionView: View {
     
     @Query private var transactionCategories: [TransactionCategory]
     
-    @State private var transactionType: TransactionType = .expense
+    @State private var transactionType: TransactionType
     @State private var amount: Double = 0.0
     @State private var date: Date = .now
     @State private var paymentType: PaymentType = .cash
     @State private var notes = ""
+    @State private var transactionCategory: TransactionCategory?
     
     @FocusState private var amountInputFocused: Bool
     @FocusState private var notesInputFocused: Bool
+    
+    init() {
+        _transactionType = State(initialValue: .expense)
+        let predicate = #Predicate<TransactionCategory> {
+            $0.transactionType == transactionType
+        }
+        _transactionCategories = Query(filter: predicate)
+        let initialCategory = TransactionCategory(
+            name: "Dining",
+            icon: "fork.knife",
+            isCustom: false,
+            transactionType: .expense
+        )
+        _transactionCategory = State(initialValue: initialCategory)
+    }
     
     func save() {
         let newTransaction = Transaction(
             transactionType: transactionType,
             amount: amount,
-            date: date
+            date: date,
+            paymentType: paymentType,
+            category: transactionCategory
         )
         modelContext.insert(newTransaction)
         dismiss()
@@ -43,6 +61,7 @@ struct AddTransactionView: View {
                         .tag(TransactionType.income)
                 }
                 .pickerStyle(.palette)
+                CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
                 
                 Section("Amount") {
                     TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
