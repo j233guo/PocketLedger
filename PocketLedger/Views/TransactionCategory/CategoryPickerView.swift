@@ -26,6 +26,8 @@ struct CategoryPickerView: View {
     
     var body: some View {
         Picker("Category", selection: $selectedCategory) {
+            Text("Select a Category")
+                .tag(nil as TransactionCategory?)
             ForEach(categories) { category in
                 HStack {
                     Image(systemName: category.icon)

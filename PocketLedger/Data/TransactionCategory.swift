@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class TransactionCategory {
+class TransactionCategory: Identifiable {
     var name: String
     var icon: String // SF Symbol name
     var isCustom: Bool

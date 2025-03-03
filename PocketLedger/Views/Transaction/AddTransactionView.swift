@@ -20,6 +20,8 @@ struct AddTransactionView: View {
     @State private var paymentType: PaymentType = .cash
     @State private var notes = ""
     @State private var transactionCategory: TransactionCategory?
+    @State private var showCategoryEmptyWarning = false
+    @State private var showAmountEmptyWarning = false
     
     @FocusState private var amountInputFocused: Bool
     @FocusState private var notesInputFocused: Bool
@@ -30,16 +32,18 @@ struct AddTransactionView: View {
             $0.transactionType == transactionType
         }
         _transactionCategories = Query(filter: predicate)
-        let initialCategory = TransactionCategory(
-            name: "Dining",
-            icon: "fork.knife",
-            isCustom: false,
-            transactionType: .expense
-        )
-        _transactionCategory = State(initialValue: initialCategory)
     }
     
     func save() {
+        if transactionCategory == nil {
+            showCategoryEmptyWarning = true
+        }
+        if amount == 0 {
+            showAmountEmptyWarning = true
+        }
+        guard !showAmountEmptyWarning && !showCategoryEmptyWarning else {
+            return
+        }
         let newTransaction = Transaction(
             transactionType: transactionType,
             amount: amount,
@@ -54,19 +58,42 @@ struct AddTransactionView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Picker("Transaction Type", selection: $transactionType) {
-                    Text("Expense")
-                        .tag(TransactionType.expense)
-                    Text("Income")
-                        .tag(TransactionType.income)
+                Section {
+                    Picker("Transaction Type", selection: $transactionType) {
+                        Text("Expense")
+                            .tag(TransactionType.expense)
+                        Text("Income")
+                            .tag(TransactionType.income)
+                    }
+                    .pickerStyle(.palette)
+                    CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
+                } footer: {
+                    if showCategoryEmptyWarning {
+                        Text("Please select a category.")
+                            .foregroundStyle(.red)
+                    }
                 }
-                .pickerStyle(.palette)
-                CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
+                .onChange(of: transactionType) {
+                    transactionCategory = nil
+                }
+                .onChange(of: transactionCategory) {
+                    showCategoryEmptyWarning = false
+                }
                 
-                Section("Amount") {
+                Section {
                     TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         .focused($amountInputFocused)
                         .keyboardType(.decimalPad)
+                } header: {
+                    Text("Amount")
+                } footer: {
+                    if showAmountEmptyWarning {
+                        Text("Please enter a valid amount.")
+                            .foregroundStyle(.red)
+                    }
+                }
+                .onChange(of: amount) {
+                    showAmountEmptyWarning = false
                 }
                 
                 Section("Date") {
