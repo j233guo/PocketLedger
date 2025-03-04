@@ -66,21 +66,33 @@ struct TransactionListView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(transactions) { transaction in
-                    TransactionListRowView(transaction: transaction)
-                }
-            }
-            .navigationTitle("Transactions")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Add", systemImage: "plus") {
-                        showAddTransactionView = true
+            ZStack {
+                List {
+                    ForEach(transactions) { transaction in
+                        TransactionListRowView(transaction: transaction)
                     }
                 }
-            }
-            .sheet(isPresented: $showAddTransactionView) {
-                AddTransactionView()
+                .navigationTitle("Transactions")
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("Add", systemImage: "plus") {
+                            showAddTransactionView = true
+                        }
+                    }
+                }
+                .sheet(isPresented: $showAddTransactionView) {
+                    AddTransactionView()
+                }
+                
+                if transactions.isEmpty {
+                    VStack {
+                        Text("No Transactions")
+                            .font(.title)
+                        Text("Tap \"+\" to log a new transaction.")
+                            .font(.caption)
+                    }
+                    .foregroundStyle(.secondary)
+                }
             }
         }
     }
