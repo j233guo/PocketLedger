@@ -74,7 +74,7 @@ struct TransactionListView: View {
             .navigationTitle("Transactions")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button("Add", systemImage: "plus.circle") {
+                    Button("Add", systemImage: "plus") {
                         showAddTransactionView = true
                     }
                 }

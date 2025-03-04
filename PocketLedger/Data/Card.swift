@@ -8,15 +8,22 @@
 import Foundation
 import SwiftData
 
-// Card Types
 enum CardType: String, Codable, CaseIterable {
     case debit, credit
+}
+
+enum CardPaymentNetwork: String, Codable, CaseIterable {
+    case interac = "Interac"
+    case visa = "VISA"
+    case mastercard = "Mastercard"
+    case amex = "American Express"
 }
 
 @Model
 class Card {
     var name: String
     var cardType: CardType
+    var paymentNetwork: CardPaymentNetwork
     var lastFourDigits: String
     
     private var _perks: Data?
@@ -28,9 +35,10 @@ class Card {
     
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
     
-    init(name: String, cardType: CardType, lastFourDigits: String) {
+    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String) {
         self.name = name
         self.cardType = cardType
+        self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
     }
     
