@@ -26,35 +26,14 @@ class Card {
     var paymentNetwork: CardPaymentNetwork
     var lastFourDigits: String
     
-    private var _perks: Data?
-    
-    var perks: [CardReward] {
-        get { decodePerks() }
-        set { encodePerks(newValue) }
-    }
-    
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
+    @Relationship(deleteRule: .cascade) var perks: [CardPerk]
     
-    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String) {
+    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perks: [CardPerk] = []) {
         self.name = name
         self.cardType = cardType
         self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
+        self.perks = perks
     }
-    
-    private func encodePerks(_ perks: [CardReward]) {
-        _perks = try? JSONEncoder().encode(perks)
-    }
-    
-    private func decodePerks() -> [CardReward] {
-        guard let data = _perks else { return [] }
-        return (try? JSONDecoder().decode([CardReward].self, from: data)) ?? []
-    }
-}
-
-// Perk Structure
-struct CardReward: Codable {
-    var perkType: String // e.g., "Cash Back", "Travel Points"
-    var value: Double // e.g., 1.5 = 1.5% cash back
-    var description: String
 }

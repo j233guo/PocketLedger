@@ -13,7 +13,7 @@ struct PocketLedgerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .modelContainer(for: [Transaction.self, TransactionCategory.self, Card.self])
+                .modelContainer(for: [Transaction.self, TransactionCategory.self, Card.self, CardPerk.self])
         }
     }
 }
@@ -21,7 +21,7 @@ struct PocketLedgerApp: App {
 func createPreviewModelContainer() -> ModelContainer? {
     do {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: Transaction.self, TransactionCategory.self, Card.self, configurations: config)
+        let container = try ModelContainer(for: Transaction.self, TransactionCategory.self, Card.self, CardPerk.self, configurations: config)
         return container
     } catch {
         return nil
