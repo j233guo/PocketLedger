@@ -13,6 +13,16 @@ struct AddTransactionView: View {
     @Environment(\.modelContext) private var modelContext
     
     @Query private var transactionCategories: [TransactionCategory]
+    @Query(
+        filter: #Predicate<Card> { card in
+            card.cardTypeRawValue == "Debit"
+        }
+    ) private var debitCards: [Card]
+    @Query(
+        filter: #Predicate<Card> { card in
+            card.cardTypeRawValue == "Credit"
+        }
+    ) private var creditCards: [Card]
     
     @State private var transactionType: TransactionType
     @State private var amount: Double = 0.0
@@ -20,8 +30,10 @@ struct AddTransactionView: View {
     @State private var paymentType: PaymentType = .cash
     @State private var notes = ""
     @State private var transactionCategory: TransactionCategory?
+    @State private var card: Card? = nil
     @State private var showCategoryEmptyWarning = false
     @State private var showAmountEmptyWarning = false
+    @State private var showCardEmptyWarning = false
     
     @FocusState private var amountInputFocused: Bool
     @FocusState private var notesInputFocused: Bool
@@ -41,7 +53,10 @@ struct AddTransactionView: View {
         if amount == 0 {
             showAmountEmptyWarning = true
         }
-        guard !showAmountEmptyWarning && !showCategoryEmptyWarning else {
+        if paymentType != .cash && card == nil {
+            showCardEmptyWarning = true
+        }
+        guard !showAmountEmptyWarning && !showCategoryEmptyWarning && !showCardEmptyWarning else {
             return
         }
         let newTransaction = Transaction(
@@ -96,21 +111,55 @@ struct AddTransactionView: View {
                     showAmountEmptyWarning = false
                 }
                 
-                Section("Date") {
-                    DatePicker("Date", selection: $date, displayedComponents: .date)
-                        .datePickerStyle(.compact)
-                }
+                DatePicker("Date", selection: $date, displayedComponents: .date)
+                    .datePickerStyle(.compact)
                 
                 if transactionType == .expense {
-                    Picker("Payment Type", selection: $paymentType) {
-                        Label("Cash", systemImage: "banknote")
-                            .tag(PaymentType.cash)
-                        Label("Debit", systemImage: "creditcard.and.123")
-                            .tag(PaymentType.debit)
-                        Label("Credit Card", systemImage: "creditcard")
-                            .tag(PaymentType.credit)
+                    Section {
+                        Picker("Payment Type", selection: $paymentType) {
+                            Label("Cash", systemImage: "banknote")
+                                .tag(PaymentType.cash)
+                            if !debitCards.isEmpty {
+                                Label("Debit", systemImage: "creditcard.and.123")
+                                    .tag(PaymentType.debit)
+                            }
+                            if !creditCards.isEmpty {
+                                Label("Credit Card", systemImage: "creditcard")
+                                    .tag(PaymentType.credit)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .onChange(of: paymentType) {
+                            card = nil
+                            showCardEmptyWarning = false
+                        }
+                        
+                        if paymentType != .cash {
+                            Picker(paymentType == .debit ? "Debit Card" : "Credit Card", selection: $card) {
+                                Text("Select a Card")
+                                    .tag(nil as Card?)
+                                if paymentType == .debit {
+                                    ForEach(debitCards) { card in
+                                        Text("\(card.name) ••••\(card.lastFourDigits)")
+                                            .tag(card as Card?)
+                                    }
+                                } else if paymentType == .credit {
+                                    ForEach(creditCards) { card in
+                                        Text("\(card.name) ••••\(card.lastFourDigits)")
+                                            .tag(card as Card?)
+                                    }
+                                }
+                            }
+                            .onChange(of: card) {
+                                showCardEmptyWarning = false
+                            }
+                        }
+                    } footer: {
+                        if showCardEmptyWarning && paymentType != .cash {
+                            Text("Please select a card.")
+                                .foregroundStyle(.red)
+                        }
                     }
-                    .pickerStyle(.menu)
                 }
                 
                 Section("Notes") {

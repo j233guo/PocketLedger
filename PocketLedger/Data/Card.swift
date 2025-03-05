@@ -9,7 +9,8 @@ import Foundation
 import SwiftData
 
 enum CardType: String, Codable, CaseIterable {
-    case debit, credit
+    case debit = "Debit"
+    case credit = "Credit"
 }
 
 enum CardPaymentNetwork: String, Codable, CaseIterable {
@@ -22,16 +23,21 @@ enum CardPaymentNetwork: String, Codable, CaseIterable {
 @Model
 class Card {
     var name: String
-    var cardType: CardType
+    var cardTypeRawValue: String
     var paymentNetwork: CardPaymentNetwork
     var lastFourDigits: String
+    
+    var cardType: CardType {
+        get { CardType(rawValue: cardTypeRawValue) ?? .debit }
+        set { cardTypeRawValue = newValue.rawValue }
+    }
     
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
     @Relationship(deleteRule: .cascade) var perks: [CardPerk]
     
     init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perks: [CardPerk] = []) {
         self.name = name
-        self.cardType = cardType
+        self.cardTypeRawValue = cardType.rawValue
         self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
         self.perks = perks

@@ -47,7 +47,6 @@ struct AddCardView: View {
                         .onChange(of: cardName) {
                             showNameEmptyWarning = false
                         }
-                    
                     Picker("Card Type", selection: $cardType) {
                         Text("Debit").tag(CardType.debit)
                         Text("Credit").tag(CardType.credit)
