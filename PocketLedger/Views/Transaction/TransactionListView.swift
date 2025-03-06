@@ -59,6 +59,34 @@ fileprivate struct TransactionListRowView: View {
     }
 }
 
+fileprivate struct GroupedTransactionListView: View {
+    var transactions: [Transaction]
+    
+    private let sectionDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }()
+    
+    var body: some View {
+        List {
+            let groupedTransactions: [Date: [Transaction]] = Dictionary(grouping: transactions) { data in
+                Calendar.current.startOfDay(for: data.date)
+            }
+            ForEach(groupedTransactions.keys.sorted { $0 > $1 }, id: \.self) { date in
+                Section {
+                    ForEach(groupedTransactions[date]!, id: \.id) { transaction in
+                        NavigationLink(destination: TransactionDetailView(transaction: transaction)) {
+                            TransactionListRowView(transaction: transaction)
+                        }
+                    }
+                } header: {
+                    Text("\(date, formatter: sectionDateFormatter)")
+                }
+            }
+        }
+    }
+}
 
 struct TransactionListView: View {
     @State private var showAddTransactionView: Bool = false
@@ -67,35 +95,29 @@ struct TransactionListView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                List {
-                    ForEach(transactions) { transaction in
-                        NavigationLink(destination: TransactionDetailView(transaction: transaction)) {
-                            TransactionListRowView(transaction: transaction)
-                        }
-                    }
-                }
-                .navigationTitle("Transactions")
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button("Add", systemImage: "plus") {
-                            showAddTransactionView = true
-                        }
-                    }
-                }
-                .sheet(isPresented: $showAddTransactionView) {
-                    AddTransactionView()
-                }
-                
+            Group {
                 if transactions.isEmpty {
                     VStack {
-                        Text("No Transactions")
+                        Text("Empty Transaction List")
                             .font(.title)
                         Text("Tap \"+\" to log a new transaction.")
                             .font(.caption)
                     }
                     .foregroundStyle(.secondary)
+                } else {
+                    GroupedTransactionListView(transactions: transactions)
                 }
+            }
+            .navigationTitle("Transactions")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("Add", systemImage: "plus") {
+                        showAddTransactionView = true
+                    }
+                }
+            }
+            .sheet(isPresented: $showAddTransactionView) {
+                AddTransactionView()
             }
         }
     }
