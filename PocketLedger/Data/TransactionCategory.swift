@@ -12,10 +12,10 @@ import SwiftData
 class TransactionCategory: Identifiable {
     var id: UUID
     var name: String
-    var icon: String // SF Symbol name
     var isCustom: Bool
+    var icon: String // SF Symbol name
+    
     var transactionTypeRawValue: String  // Store as String
-        
     var transactionType: TransactionType {
         get { TransactionType(rawValue: transactionTypeRawValue) ?? .expense }
         set { transactionTypeRawValue = newValue.rawValue }
@@ -23,12 +23,12 @@ class TransactionCategory: Identifiable {
     
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
     
-    init(name: String, icon: String, isCustom: Bool, transactionType: TransactionType) {
+    init(name: String, transactionType: TransactionType, isCustom: Bool, icon: String) {
         self.id = UUID()
         self.name = name
-        self.icon = icon
-        self.isCustom = isCustom
         self.transactionTypeRawValue = transactionType.rawValue
+        self.isCustom = isCustom
+        self.icon = icon
     }
 }
 
@@ -57,9 +57,9 @@ struct DefaultTransactionCategoryFactory {
         defaultCategories.compactMap { $0 }.forEach { name, icon, category in
             let newCategory = TransactionCategory(
                 name: name,
-                icon: icon,
+                transactionType: category,
                 isCustom: false,
-                transactionType: category
+                icon: icon
             )
             modelContext.insert(newCategory)
         }

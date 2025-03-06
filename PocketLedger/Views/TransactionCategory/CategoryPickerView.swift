@@ -39,6 +39,11 @@ struct CategoryPickerView: View {
 }
 
 #Preview {
-    let selectedCategory = TransactionCategory(name: "", icon: "", isCustom: false, transactionType: .expense)
+    let selectedCategory = TransactionCategory(
+        name: "",
+        transactionType: .expense,
+        isCustom: false,
+        icon: ""
+    )
     CategoryPickerView(selectedCategory: .constant(selectedCategory), transactionType: .expense)
 }

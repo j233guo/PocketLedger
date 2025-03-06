@@ -133,9 +133,9 @@ struct TransactionDetailView: View {
     )
     let transactionCategory = TransactionCategory(
         name: "Shopping",
-        icon: "bag.fill",
+        transactionType: .expense,
         isCustom: false,
-        transactionType: .expense
+        icon: "bag.fill"
     )
     let transaction = Transaction(
         transactionType: .expense,

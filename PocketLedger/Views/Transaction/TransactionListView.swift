@@ -13,8 +13,9 @@ fileprivate struct TransactionListRowView: View {
     
     var body: some View {
         HStack {
-            Image(systemName: transaction.category?.icon ?? "")
-            Text(transaction.category?.name ?? "")
+            CategoryLogoView(category: transaction.category, size: 25)
+                .padding(.trailing, 10)
+            Text(transaction.category?.name ?? "Uncategorized")
                 .font(.headline)
             Spacer()
             let sign = transaction.transactionType == .expense ? "-" : "+"
@@ -29,15 +30,15 @@ fileprivate struct TransactionListRowView: View {
 #Preview {
     let expenseCategory = TransactionCategory(
         name: "Dining",
-        icon: "fork.knife",
+        transactionType: .expense,
         isCustom: false,
-        transactionType: .expense
+        icon: "fork.knife"
     )
     let incomeCategory = TransactionCategory(
         name: "Payroll",
-        icon: "dollarsign.circle",
+        transactionType: .income,
         isCustom: false,
-        transactionType: .income
+        icon: "dollarsign.circle"
     )
     let expenseTransaction = Transaction(
         transactionType: .expense,

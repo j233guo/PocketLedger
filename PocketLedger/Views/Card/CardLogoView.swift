@@ -23,6 +23,7 @@ struct CardLogoView: View {
             .resizable()
             .scaledToFit()
             .frame(width: size, height: size)
+            .clipShape(RoundedRectangle(cornerRadius: size / 5))
             .padding(1)
     }
 }
