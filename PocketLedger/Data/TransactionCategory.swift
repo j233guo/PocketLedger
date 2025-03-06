@@ -10,6 +10,7 @@ import SwiftData
 
 @Model
 class TransactionCategory: Identifiable {
+    var id: UUID
     var name: String
     var icon: String // SF Symbol name
     var isCustom: Bool
@@ -23,6 +24,7 @@ class TransactionCategory: Identifiable {
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
     
     init(name: String, icon: String, isCustom: Bool, transactionType: TransactionType) {
+        self.id = UUID()
         self.name = name
         self.icon = icon
         self.isCustom = isCustom

@@ -28,7 +28,7 @@ struct AddTransactionView: View {
     @State private var amount: Double = 0.0
     @State private var date: Date = .now
     @State private var paymentType: PaymentType = .cash
-    @State private var notes = ""
+    @State private var note = ""
     @State private var transactionCategory: TransactionCategory?
     @State private var card: Card? = nil
     @State private var showCategoryEmptyWarning = false
@@ -59,14 +59,39 @@ struct AddTransactionView: View {
         guard !showAmountEmptyWarning && !showCategoryEmptyWarning && !showCardEmptyWarning else {
             return
         }
-        let newTransaction = Transaction(
-            transactionType: transactionType,
-            amount: amount,
-            date: date,
-            paymentType: paymentType,
-            category: transactionCategory
-        )
-        modelContext.insert(newTransaction)
+        if transactionType == .income {
+            let newTransaction = Transaction(
+                transactionType: transactionType,
+                amount: amount,
+                date: date,
+                category: transactionCategory,
+                note: note
+            )
+            modelContext.insert(newTransaction)
+        } else if transactionType == .expense {
+            if paymentType == .cash {
+                let newTransaction = Transaction(
+                    transactionType: transactionType,
+                    amount: amount,
+                    date: date,
+                    category: transactionCategory,
+                    paymentType: paymentType,
+                    note: note
+                )
+                modelContext.insert(newTransaction)
+            } else {
+                let newTransaction = Transaction(
+                    transactionType: transactionType,
+                    amount: amount,
+                    date: date,
+                    category: transactionCategory,
+                    paymentType: paymentType,
+                    card: card,
+                    note: note
+                )
+                modelContext.insert(newTransaction)
+            }
+        }
         dismiss()
     }
     
@@ -163,7 +188,7 @@ struct AddTransactionView: View {
                 }
                 
                 Section("Notes") {
-                    TextEditor(text: $notes)
+                    TextEditor(text: $note)
                         .focused($notesInputFocused)
                 }
             }

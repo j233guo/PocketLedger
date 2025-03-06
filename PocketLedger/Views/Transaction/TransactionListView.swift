@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct TransactionListRowView: View {
+fileprivate struct TransactionListRowView: View {
     var transaction: Transaction
     
     var body: some View {
@@ -43,8 +43,8 @@ struct TransactionListRowView: View {
         transactionType: .expense,
         amount: 20.0,
         date: .now,
-        paymentType: .cash,
-        category: expenseCategory
+        category: expenseCategory,
+        paymentType: .cash
     )
     let incomeTransaction = Transaction(
         transactionType: .income,
@@ -69,7 +69,9 @@ struct TransactionListView: View {
             ZStack {
                 List {
                     ForEach(transactions) { transaction in
-                        TransactionListRowView(transaction: transaction)
+                        NavigationLink(destination: TransactionDetailView(transaction: transaction)) {
+                            TransactionListRowView(transaction: transaction)
+                        }
                     }
                 }
                 .navigationTitle("Transactions")
