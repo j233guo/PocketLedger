@@ -13,7 +13,7 @@ fileprivate struct TransactionListRowView: View {
     
     var body: some View {
         HStack {
-            CategoryLogoView(category: transaction.category, size: 25)
+            CategoryLogoView(category: transaction.category, size: 20)
                 .padding(.trailing, 10)
             Text(transaction.category?.name ?? "Uncategorized")
                 .font(.headline)

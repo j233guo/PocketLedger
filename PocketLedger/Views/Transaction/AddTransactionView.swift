@@ -53,7 +53,7 @@ struct AddTransactionView: View {
         if amount == 0 {
             showAmountEmptyWarning = true
         }
-        if paymentType != .cash && card == nil {
+        if transactionType == .expense && paymentType != .cash && card == nil {
             showCardEmptyWarning = true
         }
         guard !showAmountEmptyWarning && !showCategoryEmptyWarning && !showCardEmptyWarning else {

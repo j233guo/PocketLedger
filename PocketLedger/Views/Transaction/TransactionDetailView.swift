@@ -115,7 +115,7 @@ struct TransactionDetailView: View {
             .navigationTitle("Transaction Details")
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showEditTransactionView) {
-                EditTransactionView()
+                EditTransactionView(transaction: transaction)
             }
             .confirmationDialog("Confirm Delete", isPresented: $showDeleteConfirmation) {
                 Button("Confirm", role: .destructive, action: deleteTransaction)
