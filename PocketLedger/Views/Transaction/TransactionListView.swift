@@ -76,7 +76,9 @@ fileprivate struct GroupedTransactionListView: View {
             ForEach(groupedTransactions.keys.sorted { $0 > $1 }, id: \.self) { date in
                 Section {
                     ForEach(groupedTransactions[date]!, id: \.id) { transaction in
-                        NavigationLink(destination: TransactionDetailView(transaction: transaction)) {
+                        NavigationLink {
+                            TransactionDetailView(transaction: transaction)
+                        } label: {
                             TransactionListRowView(transaction: transaction)
                         }
                     }

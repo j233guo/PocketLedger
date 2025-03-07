@@ -8,6 +8,20 @@
 import SwiftData
 import SwiftUI
 
+fileprivate struct CardListRowView: View {
+    let card: Card
+    
+    var body: some View {
+        HStack {
+            CardLogoView(network: card.paymentNetwork, size: 40.0)
+                .padding(5)
+            Text(card.name)
+            Spacer()
+            Text("••••\(card.lastFourDigits)")
+        }
+    }
+}
+
 struct CardListView: View {
     @State private var showAddCardView = false
     
@@ -27,12 +41,10 @@ struct CardListView: View {
                 } else {
                     List {
                         ForEach(cards) { card in
-                            HStack {
-                                CardLogoView(network: card.paymentNetwork, size: 40.0)
-                                    .padding(5)
-                                Text(card.name)
-                                Spacer()
-                                Text("••••\(card.lastFourDigits)")
+                            NavigationLink {
+                                CardDetailView(card: card)
+                            } label: {
+                                CardListRowView(card: card)
                             }
                         }
                     }

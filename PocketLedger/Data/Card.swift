@@ -22,11 +22,13 @@ enum CardPaymentNetwork: String, Codable, CaseIterable {
 
 @Model
 class Card {
-    var id: UUID
+    @Attribute(.unique) var id: UUID = UUID()
     var name: String
     var cardTypeRawValue: String
     var paymentNetwork: CardPaymentNetwork
     var lastFourDigits: String
+    
+    var idString: String = ""
     
     var cardType: CardType {
         get { CardType(rawValue: cardTypeRawValue) ?? .debit }
@@ -37,11 +39,11 @@ class Card {
     @Relationship(deleteRule: .cascade) var perks: [CardPerk]
     
     init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perks: [CardPerk] = []) {
-        self.id = UUID()
         self.name = name
         self.cardTypeRawValue = cardType.rawValue
         self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
         self.perks = perks
+        self.idString = id.uuidString
     }
 }

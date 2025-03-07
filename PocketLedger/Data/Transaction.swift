@@ -21,7 +21,7 @@ enum PaymentType: String, Codable, CaseIterable {
 
 @Model
 class Transaction {
-    var id: UUID
+    @Attribute(.unique) var id: UUID = UUID()
     var transactionType: TransactionType
     var amount: Double
     var date: Date
@@ -40,7 +40,6 @@ class Transaction {
         card: Card? = nil,
         note: String? = nil
     ) {
-        self.id = UUID()
         self.transactionType = transactionType
         self.amount = amount
         self.date = date

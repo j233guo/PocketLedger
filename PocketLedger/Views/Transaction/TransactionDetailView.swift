@@ -118,7 +118,9 @@ struct TransactionDetailView: View {
                 EditTransactionView()
             }
             .confirmationDialog("Confirm Delete", isPresented: $showDeleteConfirmation) {
-                Button("Confirm Delete", role: .destructive, action: deleteTransaction)
+                Button("Confirm", role: .destructive, action: deleteTransaction)
+            } message: {
+                Text("This transaction will be gone forever.")
             }
         }
     }
