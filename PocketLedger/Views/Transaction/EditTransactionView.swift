@@ -179,7 +179,7 @@ struct EditTransactionView: View {
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button("Done") {
                         save()
                     }
                 }

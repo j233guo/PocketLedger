@@ -132,7 +132,7 @@ struct CardDetailView: View {
             .navigationTitle(card.name)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showEditCardView) {
-                EditCardView()
+                EditCardView(card: card)
             }
             .confirmationDialog("Delete Card", isPresented: $showDeleteConfirmation) {
                 Button("Confirm", role: .destructive) {
@@ -150,7 +150,8 @@ struct CardDetailView: View {
         name: "My Credit Card",
         cardType: .credit,
         paymentNetwork: .amex,
-        lastFourDigits: "1000"
+        lastFourDigits: "1000",
+        perkType: .points
     )
     CardDetailView(card: card)
 }

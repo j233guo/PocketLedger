@@ -15,6 +15,8 @@ struct AddCardView: View {
     @State private var cardType: CardType = .debit
     @State private var paymentNetwork: CardPaymentNetwork = .interac
     @State private var lastFourDigits: String = ""
+    @State private var cardPerkType: CardPerkType = .points
+    
     @State private var showNameEmptyWarning = false
     @State private var showLastFourDigitsEmptyWarning = false
     
@@ -29,13 +31,24 @@ struct AddCardView: View {
             showLastFourDigitsEmptyWarning = true
         }
         guard !showNameEmptyWarning && !showLastFourDigitsEmptyWarning else { return }
-        let newCard = Card(
-            name: cardName,
-            cardType: cardType,
-            paymentNetwork: paymentNetwork,
-            lastFourDigits: lastFourDigits
-        )
-        modelContext.insert(newCard)
+        if cardType == .debit {
+            let newCard = Card(
+                name: cardName,
+                cardType: cardType,
+                paymentNetwork: paymentNetwork,
+                lastFourDigits: lastFourDigits
+            )
+            modelContext.insert(newCard)
+        } else if cardType == .credit {
+            let newCard = Card(
+                name: cardName,
+                cardType: cardType,
+                paymentNetwork: paymentNetwork,
+                lastFourDigits: lastFourDigits,
+                perkType: cardPerkType
+            )
+            modelContext.insert(newCard)
+        }
         dismiss()
     }
     
@@ -43,10 +56,20 @@ struct AddCardView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Name", text: $cardName)
+                    TextField("Card Name", text: $cardName)
                         .onChange(of: cardName) {
                             showNameEmptyWarning = false
                         }
+                } header: {
+                    Text("Nickname for the card")
+                } footer: {
+                    if showNameEmptyWarning {
+                        Text("Please enter a name for the card.")
+                            .foregroundStyle(.red)
+                    }
+                }
+                
+                Section {
                     Picker("Card Type", selection: $cardType) {
                         Text("Debit").tag(CardType.debit)
                         Text("Credit").tag(CardType.credit)
@@ -58,18 +81,13 @@ struct AddCardView: View {
                             paymentNetwork = .visa
                         }
                     }
-                } footer: {
-                    if showNameEmptyWarning {
-                        Text("Please enter a name for the card.")
-                            .foregroundStyle(.red)
-                    }
-                }
-                
-                if cardType == .credit {
-                    Picker("Network", selection: $paymentNetwork) {
-                        Text("VISA").tag(CardPaymentNetwork.visa)
-                        Text("Mastercard").tag(CardPaymentNetwork.mastercard)
-                        Text("American Express").tag(CardPaymentNetwork.amex)
+                    
+                    if cardType == .credit {
+                        Picker("Payment Network", selection: $paymentNetwork) {
+                            Text("VISA").tag(CardPaymentNetwork.visa)
+                            Text("Mastercard").tag(CardPaymentNetwork.mastercard)
+                            Text("American Express").tag(CardPaymentNetwork.amex)
+                        }
                     }
                 }
                 
@@ -97,6 +115,17 @@ struct AddCardView: View {
                             .foregroundStyle(.red)
                     } else {
                         Text("For identifying purpose only.")
+                    }
+                }
+                
+                if cardType == .credit {
+                    Section {
+                        Picker("Card Perk Type", selection: $cardPerkType) {
+                            Text("Reward Points")
+                                .tag(CardPerkType.points)
+                            Text("Cash Back")
+                                .tag(CardPerkType.cashBack)
+                        }
                     }
                 }
             }

@@ -27,6 +27,7 @@ class Card {
     var cardTypeRawValue: String
     var paymentNetwork: CardPaymentNetwork
     var lastFourDigits: String
+    var perkType: CardPerkType?
     
     var idString: String = ""
     
@@ -38,11 +39,12 @@ class Card {
     @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
     @Relationship(deleteRule: .cascade) var perks: [CardPerk]
     
-    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perks: [CardPerk] = []) {
+    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perkType: CardPerkType? = nil, perks: [CardPerk] = []) {
         self.name = name
         self.cardTypeRawValue = cardType.rawValue
         self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
+        self.perkType = perkType
         self.perks = perks
         self.idString = id.uuidString
     }
