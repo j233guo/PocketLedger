@@ -21,9 +21,9 @@ struct AddPerkView: View {
     var body: some View {
         Section {
             if expanded {
-                Picker("\(perkType == .cashBack ? "Cash Back" : "Point") Multiplier", selection: $value) {
-                    ForEach(Array(stride(from: 0, through: 6, by: 0.25)), id: \.self) { number in
-                        Text(formattedRewardMultiplier(perkType, value))
+                Picker("\(perkType.rawValue) Multiplier", selection: $value) {
+                    ForEach(Array(stride(from: 0.25, through: 6, by: 0.25)), id: \.self) { number in
+                        Text(formattedRewardMultiplier(perkType, number))
                     }
                 }
                 CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
@@ -68,7 +68,7 @@ struct EditCardView: View {
     @FocusState private var nameFieldIsFocused: Bool
     @FocusState private var lastFourDigitsFieldIsFocused: Bool
     
-    @Query private var perksOnCard: [CardPerk]
+    @Query(sort: \CardPerk.value) private var perksOnCard: [CardPerk]
     
     var card: Card
     
@@ -196,13 +196,14 @@ struct EditCardView: View {
                             Text("Reward Points")
                                 .tag(CardPerkType.points)
                             Text("Cash Back")
-                                .tag(CardPerkType.cashBack)
+                                .tag(CardPerkType.cashback)
                         }
                     }
                     
                     Section {
                         ForEach(perksOnCard) { perk in
-                            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))")
+                            let categoryName = perk.category?.name ?? "Everything"
+                            Text("\(formattedRewardMultiplier(perk.perkType, perk.value)) \(perk.perkType.rawValue) on \(categoryName)")
                         }
                         .onDelete(perform: deletePerk)
                     } header: {

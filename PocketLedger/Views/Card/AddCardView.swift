@@ -57,6 +57,7 @@ struct AddCardView: View {
             Form {
                 Section {
                     TextField("Card Name", text: $cardName)
+                        .focused($nameFieldIsFocused)
                         .onChange(of: cardName) {
                             showNameEmptyWarning = false
                         }
@@ -124,7 +125,7 @@ struct AddCardView: View {
                             Text("Reward Points")
                                 .tag(CardPerkType.points)
                             Text("Cash Back")
-                                .tag(CardPerkType.cashBack)
+                                .tag(CardPerkType.cashback)
                         }
                     }
                 }

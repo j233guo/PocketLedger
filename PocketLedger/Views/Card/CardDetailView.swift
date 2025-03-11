@@ -13,7 +13,10 @@ fileprivate struct CardPerksListView: View {
     
     var body: some View {
         Section {
-            
+            ForEach(perks) { perk in
+                let categoryName = perk.category?.name ?? "Everything"
+                Text("\(formattedRewardMultiplier(perk.perkType, perk.value)) \(perk.perkType.rawValue) on \(categoryName)")
+            }
         } header: {
             Text("Perks on This card")
         } footer: {
@@ -66,7 +69,10 @@ struct CardDetailView: View {
             let predicate = #Predicate<CardPerk> { perk in
                 perk.card.idString == cardIDString
             }
-            let descriptor = FetchDescriptor<CardPerk>(predicate: predicate)
+            let descriptor = FetchDescriptor<CardPerk>(
+                predicate: predicate,
+                sortBy: [SortDescriptor(\.value, order: .reverse)]
+            )
             return try modelContext.fetch(descriptor)
         } catch {
             return []

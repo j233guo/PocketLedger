@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 
 enum CardPerkType: String, Codable, CaseIterable {
-    case cashBack
-    case points
+    case cashback = "Cash Back"
+    case points = "Points"
 }
 
 @Model
@@ -44,7 +44,7 @@ extension Double {
 
 func formattedRewardMultiplier(_ perkType: CardPerkType, _ value: Double) -> String {
     switch perkType {
-    case .cashBack:
+    case .cashback:
         return "\(value.asMinimalDecimalString())%"
     case .points:
         return "\(value.asMinimalDecimalString())x"
