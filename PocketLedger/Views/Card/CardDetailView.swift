@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-fileprivate struct CardPerksSectionView: View {
+fileprivate struct CardPerksListView: View {
     var perks: [CardPerk]
     
     var body: some View {
@@ -102,7 +102,7 @@ struct CardDetailView: View {
                     Text("••••\(card.lastFourDigits)")
                 }
                 
-                CardPerksSectionView(perks: perksOnCard)
+                CardPerksListView(perks: perksOnCard)
                 
                 Section {
                     ForEach(recentTransactions) { transaction in

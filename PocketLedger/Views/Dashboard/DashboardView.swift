@@ -21,11 +21,8 @@ struct DashboardView: View {
                 Button {
                     showAddTransactionView = true
                 } label: {
-                    HStack {
-                        Spacer()
-                        Text("Log a New Transaction")
-                        Spacer()
-                    }
+                    Text("Log a New Transaction")
+                        .frame(maxWidth: .infinity)
                 }
             }
             .navigationTitle("Dashboard")

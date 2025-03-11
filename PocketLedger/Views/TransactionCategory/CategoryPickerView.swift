@@ -8,14 +8,21 @@
 import SwiftData
 import SwiftUI
 
+enum CategoryPickerViewNameId {
+    case transaction
+    case cardperk
+}
+
 struct CategoryPickerView: View {
     @Query private var categories: [TransactionCategory]
     
     @Binding var selectedCategory: TransactionCategory?
     
+    let nameId: CategoryPickerViewNameId
     var transactionType: TransactionType
     
-    init(selectedCategory: Binding<TransactionCategory?>, transactionType: TransactionType) {
+    init(selectedCategory: Binding<TransactionCategory?>, transactionType: TransactionType, nameId: CategoryPickerViewNameId = .transaction) {
+        self.nameId = nameId
         self._selectedCategory = selectedCategory
         self.transactionType = transactionType
         let predicate = #Predicate<TransactionCategory> {
@@ -26,8 +33,13 @@ struct CategoryPickerView: View {
     
     var body: some View {
         Picker("Category", selection: $selectedCategory) {
-            Text("Select a Category")
-                .tag(nil as TransactionCategory?)
+            if nameId == .transaction {
+                Text("Select a Category")
+                    .tag(nil as TransactionCategory?)
+            } else if nameId == .cardperk {
+                Text("Everything")
+                    .tag(nil as TransactionCategory?)
+            }
             ForEach(categories) { category in
                 HStack {
                     Image(systemName: category.icon)

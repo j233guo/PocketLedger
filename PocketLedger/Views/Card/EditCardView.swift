@@ -5,10 +5,52 @@
 //  Created by Jiaming Guo on 2025-03-07.
 //
 
+import SwiftData
 import SwiftUI
+
+struct AddPerkView: View {
+    @Binding var expanded: Bool
+    @Binding var value: Double
+    @Binding var category: TransactionCategory?
+    
+    @Query private var categories: [TransactionCategory]
+    
+    let perkType: CardPerkType
+    let addAction: () -> Void
+    
+    var body: some View {
+        Section {
+            if expanded {
+                Picker("\(perkType == .cashBack ? "Cash Back" : "Point") Multiplier", selection: $value) {
+                    ForEach(Array(stride(from: 0, through: 6, by: 0.25)), id: \.self) { number in
+                        Text(formattedRewardMultiplier(perkType, value))
+                    }
+                }
+                CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
+                Button {
+                    addAction()
+                    withAnimation {
+                        expanded = false
+                    }
+                } label: {
+                    Text("Add")
+                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                }
+            } else {
+                Button {
+                    expanded = true
+                } label: {
+                    Text("Add a New Perk")
+                        .frame(maxWidth: .infinity)
+                }
+            }
+        }
+    }
+}
 
 struct EditCardView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
     
     @State private var cardName = ""
     @State private var cardType: CardType = .debit
@@ -19,12 +61,45 @@ struct EditCardView: View {
     @State private var showNameEmptyWarning = false
     @State private var showLastFourDigitsEmptyWarning = false
     
+    @State private var addPerkExpanded = false
+    @State private var addPerkValue: Double = 1.0
+    @State private var addPerkCategory: TransactionCategory? = nil
+    
     @FocusState private var nameFieldIsFocused: Bool
     @FocusState private var lastFourDigitsFieldIsFocused: Bool
     
+    @Query private var perksOnCard: [CardPerk]
+    
     var card: Card
     
-    func save() {
+    init(card: Card) {
+        self.card = card
+        let idString = card.idString
+        let predicate = #Predicate<CardPerk> {
+            $0.card.idString == idString
+        }
+        self._perksOnCard = Query(filter: predicate)
+        
+    }
+    
+    func addCardPerk() {
+        let newPerk = CardPerk(
+            card: card,
+            perkType: card.perkType!,
+            value: addPerkValue,
+            category: addPerkCategory
+        )
+        modelContext.insert(newPerk)
+    }
+    
+    private func deletePerk(at offsets: IndexSet) {
+        for index in offsets {
+            let perk = perksOnCard[index]
+            modelContext.delete(perk)
+        }
+    }
+    
+    private func save() {
         if cardName.isEmpty {
             showNameEmptyWarning = true
         }
@@ -124,6 +199,28 @@ struct EditCardView: View {
                                 .tag(CardPerkType.cashBack)
                         }
                     }
+                    
+                    Section {
+                        ForEach(perksOnCard) { perk in
+                            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))")
+                        }
+                        .onDelete(perform: deletePerk)
+                    } header: {
+                        Text("Perks on This card")
+                    } footer: {
+                        if perksOnCard.isEmpty {
+                            Text("This card doesn't have any perks registered.")
+                        }
+                    }
+                    
+                    AddPerkView(
+                        expanded: $addPerkExpanded,
+                        value: $addPerkValue,
+                        category: $addPerkCategory,
+                        perkType: cardPerkType
+                    ) {
+                        addCardPerk()
+                    }
                 }
             }
             .navigationTitle("Edit Card")
@@ -177,5 +274,10 @@ struct EditCardView: View {
         lastFourDigits: "1000",
         perkType: .points
     )
-    EditCardView(card: card)
+    if let container = createPreviewModelContainer() {
+        EditCardView(card: card)
+            .modelContainer(container)
+    } else {
+        EditCardView(card: card)
+    }
 }
