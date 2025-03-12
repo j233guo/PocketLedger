@@ -7,6 +7,13 @@
 
 import Foundation
 
+/// Calculates the rewards accured on a credit card in a transaction based on category.
+/// If the card is a cash back card it will return the cash back value.
+/// If the card is a reward points card it will return the rounded reward point value.
+/// If a card perk category is `nil` the category will be default for all transactions without a defined matching category.
+/// - Parameter card: the `Card` used in a `Transaction`
+/// - Parameter transaction: the `Transaction` for calculation
+/// - Returns: A `Double` representing the calculated reward amount on transaction paid using card
 func calculateReward(card: Card, transaction: Transaction) -> Double {
     if let perks = card.perks {
         let basicRate = perks.first(where: { $0.category == nil })?.value ?? 0.0
