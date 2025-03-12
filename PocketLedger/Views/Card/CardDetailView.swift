@@ -126,6 +126,12 @@ struct CardDetailView: View {
                     }
                 }
                 
+                NavigationLink {
+                    CardTransactionListView(card: card)
+                } label: {
+                    Text("All Transactions on This Card")
+                }
+                
                 Section {
                     Button("Edit Card") {
                         showEditCardView = true

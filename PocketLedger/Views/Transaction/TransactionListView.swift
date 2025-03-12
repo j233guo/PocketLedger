@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-fileprivate struct TransactionListRowView: View {
+struct TransactionListRowView: View {
     var transaction: Transaction
     
     var body: some View {
@@ -59,7 +59,7 @@ fileprivate struct TransactionListRowView: View {
     }
 }
 
-fileprivate struct GroupedTransactionListView: View {
+struct GroupedTransactionListView: View {
     var transactions: [Transaction]
     
     private let sectionDateFormatter: DateFormatter = {
