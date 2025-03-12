@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum NavigationRoute {
-    case setting
-}
-
 struct DashboardView: View {
     @State private var showSettingsView: Bool = false
     @State private var showAddTransactionView: Bool = false

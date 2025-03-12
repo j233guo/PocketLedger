@@ -8,22 +8,27 @@
 import Foundation
 
 /// Formats a given number as a currency string using the current locale settings.
-///
-/// The function uses `NumberFormatter` to convert a `Double` value to a localized currency string.
-/// It respects the user's current locale, which dictates the currency symbol, the number of decimal
-/// places, and other formatting details. If the number cannot be formatted (which is unlikely in normal
-/// circumstances), it returns a string representation of the number itself.
-///
+/// If the number cannot be formatted, it returns a string representation of the number itself.
 /// - Parameter number: The `Double` value to be formatted as currency.
-/// - Returns: A `String` representing the formatted currency value. If formatting fails, it returns
-///   the raw string representation of the number.
-func formatCurrency(_ number: Double) -> String {
+/// - Returns: A `String` representing the formatted currency value or the raw string representation of the number.
+func formatCurrency(double value: Double) -> String {
     let formatter = NumberFormatter()
     formatter.numberStyle = .currency
     formatter.locale = Locale.current
-    if let formattedAmount = formatter.string(from: NSNumber(value: number)) {
-        return formattedAmount
+    if let formattedString = formatter.string(from: NSNumber(value: value)) {
+        return formattedString
     } else {
-        return "\(number)"
+        return "\(value)"
+    }
+}
+
+func formatCurrency(string value: String) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .currency
+    formatter.locale = Locale.current
+    if let number = Double(value), let formattedString = formatter.string(from: NSNumber(value: number)) {
+        return formattedString
+    } else {
+        return value
     }
 }

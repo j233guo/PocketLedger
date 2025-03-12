@@ -11,33 +11,36 @@ fileprivate struct TransactionInfoSection: View {
     let transaction: Transaction
     
     var body: some View {
-        VStack(alignment: .center) {
-            let sign = transaction.transactionType == .expense ? "-" : "+"
-            Text("\(sign)\(formatCurrency(transaction.amount))")
-                .font(.system(size: 45))
-                .bold()
-                .fontDesign(.rounded)
-                .padding()
-            
-            if let category = transaction.category {
-                HStack {
-                    Image(systemName: category.icon)
-                    Text(category.name)
+        Section {
+            VStack(alignment: .center) {
+                let sign = transaction.transactionType == .expense ? "-" : "+"
+                Text("\(sign)\(formatCurrency(double: transaction.amount))")
+                    .font(.system(size: 45))
+                    .bold()
+                    .fontDesign(.rounded)
+                    .padding()
+                
+                if let category = transaction.category {
+                    HStack {
+                        Image(systemName: category.icon)
+                        Text(category.name)
+                            .font(.headline)
+                            .foregroundStyle(.secondary)
+                    }
+                } else {
+                    Text("Uncategorized Transaction")
                         .font(.headline)
                         .foregroundStyle(.secondary)
                 }
-            } else {
-                Text("Uncategorized Transaction")
-                    .font(.headline)
+                
+                Text(transaction.date.formatted(date: .long, time: .omitted))
+                    .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .padding(.top, 2)
             }
-            
-            Text(transaction.date.formatted(date: .long, time: .omitted))
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .padding(.top, 2)
+            .padding()
+            .frame(maxWidth: .infinity)
         }
-        .padding()
     }
 }
 
@@ -45,24 +48,40 @@ fileprivate struct PaymentInfoSection: View {
     let transaction: Transaction
     
     var body: some View {
-        VStack {
-            Group {
-                if transaction.paymentType == .cash {
-                    Text("Cash")
-                } else if transaction.paymentType == .debit {
+        Section {
+            VStack(alignment: .center) {
+                if transaction.paymentType == .debit {
                     if let card = transaction.card {
                         Text("Debit Card \(card.name) ••••\(card.lastFourDigits)")
+                            .font(.headline)
                     }
                 } else if transaction.paymentType == .credit {
                     if let card = transaction.card {
                         Text("Credit Card \(card.name) ••••\(card.lastFourDigits)")
+                            .font(.headline)
+                        let rewardAmount = calculateReward(card: card, transaction: transaction)
+                        if card.perkType == .points {
+                            let formattedRewardAmount = rewardAmount.twoDecimalString()
+                            Text("You earned \(formattedRewardAmount) points from this transaction.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        } else if card.perkType == .cashback {
+                            let formattedRewardAmount = formatCurrency(string: rewardAmount.twoDecimalString())
+                            Text("You earned \(formattedRewardAmount) cash back from this transaction.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             }
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity)
+        } header: {
+            Text("Payment Card")
+        } footer: {
+            if transaction.paymentType == .credit {
+                Text("Credit card rewards are estimations only. Actual values may vary.")
+            }
         }
-        .padding(.vertical, 2)
     }
 }
 
@@ -83,16 +102,10 @@ struct TransactionDetailView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section {
-                    VStack {
-                        TransactionInfoSection(transaction: transaction)
-                        
-                        if transaction.transactionType == .expense {
-                            Divider()
-                            PaymentInfoSection(transaction: transaction)
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
+                TransactionInfoSection(transaction: transaction)
+                
+                if transaction.transactionType == .expense {
+                    PaymentInfoSection(transaction: transaction)
                 }
                 
                 if let note = transaction.note {

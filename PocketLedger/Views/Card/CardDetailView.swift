@@ -42,7 +42,7 @@ fileprivate struct RecentTransactionListRowView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("-\(formatCurrency(transaction.amount))")
+                Text("-\(formatCurrency(double: transaction.amount))")
                     .font(.subheadline)
             }
         }

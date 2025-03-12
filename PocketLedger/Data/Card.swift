@@ -36,16 +36,15 @@ class Card {
         set { cardTypeRawValue = newValue.rawValue }
     }
     
-    @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
-    @Relationship(deleteRule: .cascade) var perks: [CardPerk]
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.card) var transactions: [Transaction]?
+    @Relationship(deleteRule: .cascade, inverse: \CardPerk.card) var perks: [CardPerk]?
     
-    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perkType: CardPerkType? = nil, perks: [CardPerk] = []) {
+    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perkType: CardPerkType? = nil) {
         self.name = name
         self.cardTypeRawValue = cardType.rawValue
         self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
         self.perkType = perkType
-        self.perks = perks
         self.idString = id.uuidString
     }
 }

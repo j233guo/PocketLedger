@@ -29,24 +29,11 @@ class CardPerk {
     }
 }
 
-extension Double {
-    /// Converts `Double` to a string with up to 2 decimal places if needed.
-    /// Removes trailing zeros for cleaner display.
-    /// - Returns: String with the formatted number.
-    func asMinimalDecimalString() -> String {
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 2
-        formatter.numberStyle = .decimal
-        return formatter.string(from: NSNumber(value: self)) ?? "\(self)"
-    }
-}
-
 func formattedRewardMultiplier(_ perkType: CardPerkType, _ value: Double) -> String {
     switch perkType {
     case .cashback:
-        return "\(value.asMinimalDecimalString())%"
+        return "\(value.twoDecimalString())%"
     case .points:
-        return "\(value.asMinimalDecimalString())x"
+        return "\(value.twoDecimalString())x"
     }
 }
