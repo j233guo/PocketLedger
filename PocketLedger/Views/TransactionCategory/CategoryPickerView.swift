@@ -28,7 +28,7 @@ struct CategoryPickerView: View {
         let predicate = #Predicate<TransactionCategory> {
             $0.transactionTypeRawValue == transactionType.rawValue
         }
-        self._categories = Query(filter: predicate)
+        self._categories = Query(filter: predicate, sort: \TransactionCategory.index)
     }
     
     var body: some View {
@@ -55,6 +55,7 @@ struct CategoryPickerView: View {
         name: "",
         transactionType: .expense,
         isCustom: false,
+        index: 0,
         icon: ""
     )
     CategoryPickerView(selectedCategory: .constant(selectedCategory), transactionType: .expense)

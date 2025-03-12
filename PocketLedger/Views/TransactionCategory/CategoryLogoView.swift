@@ -28,6 +28,7 @@ struct CategoryLogoView: View {
         name: "Payroll",
         transactionType: .income,
         isCustom: false,
+        index: 0,
         icon: "dollarsign.circle"
     )
     CategoryLogoView(category: category)

@@ -13,8 +13,6 @@ struct AddPerkView: View {
     @Binding var value: Double
     @Binding var category: TransactionCategory?
     
-    @Query private var categories: [TransactionCategory]
-    
     let perkType: CardPerkType
     let addAction: () -> Void
     

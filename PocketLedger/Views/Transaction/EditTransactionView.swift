@@ -208,6 +208,7 @@ struct EditTransactionView: View {
         name: "Shopping",
         transactionType: .expense,
         isCustom: false,
+        index: 0,
         icon: "bag.fill"
     )
     let transaction = Transaction(

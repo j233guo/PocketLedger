@@ -32,12 +32,14 @@ struct TransactionListRowView: View {
         name: "Dining",
         transactionType: .expense,
         isCustom: false,
+        index: 1,
         icon: "fork.knife"
     )
     let incomeCategory = TransactionCategory(
         name: "Payroll",
         transactionType: .income,
         isCustom: false,
+        index: 0,
         icon: "dollarsign.circle"
     )
     let expenseTransaction = Transaction(
