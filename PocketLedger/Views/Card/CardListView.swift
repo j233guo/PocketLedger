@@ -19,6 +19,8 @@ fileprivate struct CardListRowView: View {
                 .font(.headline)
             Spacer()
             Text("••••\(card.lastFourDigits)")
+                .fontWeight(.medium)
+                .fontDesign(.monospaced)
         }
     }
 }

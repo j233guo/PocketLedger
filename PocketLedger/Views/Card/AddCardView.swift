@@ -102,6 +102,11 @@ struct AddCardView: View {
                             }
                         }
                     ))
+                    .kerning(2.0)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .fontDesign(.monospaced)
+                    .multilineTextAlignment(.center)
                     .focused($lastFourDigitsFieldIsFocused)
                     .keyboardType(.numberPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -127,6 +132,8 @@ struct AddCardView: View {
                             Text("Cash Back")
                                 .tag(CardPerkType.cashback)
                         }
+                    } footer: {
+                        Text("You can add card perks later in the edit page.")
                     }
                 }
             }

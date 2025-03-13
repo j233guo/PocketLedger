@@ -105,7 +105,10 @@ struct CardDetailView: View {
                     Text("\(card.name)")
                         .font(.headline)
                         .padding(.horizontal)
+                    Spacer()
                     Text("••••\(card.lastFourDigits)")
+                        .fontWeight(.medium)
+                        .fontDesign(.monospaced)
                 }
                 
                 CardPerksListView(perks: perksOnCard)

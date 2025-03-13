@@ -21,6 +21,7 @@ struct TransactionListRowView: View {
             let sign = transaction.transactionType == .expense ? "-" : "+"
             Text("\(sign)\(formatCurrency(double: transaction.amount))")
                 .font(.headline)
+                .fontDesign(.monospaced)
                 .foregroundStyle(transaction.transactionType == .expense ? .primary : Color.green)
         }
         .padding(5)

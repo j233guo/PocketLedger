@@ -171,6 +171,11 @@ struct EditCardView: View {
                             }
                         }
                     ))
+                    .kerning(2.0)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .fontDesign(.monospaced)
+                    .multilineTextAlignment(.center)
                     .focused($lastFourDigitsFieldIsFocused)
                     .keyboardType(.numberPad)
                     .textFieldStyle(RoundedBorderTextFieldStyle())

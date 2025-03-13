@@ -96,6 +96,12 @@ struct EditTransactionView: View {
                 
                 Section {
                     TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                        .kerning(2.0)
+                        .font(.title)
+                        .fontWeight(.semibold)
+                        .fontDesign(.monospaced)
+                        .multilineTextAlignment(.center)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                         .focused($amountInputFocused)
                         .keyboardType(.decimalPad)
                 } header: {
