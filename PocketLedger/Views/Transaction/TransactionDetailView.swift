@@ -15,9 +15,9 @@ fileprivate struct TransactionInfoSection: View {
             VStack(alignment: .center) {
                 let sign = transaction.transactionType == .expense ? "-" : "+"
                 Text("\(sign)\(formatCurrency(double: transaction.amount))")
-                    .font(.system(size: 45))
+                    .font(.largeTitle)
                     .bold()
-                    .fontDesign(.rounded)
+                    .fontDesign(.monospaced)
                     .padding()
                 
                 if let category = transaction.category {

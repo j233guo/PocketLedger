@@ -14,6 +14,7 @@ struct DateFilterView: View {
     var body: some View {
         HStack {
             DatePicker("Start", selection: $startDate, displayedComponents: .date)
+                .datePickerStyle(.compact)
                 .labelsHidden()
             Text("-")
                 .foregroundColor(.secondary)

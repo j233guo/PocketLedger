@@ -16,6 +16,7 @@ fileprivate struct CardListRowView: View {
             CardLogoView(network: card.paymentNetwork, size: 40.0)
                 .padding(5)
             Text(card.name)
+                .font(.headline)
             Spacer()
             Text("••••\(card.lastFourDigits)")
         }
@@ -29,7 +30,23 @@ struct CardListView: View {
     
     var body: some View {
         NavigationStack {
-            Group {
+            VStack(spacing: 0) {
+                VStack {
+                    HStack {
+                        Button {
+                            showAddCardView = true
+                        } label: {
+                            Label("Add Card", systemImage: "plus")
+                                .frame(maxWidth: .infinity)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .frame(maxWidth: .infinity)
+                    Divider()
+                }
+                .padding(.horizontal)
+                .background(Color(.systemGroupedBackground))
+                
                 if cards.isEmpty {
                     VStack {
                         Text("Empty Card List")
@@ -38,6 +55,7 @@ struct CardListView: View {
                             .font(.caption)
                     }
                     .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 } else {
                     List {
                         ForEach(cards) { card in
@@ -48,16 +66,10 @@ struct CardListView: View {
                             }
                         }
                     }
+                    .listStyle(.insetGrouped)
                 }
             }
             .navigationTitle("My Cards")
-            .toolbar {
-                ToolbarItem {
-                    Button("Add Card", systemImage: "plus") {
-                        showAddCardView = true
-                    }
-                }
-            }
             .sheet(isPresented: $showAddCardView) {
                 AddCardView()
             }
@@ -67,9 +79,17 @@ struct CardListView: View {
 
 #Preview {
     if let container = createPreviewModelContainer() {
-        CardListView()
+        let card = Card(
+            name: "My Credit Card",
+            cardType: .credit,
+            paymentNetwork: .amex,
+            lastFourDigits: "1000",
+            perkType: .points
+        )
+        container.mainContext.insert(card)
+        return CardListView()
             .modelContainer(container)
     } else {
-        CardListView()
+        return CardListView()
     }
 }

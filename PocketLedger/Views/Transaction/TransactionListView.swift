@@ -58,43 +58,69 @@ struct GroupedTransactionListView: View {
     }
 }
 
-struct TransactionListFilterView: View {
-    @Binding var expanded: Bool
+struct TransactionListToolbarView: View {
+    @Binding var filterExpanded: Bool
     @Binding var startDate: Date
     @Binding var endDate: Date
     
+    var withFilter: Bool
+    var withAdd: Bool
+    var onAddTransaction: () -> Void = {}
+    
     var body: some View {
         VStack {
-            Button {
-                withAnimation {
-                    expanded.toggle()
-                }
-            } label: {
-                HStack {
-                    Spacer()
-                    Label("Filter", systemImage: "line.3.horizontal.decrease")
-                        .bold()
-                    Image(systemName: expanded ? "chevron.down.circle" : "chevron.right.circle")
-                }
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderless)
-            
-            if expanded {
-                VStack {
-                    HStack {
-                        Text("Date Range")
-                            .fontWeight(.medium)
-                            .foregroundStyle(.secondary)
-                        DateFilterView(startDate: $startDate, endDate: $endDate)
+            HStack {
+                if withFilter {
+                    Button {
+                        withAnimation {
+                            filterExpanded.toggle()
+                        }
+                    } label: {
+                        Label("Filter", systemImage: "line.3.horizontal.decrease")
+                            .frame(maxWidth: .infinity)
                     }
+                    .buttonStyle(.bordered)
+                }
+                
+                if withAdd {
+                    Button {
+                        onAddTransaction()
+                    } label: {
+                        Label("Add Transaction", systemImage: "plus")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
             }
+            .frame(maxWidth: .infinity)
+            
+            if filterExpanded {
+                HStack(alignment: .center) {
+                    Text("Date Range")
+                        .foregroundStyle(.secondary)
+                    DateFilterView(startDate: $startDate, endDate: $endDate)
+                }
+                .padding(.vertical,5)
+            }
+            Divider()
         }
         .padding(.horizontal)
-        .padding(.bottom, 10)
         .background(Color(.systemGroupedBackground))
+    }
+}
+
+struct TransactionListEmptyView: View {
+    var message: String
+    
+    var body: some View {
+        VStack {
+            Text("Empty Transaction List")
+                .font(.title)
+            Text(message)
+                .font(.footnote)
+        }
+        .foregroundStyle(.secondary)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
@@ -130,36 +156,31 @@ struct TransactionListView: View {
     
     var body: some View {
         NavigationStack {
-            Group {
+            VStack(spacing: 0) {
+                TransactionListToolbarView(
+                    filterExpanded: $filterExpanded,
+                    startDate: $startDate,
+                    endDate: $endDate,
+                    withFilter: !transactions.isEmpty,
+                    withAdd: true
+                ) {
+                    showAddTransactionView = true
+                }
                 if transactions.isEmpty {
-                    VStack {
-                        Text("Empty Transaction List")
-                            .font(.title)
-                        Text("Tap \"+\" to log a new transaction.")
-                            .font(.caption)
-                    }
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    TransactionListEmptyView(message: "Tap \"Add Transaction\" to log your first transaction.")
                 } else {
-                    VStack(spacing: 0) {
-                        TransactionListFilterView(expanded: $filterExpanded, startDate: $startDate, endDate: $endDate)
-                        Divider()
+                    if filteredTransactions.isEmpty {
+                        TransactionListEmptyView(message: "No transactions found based on your filter.")
+                    } else {
                         GroupedTransactionListView(transactions: filteredTransactions)
                     }
                 }
             }
             .navigationTitle("Transactions")
-            .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Add", systemImage: "plus") {
-                        showAddTransactionView = true
-                    }
-                }
-            }
             .sheet(isPresented: $showAddTransactionView) {
                 AddTransactionView()
             }
-            .animation(.smooth, value: filteredTransactions)
+            .animation(.easeInOut, value: filteredTransactions)
         }
     }
 }

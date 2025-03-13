@@ -14,13 +14,19 @@ struct DashboardView: View {
     var body: some View {
         NavigationStack{
             List {
-                Button {
-                    showAddTransactionView = true
-                } label: {
-                    Text("Log a New Transaction")
-                        .frame(maxWidth: .infinity)
+                VStack(alignment: .leading) {
+                    Text("Commonly Used")
+                        .font(.headline)
+                    Button {
+                        showAddTransactionView = true
+                    } label: {
+                        Text("Add a New Transaction")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
                 }
             }
+            .listStyle(.plain)
             .navigationTitle("Dashboard")
             .toolbar {
                 ToolbarItem {
