@@ -49,27 +49,37 @@ fileprivate struct PaymentInfoSection: View {
     
     var body: some View {
         Section {
-            VStack(alignment: .center) {
-                if transaction.paymentType == .debit {
-                    if let card = transaction.card {
-                        Text("Debit Card \(card.name) ••••\(card.lastFourDigits)")
-                            .font(.headline)
-                    }
-                } else if transaction.paymentType == .credit {
-                    if let card = transaction.card {
-                        Text("Credit Card \(card.name) ••••\(card.lastFourDigits)")
-                            .font(.headline)
-                        let rewardAmount = calculateReward(card: card, transaction: transaction)
-                        if card.perkType == .points {
-                            let formattedRewardAmount = rewardAmount.twoDecimalString()
-                            Text("You earned \(formattedRewardAmount) points from this transaction.")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        } else if card.perkType == .cashback {
-                            let formattedRewardAmount = formatCurrency(string: rewardAmount.twoDecimalString())
-                            Text("You earned \(formattedRewardAmount) cash back from this transaction.")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
+            Group {
+                if let card = transaction.card {
+                    VStack(alignment: .leading) {
+                        Text(transaction.paymentType == .debit ? "Debit Card" : "Credit Card")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                        HStack {
+                            Text("\(card.name)")
+                            Spacer()
+                            Text("••••\(card.lastFourDigits)")
+                                .fontDesign(.monospaced)
+                        }
+                        .font(.headline)
+                        .padding(.vertical, 5)
+                        
+                        if transaction.paymentType == .credit {
+                            let rewardAmount = calculateReward(card: card, transaction: transaction)
+                            if rewardAmount.isZero || rewardAmount.isNaN {
+                                Text("You did not earn any reward from this transaction.")
+                                    .foregroundStyle(.secondary)
+                            } else {
+                                if card.perkType == .points {
+                                    let formattedRewardAmount = rewardAmount.twoDecimalString()
+                                    Text("You earned \(formattedRewardAmount) points from this transaction.")
+                                        .foregroundStyle(.secondary)
+                                } else if card.perkType == .cashback {
+                                    let formattedRewardAmount = formatCurrency(string: rewardAmount.twoDecimalString())
+                                    Text("You earned \(formattedRewardAmount) cash back from this transaction.")
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
                         }
                     }
                 }
@@ -117,7 +127,7 @@ struct TransactionDetailView: View {
                 }
                 
                 Section {
-                    Button("Edit") {
+                    Button("Edit Transaction") {
                         showEditTransactionView = true
                     }
                     Button("Delete This Transaction", role: .destructive) {
