@@ -50,6 +50,8 @@ struct EditCardView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
+    @EnvironmentObject private var messageService: MessageService
+    
     @State private var cardName = ""
     @State private var cardType: CardType = .debit
     @State private var paymentNetwork: CardPaymentNetwork = .interac
@@ -117,11 +119,17 @@ struct EditCardView: View {
         }
         do {
             try modelContext.save()
+            messageService.create(
+                message: "Card saved successfully",
+                type: .success
+            )
+            dismiss()
         } catch {
-            // TODO: replace with interactive alert banner
-            print("Save failed when editing card: \(error.localizedDescription)")
+            messageService.create(
+                message: "Encountered error when saving edited card: \(error.localizedDescription)",
+                type: .error
+            )
         }
-        dismiss()
     }
     
     var body: some View {

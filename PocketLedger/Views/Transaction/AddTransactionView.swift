@@ -12,6 +12,8 @@ struct AddTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
+    @EnvironmentObject private var messageService: MessageService
+    
     @Query private var transactionCategories: [TransactionCategory]
     @Query(
         filter: #Predicate<Card> { card in
@@ -94,11 +96,17 @@ struct AddTransactionView: View {
         }
         do {
             try modelContext.save()
+            messageService.create(
+                message: "Transaction added successfully!",
+                type: .success
+            )
+            dismiss()
         } catch {
-            // TODO: replace with interactive alert banner
-            print("Save failed when adding transaction: \(error.localizedDescription)")
+            messageService.create(
+                message: "Encountered error when added transaction: \(error.localizedDescription)",
+                type: .error
+            )
         }
-        dismiss()
     }
     
     var body: some View {

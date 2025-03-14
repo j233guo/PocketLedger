@@ -53,6 +53,8 @@ struct CardDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
+    @EnvironmentObject private var messageService: MessageService
+    
     @State private var showEditCardView = false
     @State private var showDeleteConfirmation = false
     
@@ -62,11 +64,17 @@ struct CardDetailView: View {
         modelContext.delete(card)
         do {
             try modelContext.save()
+            messageService.create(
+                message: "Card deleted successfully",
+                type: .success
+            )
+            dismiss()
         } catch {
-            // TODO: replace with interactive alert banner
-            print("Error when saving after deleting card: \(error.localizedDescription)")
+            messageService.create(
+                message: "Encountered error when saving after deleting card: \(error.localizedDescription)",
+                type: .error
+            )
         }
-        dismiss()
     }
     
     private var perksOnCard: [CardPerk] {
@@ -81,7 +89,10 @@ struct CardDetailView: View {
             )
             return try modelContext.fetch(descriptor)
         } catch {
-            print("Error when fetching perks on card \(card.name): \(error)")
+            messageService.create(
+                message: "Encountered error when fetching perks on card: \(error.localizedDescription)",
+                type: .error
+            )
             return []
         }
     }
@@ -99,7 +110,10 @@ struct CardDetailView: View {
             descriptor.fetchLimit = 5
             return try modelContext.fetch(descriptor)
         } catch {
-            print("Error when fetching recent transactions on card \(card.name): \(error)")
+            messageService.create(
+                message: "Encountered error when fetching recent transactions on card: \(error.localizedDescription)",
+                type: .error
+            )
             return []
         }
     }

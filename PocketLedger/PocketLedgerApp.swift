@@ -10,9 +10,12 @@ import SwiftUI
 
 @main
 struct PocketLedgerApp: App {
+    let messageService = MessageService()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(messageService)
                 .modelContainer(for: [Transaction.self, TransactionCategory.self, Card.self, CardPerk.self])
         }
     }

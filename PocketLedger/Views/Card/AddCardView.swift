@@ -11,6 +11,8 @@ struct AddCardView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
+    @EnvironmentObject private var messageService: MessageService
+    
     @State private var cardName = ""
     @State private var cardType: CardType = .debit
     @State private var paymentNetwork: CardPaymentNetwork = .interac
@@ -51,9 +53,15 @@ struct AddCardView: View {
         }
         do {
             try modelContext.save()
+            messageService.create(
+                message: "Card added successfully!",
+                type: .success
+            )
         } catch {
-            // TODO: replace with interactive alert banner
-            print("Save failed when adding card: \(error.localizedDescription)")
+            messageService.create(
+                message: "Encountered error when saving new card: \(error.localizedDescription)",
+                type: .error
+            )
         }
         dismiss()
     }

@@ -97,6 +97,8 @@ struct TransactionDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
+    @EnvironmentObject private var messageService: MessageService
+    
     @State private var showEditTransactionView = false
     @State private var showDeleteConfirmation = false
     
@@ -106,11 +108,17 @@ struct TransactionDetailView: View {
         modelContext.delete(transaction)
         do {
             try modelContext.save()
+            messageService.create(
+                message: "Transaction deleted successfully",
+                type: .success
+            )
+            dismiss()
         } catch {
-            // TODO: replace with interactive alert banner
-            print("Error when deleting transaction: \(error.localizedDescription)")
+            messageService.create(
+                message: "Encountered error saving after deleting transaction: \(error.localizedDescription)",
+                type: .error
+            )
         }
-        dismiss()
     }
     
     var body: some View {

@@ -11,6 +11,8 @@ import SwiftUI
 struct CardTransactionListView: View {
     @Environment(\.modelContext) private var modelContext
     
+    @EnvironmentObject private var messageService: MessageService
+    
     @State private var filterExpanded = false
     @State private var startDate = Calendar.current.startOfDay(for: .now.addingTimeInterval(-30*24*3600))
     @State private var endDate = Calendar.current.startOfDay(for: .now)
@@ -46,8 +48,10 @@ struct CardTransactionListView: View {
                     try transactionPredicate.evaluate(transaction)
                 }
             } catch {
-                // TODO: replace with interactive alert banner
-                print("Error when filtering transaction on card \(card.name): \(error.localizedDescription)")
+                messageService.create(
+                    message: "Encountered error when filtering transaction on card: \(error.localizedDescription)",
+                    type: .error
+                )
                 return []
             }
         }
