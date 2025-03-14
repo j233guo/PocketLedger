@@ -130,13 +130,14 @@ struct TransactionListView: View {
     @State private var filterExpanded: Bool = false
     @State private var startDate = Calendar.current.startOfDay(for: .now.addingTimeInterval(-30*24*3600))
     @State private var endDate = Calendar.current.startOfDay(for: .now)
-    @State private var transactionQueryPredicate: Predicate<Transaction>?
     
-    @Query(sort: \Transaction.date, order: .reverse) private var transactions: [Transaction]
+    @Query(
+        sort: \Transaction.date, order: .reverse
+    ) private var transactions: [Transaction]
     
     private var transactionPredicate: Predicate<Transaction> {
         let adjustedEndDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate)!
-        return #Predicate {
+        return #Predicate<Transaction> {
             $0.date >= startDate && $0.date < adjustedEndDate
         }
     }
