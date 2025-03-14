@@ -49,6 +49,12 @@ struct AddCardView: View {
             )
             modelContext.insert(newCard)
         }
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: replace with interactive alert banner
+            print("Save failed when adding card: \(error.localizedDescription)")
+        }
         dismiss()
     }
     

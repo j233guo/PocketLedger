@@ -92,6 +92,12 @@ struct AddTransactionView: View {
                 modelContext.insert(newTransaction)
             }
         }
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: replace with interactive alert banner
+            print("Save failed when adding transaction: \(error.localizedDescription)")
+        }
         dismiss()
     }
     

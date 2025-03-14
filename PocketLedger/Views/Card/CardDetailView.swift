@@ -60,6 +60,12 @@ struct CardDetailView: View {
     
     func deleteCard() {
         modelContext.delete(card)
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: replace with interactive alert banner
+            print("Error when saving after deleting card: \(error.localizedDescription)")
+        }
         dismiss()
     }
     
@@ -75,6 +81,7 @@ struct CardDetailView: View {
             )
             return try modelContext.fetch(descriptor)
         } catch {
+            print("Error when fetching perks on card \(card.name): \(error)")
             return []
         }
     }
@@ -92,6 +99,7 @@ struct CardDetailView: View {
             descriptor.fetchLimit = 5
             return try modelContext.fetch(descriptor)
         } catch {
+            print("Error when fetching recent transactions on card \(card.name): \(error)")
             return []
         }
     }

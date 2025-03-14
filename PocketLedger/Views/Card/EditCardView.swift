@@ -115,6 +115,12 @@ struct EditCardView: View {
             card.perkType = nil
             card.perks = []
         }
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: replace with interactive alert banner
+            print("Save failed when editing card: \(error.localizedDescription)")
+        }
         dismiss()
     }
     

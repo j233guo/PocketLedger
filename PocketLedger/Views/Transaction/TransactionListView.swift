@@ -151,6 +151,8 @@ struct TransactionListView: View {
                     try transactionPredicate.evaluate(transaction)
                 }
             } catch {
+                // TODO: replace with interactive alert banner
+                print("Error when filtering transaction: \(error.localizedDescription)")
                 return []
             }
         }

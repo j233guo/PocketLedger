@@ -46,6 +46,8 @@ struct CardTransactionListView: View {
                     try transactionPredicate.evaluate(transaction)
                 }
             } catch {
+                // TODO: replace with interactive alert banner
+                print("Error when filtering transaction on card \(card.name): \(error.localizedDescription)")
                 return []
             }
         }

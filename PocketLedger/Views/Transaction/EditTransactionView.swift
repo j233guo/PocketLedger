@@ -10,6 +10,7 @@ import SwiftUI
 
 struct EditTransactionView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var modelContext
     
     @Query private var transactionCategories: [TransactionCategory]
     @Query(
@@ -65,6 +66,12 @@ struct EditTransactionView: View {
         } else {
             transaction.paymentType = nil
             transaction.card = nil
+        }
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: replace with interactive alert banner
+            print("Save failed when editing transaction: \(error.localizedDescription)")
         }
         dismiss()
     }

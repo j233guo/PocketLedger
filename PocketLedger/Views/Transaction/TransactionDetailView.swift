@@ -14,44 +14,43 @@ fileprivate struct TransactionInfoSection: View {
         Section {
             VStack(alignment: .center) {
                 let sign = transaction.transactionType == .expense ? "-" : "+"
-                Text("\(sign)\(formatCurrency(double: transaction.amount))")
-                    .font(.largeTitle)
-                    .bold()
-                    .fontDesign(.monospaced)
-                    .padding()
-                
-                if let category = transaction.category {
-                    HStack {
-                        Image(systemName: category.icon)
-                        Text(category.name)
+                    Text("\(sign)\(formatCurrency(double: transaction.amount))")
+                        .font(.largeTitle)
+                        .bold()
+                        .fontDesign(.monospaced)
+                        .padding()
+                    
+                    if let category = transaction.category {
+                        HStack {
+                            Image(systemName: category.icon)
+                            Text(category.name)
+                                .font(.headline)
+                                .foregroundStyle(.secondary)
+                        }
+                    } else {
+                        Text("Uncategorized Transaction")
                             .font(.headline)
                             .foregroundStyle(.secondary)
                     }
-                } else {
-                    Text("Uncategorized Transaction")
-                        .font(.headline)
+                    
+                    Text(transaction.date.formatted(date: .long, time: .omitted))
+                        .font(.subheadline)
                         .foregroundStyle(.secondary)
+                        .padding(.top, 2)
                 }
-                
-                Text(transaction.date.formatted(date: .long, time: .omitted))
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 2)
+                .padding()
+                .frame(maxWidth: .infinity)
             }
-            .padding()
-            .frame(maxWidth: .infinity)
         }
     }
-}
 
-fileprivate struct PaymentInfoSection: View {
-    let transaction: Transaction
-    
-    var body: some View {
-        Section {
-            Group {
-                if let card = transaction.card {
-                    VStack(alignment: .leading) {
+    fileprivate struct PaymentInfoSection: View {
+        let transaction: Transaction
+        
+        var body: some View {
+            Section {
+                VStack(alignment: .leading) {
+                    if let card = transaction.card {
                         Text(transaction.paymentType == .debit ? "Debit Card" : "Credit Card")
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -83,15 +82,14 @@ fileprivate struct PaymentInfoSection: View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity)
+            } header: {
+                Text("Payment Card")
+            } footer: {
+                if transaction.paymentType == .credit {
+                    Text("Credit card rewards are estimations only. Actual values may vary.")
+                }
             }
-            .frame(maxWidth: .infinity)
-        } header: {
-            Text("Payment Card")
-        } footer: {
-            if transaction.paymentType == .credit {
-                Text("Credit card rewards are estimations only. Actual values may vary.")
-            }
-        }
     }
 }
 
@@ -106,6 +104,12 @@ struct TransactionDetailView: View {
     
     func deleteTransaction() {
         modelContext.delete(transaction)
+        do {
+            try modelContext.save()
+        } catch {
+            // TODO: replace with interactive alert banner
+            print("Error when deleting transaction: \(error.localizedDescription)")
+        }
         dismiss()
     }
     
@@ -114,7 +118,7 @@ struct TransactionDetailView: View {
             List {
                 TransactionInfoSection(transaction: transaction)
                 
-                if transaction.transactionType == .expense {
+                if transaction.transactionType == .expense && transaction.paymentType != .cash {
                     PaymentInfoSection(transaction: transaction)
                 }
                 
