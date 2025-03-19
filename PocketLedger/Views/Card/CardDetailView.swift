@@ -14,8 +14,7 @@ fileprivate struct CardPerksListView: View {
     var body: some View {
         Section {
             ForEach(perks) { perk in
-                let categoryName = perk.category?.name ?? "Everything"
-                Text("\(formattedRewardMultiplier(perk.perkType, perk.value)) \(perk.perkType.rawValue) on \(categoryName)")
+                CardPerkListRowView(perk: perk)
             }
         } header: {
             Text("Perks on This card")
@@ -27,8 +26,33 @@ fileprivate struct CardPerksListView: View {
     }
 }
 
+struct CardPerkListRowView: View {
+    var perk: CardPerk
+    
+    var body: some View {
+        HStack {
+            CategoryLogoView(category: perk.category)
+                .padding(.trailing, 5)
+            Text(perk.category?.name ?? "Everything")
+                .font(.subheadline)
+                .fontWeight(.semibold)
+            Spacer()
+            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.rawValue)")
+        }
+    }
+}
+
 fileprivate struct RecentTransactionListRowView: View {
     let transaction: Transaction
+    
+    private var rewardAmount: Double? {
+        if let card = transaction.card {
+            guard card.cardType == .credit else { return nil }
+            return calculateReward(card: card, transaction: transaction)
+        } else {
+            return nil
+        }
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -42,8 +66,16 @@ fileprivate struct RecentTransactionListRowView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Spacer()
-                Text("-\(formatCurrency(double: transaction.amount))")
-                    .font(.subheadline)
+                VStack(alignment: .trailing) {
+                    Text("-\(formatCurrency(double: transaction.amount))")
+                        .font(.subheadline)
+                    if let rewardAmount = rewardAmount {
+                        let rewardString = transaction.card?.perkType == .cashback ? "\(formatCurrency(double: rewardAmount)) Cashback" : "\(rewardAmount.twoDecimalString()) Points"
+                        Text("+\(rewardString)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             }
         }
     }
@@ -118,22 +150,52 @@ struct CardDetailView: View {
         }
     }
     
+    private var totalRewardsOnCardString: String {
+        guard card.cardType == .credit else { return "0" }
+        guard card.transactions != nil else { return "0" }
+        var totalValue: Double = 0
+        for transaction in card.transactions! {
+            totalValue += calculateReward(card: card, transaction: transaction)
+        }
+        return totalValue.twoDecimalString()
+    }
+    
     var body: some View {
         NavigationStack {
             List {
-                HStack {
-                    CardLogoView(network: card.paymentNetwork, size: 50.0)
+                VStack {
+                    HStack {
+                        CardLogoView(network: card.paymentNetwork, size: 50.0)
+                            .padding(.vertical, 5)
+                        Text("\(card.name)")
+                            .font(.headline)
+                            .padding(.horizontal)
+                        Spacer()
+                        Text("••••\(card.lastFourDigits)")
+                            .fontWeight(.medium)
+                            .fontDesign(.monospaced)
+                    }
+                    if card.cardType == .credit {
+                        Divider()
+                        VStack {
+                            if let perkName = card.perkType?.rawValue {
+                                Text("Estimated Reward \(perkName) with Transactions")
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                let rewardString = card.perkType == .cashback ? "\(formatCurrency(string: totalRewardsOnCardString))" : "\(totalRewardsOnCardString)"
+                                Text("\(rewardString)")
+                                    .font(.title2)
+                                    .fontDesign(.monospaced)
+                                    .padding(5)
+                            }
+                        }
                         .padding(.vertical, 5)
-                    Text("\(card.name)")
-                        .font(.headline)
-                        .padding(.horizontal)
-                    Spacer()
-                    Text("••••\(card.lastFourDigits)")
-                        .fontWeight(.medium)
-                        .fontDesign(.monospaced)
+                    }
                 }
                 
-                CardPerksListView(perks: perksOnCard)
+                if card.cardType == .credit {
+                    CardPerksListView(perks: perksOnCard)
+                }
                 
                 Section {
                     ForEach(recentTransactions) { transaction in

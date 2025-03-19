@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 enum CardPerkType: String, Codable, CaseIterable {
-    case cashback = "Cash Back"
+    case cashback = "Cashback"
     case points = "Points"
 }
 

@@ -280,15 +280,7 @@ struct EditCardView: View {
                     
                     Section {
                         ForEach(perksOnCard) { perk in
-                            HStack {
-                                CategoryLogoView(category: perk.category)
-                                    .padding(.trailing, 5)
-                                Text(perk.category?.name ?? "Everything")
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                                Spacer()
-                                Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.rawValue)")
-                            }
+                            CardPerkListRowView(perk: perk)
                         }
                         .onDelete(perform: deletePerk)
                     } header: {
