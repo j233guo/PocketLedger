@@ -8,8 +8,40 @@
 import SwiftUI
 
 struct DashboardView: View {
+    @State private var showSettingsView: Bool = false
+    @State private var showAddTransactionView: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            List {
+                VStack(alignment: .leading) {
+                    Text("Commonly Used")
+                        .font(.headline)
+                    Button {
+                        showAddTransactionView = true
+                    } label: {
+                        Text("Add a New Transaction")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }
+            .listStyle(.plain)
+            .navigationTitle("Dashboard")
+            .toolbar {
+                ToolbarItem {
+                    Button("Settings", systemImage: "gearshape") {
+                        showSettingsView = true
+                    }
+                }
+            }
+            .sheet(isPresented: $showAddTransactionView) {
+                AddTransactionView()
+            }
+            .sheet(isPresented: $showSettingsView) {
+                SettingsView()
+            }
+        }
     }
 }
 

@@ -1,14 +1,14 @@
 //
-//  AddTransactionView.swift
+//  EditTransactionView.swift
 //  PocketLedger
 //
-//  Created by Jiaming Guo on 2025-02-28.
+//  Created by Jiaming Guo on 2025-03-06.
 //
 
 import SwiftData
 import SwiftUI
 
-struct AddTransactionView: View {
+struct EditTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     
@@ -26,12 +26,12 @@ struct AddTransactionView: View {
         }
     ) private var creditCards: [Card]
     
-    @State private var transactionType: TransactionType
+    @State private var transactionType: TransactionType = .expense
     @State private var amount: Double = 0.0
     @State private var date: Date = .now
-    @State private var paymentType: PaymentType = .cash
+    @State private var paymentType: PaymentType? = nil
     @State private var note = ""
-    @State private var transactionCategory: TransactionCategory?
+    @State private var transactionCategory: TransactionCategory? = nil
     @State private var card: Card? = nil
     @State private var showCategoryEmptyWarning = false
     @State private var showAmountEmptyWarning = false
@@ -40,13 +40,7 @@ struct AddTransactionView: View {
     @FocusState private var amountInputFocused: Bool
     @FocusState private var notesInputFocused: Bool
     
-    init() {
-        _transactionType = State(initialValue: .expense)
-        let predicate = #Predicate<TransactionCategory> {
-            $0.transactionType == transactionType
-        }
-        _transactionCategories = Query(filter: predicate)
-    }
+    var transaction: Transaction
     
     func save() {
         if transactionCategory == nil {
@@ -61,49 +55,30 @@ struct AddTransactionView: View {
         guard !showAmountEmptyWarning && !showCategoryEmptyWarning && !showCardEmptyWarning else {
             return
         }
-        if transactionType == .income {
-            let newTransaction = Transaction(
-                transactionType: transactionType,
-                amount: amount,
-                date: date,
-                category: transactionCategory,
-                note: note
-            )
-            modelContext.insert(newTransaction)
-        } else if transactionType == .expense {
-            if paymentType == .cash {
-                let newTransaction = Transaction(
-                    transactionType: transactionType,
-                    amount: amount,
-                    date: date,
-                    category: transactionCategory,
-                    paymentType: paymentType,
-                    note: note
-                )
-                modelContext.insert(newTransaction)
-            } else {
-                let newTransaction = Transaction(
-                    transactionType: transactionType,
-                    amount: amount,
-                    date: date,
-                    category: transactionCategory,
-                    paymentType: paymentType,
-                    card: card,
-                    note: note
-                )
-                modelContext.insert(newTransaction)
+        transaction.transactionType = transactionType
+        transaction.amount = amount
+        transaction.date = date
+        transaction.note = note
+        transaction.category = transactionCategory
+        if transactionType == .expense {
+            transaction.paymentType = paymentType!
+            if paymentType != .cash {
+                transaction.card = card!
             }
+        } else {
+            transaction.paymentType = nil
+            transaction.card = nil
         }
         do {
             try modelContext.save()
             messageService.create(
-                message: "Transaction added successfully!",
+                message: "Transaction saved successfully!",
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when added transaction: \(error.localizedDescription)",
+                message: "Encountered error when saving edited transaction: \(error.localizedDescription)",
                 type: .error
             )
         }
@@ -128,7 +103,7 @@ struct AddTransactionView: View {
                     }
                 }
                 .onChange(of: transactionType) {
-                    transactionCategory = nil
+                    transactionCategory = transactionType == transaction.transactionType ? transaction.category : nil
                 }
                 .onChange(of: transactionCategory) {
                     showCategoryEmptyWarning = false
@@ -175,7 +150,11 @@ struct AddTransactionView: View {
                         }
                         .pickerStyle(.menu)
                         .onChange(of: paymentType) {
-                            card = nil
+                            if paymentType == transaction.paymentType && paymentType != .cash {
+                                card = transaction.card
+                            } else {
+                                card = nil
+                            }
                             showCardEmptyWarning = false
                         }
                         
@@ -212,41 +191,55 @@ struct AddTransactionView: View {
                         .focused($notesInputFocused)
                 }
             }
-            .navigationTitle("Add a New Transaction")
+            .navigationTitle("Edit Transaction")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        save()
-                    } label: {
-                        Text("Save")
-                            .bold()
-                    }
-                }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button {
+                    Button("Cancel") {
                         dismiss()
-                    } label: {
-                        Text("Cancel")
                     }
                 }
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        Spacer()
-                        Button {
-                            amountInputFocused = false
-                            notesInputFocused = false
-                        } label: {
-                            Text("Done")
-                                .bold()
-                        }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Done") {
+                        save()
                     }
                 }
+            }
+            .onAppear {
+                transactionType = transaction.transactionType
+                amount = transaction.amount
+                date = transaction.date
+                paymentType = transaction.paymentType
+                note = transaction.note ?? ""
+                transactionCategory = transaction.category
+                card = transaction.card
             }
         }
     }
 }
 
 #Preview {
-    AddTransactionView()
+    let card = Card(
+        name: "My Amex Card",
+        cardType: .credit,
+        paymentNetwork: .amex,
+        lastFourDigits: "0001"
+    )
+    let transactionCategory = TransactionCategory(
+        name: "Shopping",
+        transactionType: .expense,
+        isCustom: false,
+        index: 0,
+        icon: "bag.fill"
+    )
+    let transaction = Transaction(
+        transactionType: .expense,
+        amount: 100.0,
+        date: .now,
+        category: transactionCategory,
+        paymentType: .credit,
+        card: card,
+        note: "lorem ipsum"
+    )
+    EditTransactionView(transaction: transaction)
 }

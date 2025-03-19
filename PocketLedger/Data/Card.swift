@@ -8,45 +8,43 @@
 import Foundation
 import SwiftData
 
-// Card Types
 enum CardType: String, Codable, CaseIterable {
-    case debit, credit
+    case debit = "Debit"
+    case credit = "Credit"
+}
+
+enum CardPaymentNetwork: String, Codable, CaseIterable {
+    case interac = "Interac"
+    case visa = "VISA"
+    case mastercard = "Mastercard"
+    case amex = "American Express"
 }
 
 @Model
 class Card {
+    @Attribute(.unique) var id: UUID = UUID()
     var name: String
-    var cardType: CardType
+    var cardTypeRawValue: String
+    var paymentNetwork: CardPaymentNetwork
     var lastFourDigits: String
+    var perkType: CardPerkType?
     
-    private var _perks: Data?
+    var idString: String = ""
     
-    var perks: [CardReward] {
-        get { decodePerks() }
-        set { encodePerks(newValue) }
+    var cardType: CardType {
+        get { CardType(rawValue: cardTypeRawValue) ?? .debit }
+        set { cardTypeRawValue = newValue.rawValue }
     }
     
-    @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.card) var transactions: [Transaction]?
+    @Relationship(deleteRule: .cascade, inverse: \CardPerk.card) var perks: [CardPerk]?
     
-    init(name: String, cardType: CardType, lastFourDigits: String) {
+    init(name: String, cardType: CardType, paymentNetwork: CardPaymentNetwork, lastFourDigits: String, perkType: CardPerkType? = nil) {
         self.name = name
-        self.cardType = cardType
+        self.cardTypeRawValue = cardType.rawValue
+        self.paymentNetwork = paymentNetwork
         self.lastFourDigits = lastFourDigits
+        self.perkType = perkType
+        self.idString = id.uuidString
     }
-    
-    private func encodePerks(_ perks: [CardReward]) {
-        _perks = try? JSONEncoder().encode(perks)
-    }
-    
-    private func decodePerks() -> [CardReward] {
-        guard let data = _perks else { return [] }
-        return (try? JSONDecoder().decode([CardReward].self, from: data)) ?? []
-    }
-}
-
-// Perk Structure
-struct CardReward: Codable {
-    var perkType: String // e.g., "Cash Back", "Travel Points"
-    var value: Double // e.g., 1.5 = 1.5% cash back
-    var description: String
 }
