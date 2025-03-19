@@ -48,7 +48,7 @@ struct MessageBannerView: View {
             Image(systemName: iconName)
                 .font(.title)
                 .foregroundStyle(iconColor)
-                .padding()
+                .padding(10)
             Text(message)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.leading)

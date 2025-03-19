@@ -37,7 +37,7 @@ fileprivate struct RecentTransactionListRowView: View {
                 .foregroundStyle(.secondary)
             HStack {
                 CategoryLogoView(category: transaction.category, size: 15)
-                    .padding(.trailing, 6)
+                    .padding(.trailing, 5)
                 Text(transaction.category?.name ?? "Uncategorized")
                     .font(.subheadline)
                     .fontWeight(.semibold)

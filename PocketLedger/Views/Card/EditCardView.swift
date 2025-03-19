@@ -12,35 +12,69 @@ struct AddPerkView: View {
     @Binding var expanded: Bool
     @Binding var value: Double
     @Binding var category: TransactionCategory?
+    @FocusState.Binding var valueFieldFocused: Bool
     
     let perkType: CardPerkType
     let addAction: () -> Void
     
+    private let valueFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+    
     var body: some View {
         Section {
             if expanded {
-                Picker("\(perkType.rawValue) Multiplier", selection: $value) {
-                    ForEach(Array(stride(from: 0.25, through: 6, by: 0.25)), id: \.self) { number in
-                        Text(formattedRewardMultiplier(perkType, number))
+                Group {
+                    HStack {
+                        let suffix = perkType == .cashback ? "%" : "x"
+                        Text("\(perkType.rawValue) Multiplier")
+                        TextField("Value", value: $value, formatter: valueFormatter)
+                            .multilineTextAlignment(.trailing)
+                            .textFieldStyle(.plain)
+                            .keyboardType(.decimalPad)
+                            .focused($valueFieldFocused)
+                        Text(suffix)
+                            .foregroundStyle(.secondary)
                     }
+                    CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
                 }
-                CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
+            }
+            HStack {
+                if expanded {
+                    Button {
+                        withAnimation {
+                            expanded = false
+                        }
+                    } label: {
+                        Text("Cancel")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderless)
+                    
+                    Spacer()
+                }
                 Button {
-                    addAction()
                     withAnimation {
-                        expanded = false
+                        if expanded {
+                            addAction()
+                        }
+                        expanded.toggle()
                     }
                 } label: {
-                    Text("Add")
-                        .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/)
+                    if expanded {
+                        Text("Add")
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        Text("Add a New Perk")
+                            .frame(maxWidth: .infinity)
+                    }
                 }
-            } else {
-                Button {
-                    expanded = true
-                } label: {
-                    Text("Add a New Perk")
-                        .frame(maxWidth: .infinity)
-                }
+                .buttonStyle(.borderless)
             }
         }
     }
@@ -61,12 +95,14 @@ struct EditCardView: View {
     @State private var showNameEmptyWarning = false
     @State private var showLastFourDigitsEmptyWarning = false
     
+    @State private var showPerkResetAlert = false
     @State private var addPerkExpanded = false
     @State private var addPerkValue: Double = 1.0
     @State private var addPerkCategory: TransactionCategory? = nil
     
     @FocusState private var nameFieldIsFocused: Bool
     @FocusState private var lastFourDigitsFieldIsFocused: Bool
+    @FocusState private var addPerkValueFieldFocused: Bool
     
     @Query(sort: \CardPerk.value) private var perksOnCard: [CardPerk]
     
@@ -82,7 +118,7 @@ struct EditCardView: View {
         
     }
     
-    func addCardPerk() {
+    private func addCardPerk() {
         let newPerk = CardPerk(
             card: card,
             perkType: card.perkType!,
@@ -95,6 +131,12 @@ struct EditCardView: View {
     private func deletePerk(at offsets: IndexSet) {
         for index in offsets {
             let perk = perksOnCard[index]
+            modelContext.delete(perk)
+        }
+    }
+    
+    private func removeAllPerksOnCard() {
+        for perk in perksOnCard {
             modelContext.delete(perk)
         }
     }
@@ -115,7 +157,7 @@ struct EditCardView: View {
             card.perkType = cardPerkType
         } else {
             card.perkType = nil
-            card.perks = []
+            removeAllPerksOnCard()
         }
         do {
             try modelContext.save()
@@ -215,12 +257,38 @@ struct EditCardView: View {
                             Text("Cash Back")
                                 .tag(CardPerkType.cashback)
                         }
+                        .onChange(of: cardPerkType) {
+                            if cardPerkType != card.perkType && !perksOnCard.isEmpty {
+                                showPerkResetAlert = true
+                            }
+                        }
+                    }
+                    .alert("Card Perk", isPresented: $showPerkResetAlert) {
+                        Button("Don't Proceed", role: .cancel) {
+                            if let perkType = card.perkType {
+                                cardPerkType = perkType
+                            }
+                            showPerkResetAlert = false
+                        }
+                        Button("Proceed", role: .destructive) {
+                            removeAllPerksOnCard()
+                            showPerkResetAlert = false
+                        }
+                    } message: {
+                        Text("Changing perk type will clear all perks on this card.")
                     }
                     
                     Section {
                         ForEach(perksOnCard) { perk in
-                            let categoryName = perk.category?.name ?? "Everything"
-                            Text("\(formattedRewardMultiplier(perk.perkType, perk.value)) \(perk.perkType.rawValue) on \(categoryName)")
+                            HStack {
+                                CategoryLogoView(category: perk.category)
+                                    .padding(.trailing, 5)
+                                Text(perk.category?.name ?? "Everything")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                Spacer()
+                                Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.rawValue)")
+                            }
                         }
                         .onDelete(perform: deletePerk)
                     } header: {
@@ -235,24 +303,19 @@ struct EditCardView: View {
                         expanded: $addPerkExpanded,
                         value: $addPerkValue,
                         category: $addPerkCategory,
+                        valueFieldFocused: $addPerkValueFieldFocused,
                         perkType: cardPerkType
-                    ) {
-                        addCardPerk()
-                    }
+                    ) { addCardPerk() }
                 }
             }
             .navigationTitle("Edit Card")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
+                    Button("Cancel") { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
-                        save()
-                    }
+                    Button("Done") { save() }
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack {
@@ -263,6 +326,9 @@ struct EditCardView: View {
                             }
                             if lastFourDigitsFieldIsFocused {
                                 lastFourDigitsFieldIsFocused = false
+                            }
+                            if addPerkValueFieldFocused {
+                                addPerkValueFieldFocused = false
                             }
                         } label: {
                             Text("Done")

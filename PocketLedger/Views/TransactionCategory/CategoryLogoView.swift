@@ -12,7 +12,7 @@ struct CategoryLogoView: View {
     var size: CGFloat = 20
 
     var body: some View {
-        Image(systemName: category?.icon ?? "questionmark.circle")
+        Image(systemName: category?.icon ?? "ellipsis.circle")
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: size, height: size)
