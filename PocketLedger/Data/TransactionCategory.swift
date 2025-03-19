@@ -67,4 +67,24 @@ struct DefaultTransactionCategoryFactory {
         }
         try? modelContext.save()
     }
+    
+    static var expenseExample: TransactionCategory {
+        return TransactionCategory(
+            name: "Dining",
+            transactionType: .expense,
+            isCustom: false,
+            index: 1,
+            icon: "fork.knife"
+        )
+    }
+    
+    static var incomeExample: TransactionCategory {
+        return TransactionCategory(
+            name: "Payroll",
+            transactionType: .income,
+            isCustom: false,
+            index: 0,
+            icon: "dollarsign.circle"
+        )
+    }
 }

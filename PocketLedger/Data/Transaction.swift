@@ -49,3 +49,24 @@ class Transaction {
         self.note = note
     }
 }
+
+struct DefaultTransactionFactory {
+    static var expenseExample: Transaction {
+        return Transaction(
+            transactionType: .expense,
+            amount: 20.0,
+            date: .now,
+            category: DefaultTransactionCategoryFactory.expenseExample,
+            paymentType: .cash
+        )
+    }
+    
+    static var incomeExample: Transaction {
+        return Transaction(
+            transactionType: .income,
+            amount: 100.0,
+            date: .now,
+            category: DefaultTransactionCategoryFactory.incomeExample
+        )
+    }
+}
