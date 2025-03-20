@@ -70,11 +70,11 @@ fileprivate struct TransactionInfoSection: View {
                                     .foregroundStyle(.secondary)
                             } else {
                                 if card.perkType == .points {
-                                    let formattedRewardAmount = rewardAmount.twoDecimalString()
+                                    let formattedRewardAmount = rewardAmount.decimalStr(2)
                                     Text("You earned \(formattedRewardAmount) points from this transaction.")
                                         .foregroundStyle(.secondary)
                                 } else if card.perkType == .cashback {
-                                    let formattedRewardAmount = formatCurrency(string: rewardAmount.twoDecimalString())
+                                    let formattedRewardAmount = formatCurrency(string: rewardAmount.decimalStr(2))
                                     Text("You earned \(formattedRewardAmount) cash back from this transaction.")
                                         .foregroundStyle(.secondary)
                                 }

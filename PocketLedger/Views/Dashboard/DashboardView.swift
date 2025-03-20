@@ -25,6 +25,10 @@ struct DashboardView: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
+                .padding(.vertical)
+                
+                MonthlySummaryView()
+                    .padding(.vertical)
             }
             .listStyle(.plain)
             .navigationTitle("Dashboard")
