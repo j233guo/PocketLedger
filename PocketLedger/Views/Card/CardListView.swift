@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-fileprivate struct CardListRowView: View {
+private struct CardListRowView: View {
     let card: Card
     
     var body: some View {

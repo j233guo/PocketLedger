@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-fileprivate struct CardPerksListView: View {
+private struct CardPerksListView: View {
     var perks: [CardPerk]
     
     var body: some View {
@@ -31,7 +31,7 @@ struct CardPerkListRowView: View {
     
     var body: some View {
         HStack {
-            CategoryLogoView(category: perk.category)
+            CategoryIconView(category: perk.category)
                 .padding(.trailing, 5)
             Text(perk.category?.name ?? "Everything")
                 .font(.subheadline)
@@ -42,7 +42,7 @@ struct CardPerkListRowView: View {
     }
 }
 
-fileprivate struct RecentTransactionListRowView: View {
+private struct RecentTransactionListRowView: View {
     let transaction: Transaction
     
     private var rewardAmount: Double? {
@@ -60,7 +60,7 @@ fileprivate struct RecentTransactionListRowView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
             HStack {
-                CategoryLogoView(category: transaction.category, size: 15)
+                CategoryIconView(category: transaction.category, size: 15)
                     .padding(.trailing, 5)
                 Text(transaction.category?.name ?? "Uncategorized")
                     .font(.subheadline)

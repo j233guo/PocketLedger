@@ -22,7 +22,8 @@ class TransactionCategory: Identifiable {
         set { transactionTypeRawValue = newValue.rawValue }
     }
     
-    @Relationship(deleteRule: .nullify) var transactions: [Transaction]?
+    @Relationship(deleteRule: .nullify, inverse: \Transaction.category) var transactions: [Transaction]?
+    @Relationship(deleteRule: .cascade, inverse: \CardPerk.category) var cardPerks: [CardPerk]?
     
     init(name: String, transactionType: TransactionType, isCustom: Bool, index: Int, icon: String) {
         self.name = name
@@ -34,20 +35,20 @@ class TransactionCategory: Identifiable {
 }
 
 struct DefaultTransactionCategoryFactory {
-    static let defaultCategories: [(name: String, type: TransactionType, index: Int, icon: String)] = [
+    static private let defaultCategories: [(name: String, type: TransactionType, index: Int, icon: String)] = [
         ("Payroll", .income, 0, "dollarsign.circle"),
         ("Investments", .income, 1, "chart.line.uptrend.xyaxis"),
-        ("Gifts", .income, 2, "gift.fill"),
+        ("Gifts", .income, 2, "gift"),
         ("Dining", .expense, 3, "fork.knife"),
-        ("Gas", .expense, 4, "fuelpump.fill"),
-        ("Groceries", .expense, 5, "cart.fill"),
-        ("Transportation", .expense, 6, "car.fill"),
-        ("Shopping", .expense, 7, "bag.fill"),
+        ("Gas", .expense, 4, "fuelpump"),
+        ("Groceries", .expense, 5, "cart"),
+        ("Transportation", .expense, 6, "car"),
+        ("Shopping", .expense, 7, "bag"),
         ("Entertainment", .expense, 8, "film.stack"),
-        ("Utilities", .expense, 9, "bolt.fill"),
+        ("Utilities", .expense, 9, "bolt"),
         ("Healthcare", .expense, 10, "heart.text.square"),
         ("Travel", .expense, 11, "airplane"),
-        ("Education", .expense, 12, "book.fill"),
+        ("Education", .expense, 12, "book"),
         ("Miscellaneous", .expense, 13, "cart.badge.questionmark")
     ]
     
