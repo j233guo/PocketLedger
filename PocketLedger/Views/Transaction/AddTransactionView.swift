@@ -103,7 +103,7 @@ struct AddTransactionView: View {
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when added transaction: \(error.localizedDescription)",
+                message: "Encountered error when saving transaction: \(error.localizedDescription)",
                 type: .error
             )
         }

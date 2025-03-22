@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-fileprivate struct CardPerksListView: View {
+private struct CardPerksListView: View {
     var perks: [CardPerk]
     
     var body: some View {
@@ -31,7 +31,7 @@ struct CardPerkListRowView: View {
     
     var body: some View {
         HStack {
-            CategoryLogoView(category: perk.category)
+            CategoryIconView(category: perk.category)
                 .padding(.trailing, 5)
             Text(perk.category?.name ?? "Everything")
                 .font(.subheadline)
@@ -42,7 +42,7 @@ struct CardPerkListRowView: View {
     }
 }
 
-fileprivate struct RecentTransactionListRowView: View {
+private struct RecentTransactionListRowView: View {
     let transaction: Transaction
     
     private var rewardAmount: Double? {
@@ -60,7 +60,7 @@ fileprivate struct RecentTransactionListRowView: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
             HStack {
-                CategoryLogoView(category: transaction.category, size: 15)
+                CategoryIconView(category: transaction.category, size: 15)
                     .padding(.trailing, 5)
                 Text(transaction.category?.name ?? "Uncategorized")
                     .font(.subheadline)
@@ -70,7 +70,7 @@ fileprivate struct RecentTransactionListRowView: View {
                     Text("-\(formatCurrency(double: transaction.amount))")
                         .font(.subheadline)
                     if let rewardAmount = rewardAmount {
-                        let rewardString = transaction.card?.perkType == .cashback ? "\(formatCurrency(double: rewardAmount)) Cashback" : "\(rewardAmount.twoDecimalString()) Points"
+                        let rewardString = transaction.card?.perkType == .cashback ? "\(formatCurrency(double: rewardAmount)) Cashback" : "\(rewardAmount.decimalStr(2)) Points"
                         Text("+\(rewardString)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -153,11 +153,10 @@ struct CardDetailView: View {
     private var totalRewardsOnCardString: String {
         guard card.cardType == .credit else { return "0" }
         guard card.transactions != nil else { return "0" }
-        var totalValue: Double = 0
-        for transaction in card.transactions! {
-            totalValue += calculateReward(card: card, transaction: transaction)
+        let totalValue: Double = card.transactions!.reduce(0.0) {
+            $0 + calculateReward(card: card, transaction: $1)
         }
-        return totalValue.twoDecimalString()
+        return totalValue.decimalStr(2)
     }
     
     var body: some View {

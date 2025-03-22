@@ -12,16 +12,16 @@ struct ContentView: View {
     
     @EnvironmentObject var messageService: MessageService
     
-    @State private var selectedTab = "dashboard"
+    @State private var selectedTab = "home"
     
     var body: some View {
         ZStack(alignment: .top) {
             TabView(selection: $selectedTab) {
-                DashboardView()
+                HomeView()
                     .tabItem {
-                        Label("Dashboard", systemImage: "chart.bar.xaxis")
+                        Label("Home", systemImage: "house")
                     }
-                    .tag("dashboard")
+                    .tag("home")
                 TransactionListView()
                     .tabItem {
                         Label("Transactions", systemImage: "dollarsign.ring.dashed")
@@ -29,7 +29,7 @@ struct ContentView: View {
                     .tag("transactions")
                 CardListView()
                     .tabItem {
-                        Label("Cards", systemImage: "creditcard.fill")
+                        Label("Cards", systemImage: "creditcard")
                     }
                     .tag("cards")
             }
@@ -51,4 +51,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(MessageService())
 }

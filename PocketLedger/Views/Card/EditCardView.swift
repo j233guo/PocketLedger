@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct AddPerkView: View {
+private struct AddPerkView: View {
     @Binding var expanded: Bool
     @Binding var value: Double
     @Binding var category: TransactionCategory?
@@ -28,20 +28,19 @@ struct AddPerkView: View {
     var body: some View {
         Section {
             if expanded {
-                Group {
-                    HStack {
-                        let suffix = perkType == .cashback ? "%" : "x"
-                        Text("\(perkType.rawValue) Multiplier")
-                        TextField("Value", value: $value, formatter: valueFormatter)
-                            .multilineTextAlignment(.trailing)
-                            .textFieldStyle(.plain)
-                            .keyboardType(.decimalPad)
-                            .focused($valueFieldFocused)
-                        Text(suffix)
-                            .foregroundStyle(.secondary)
-                    }
-                    CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
+                HStack {
+                    let suffix = perkType == .cashback ? "%" : "x"
+                    Text("\(perkType.rawValue) Multiplier")
+                    TextField("Value", value: $value, formatter: valueFormatter)
+                        .textFieldStyle(.roundedBorder)
+                        .multilineTextAlignment(.trailing)
+                        .textFieldStyle(.plain)
+                        .keyboardType(.decimalPad)
+                        .focused($valueFieldFocused)
+                    Text(suffix)
+                        .foregroundStyle(.secondary)
                 }
+                CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
             }
             HStack {
                 if expanded {

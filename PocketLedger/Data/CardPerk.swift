@@ -32,8 +32,8 @@ class CardPerk {
 func formattedRewardMultiplier(_ perkType: CardPerkType, _ value: Double) -> String {
     switch perkType {
     case .cashback:
-        return "\(value.twoDecimalString())%"
+        return "\(value.decimalStr(2))%"
     case .points:
-        return "\(value.twoDecimalString())x"
+        return "\(value.decimalStr(2))x"
     }
 }

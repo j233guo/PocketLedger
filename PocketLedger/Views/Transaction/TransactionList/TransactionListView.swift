@@ -9,6 +9,8 @@ import SwiftData
 import SwiftUI
 
 struct TransactionListView: View {
+    @EnvironmentObject private var messageService: MessageService
+    
     @State private var showAddTransactionView: Bool = false
     @State private var filterExpanded: Bool = false
     @State private var startDate = Calendar.current.startOfDay(for: .now.addingTimeInterval(-30*24*3600))
@@ -34,8 +36,7 @@ struct TransactionListView: View {
                     try transactionPredicate.evaluate(transaction)
                 }
             } catch {
-                // TODO: replace with interactive alert banner
-                print("Error when filtering transaction: \(error.localizedDescription)")
+                messageService.create(message: "Error when filtering transaction: \(error.localizedDescription)", type: .error)
                 return []
             }
         }
@@ -73,11 +74,9 @@ struct TransactionListView: View {
 }
 
 #Preview {
-    let expenseTransaction = DefaultTransactionFactory.expenseExample
-    let incomeTransaction = DefaultTransactionFactory.incomeExample
     if let container = createPreviewModelContainer() {
-        container.mainContext.insert(expenseTransaction)
-        container.mainContext.insert(incomeTransaction)
+        container.mainContext.insert(DefaultTransactionFactory.expenseExample)
+        container.mainContext.insert(DefaultTransactionFactory.incomeExample)
         return TransactionListView()
             .modelContainer(container)
     } else {

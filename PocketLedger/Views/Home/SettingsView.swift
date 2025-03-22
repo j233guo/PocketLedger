@@ -13,7 +13,15 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                
+                Section {
+                    NavigationLink {
+                        ManageCategoryView()
+                    } label: {
+                        Text("Manage Transaction Categories")
+                    }
+                } header: {
+                    Text("Transaction Category")
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)

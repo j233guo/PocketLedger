@@ -1,5 +1,5 @@
 //
-//  DashboardView.swift
+//  HomeView.swift
 //  PocketLedger
 //
 //  Created by Jiaming Guo on 2025-02-28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardView: View {
+struct HomeView: View {
     @State private var showSettingsView: Bool = false
     @State private var showAddTransactionView: Bool = false
     
@@ -25,9 +25,13 @@ struct DashboardView: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
+                .padding(.vertical)
+                
+                MonthlySummaryView()
+                    .padding(.vertical)
             }
             .listStyle(.plain)
-            .navigationTitle("Dashboard")
+            .navigationTitle("Home")
             .toolbar {
                 ToolbarItem {
                     Button("Settings", systemImage: "gearshape") {
@@ -46,5 +50,5 @@ struct DashboardView: View {
 }
 
 #Preview {
-    DashboardView()
+    HomeView()
 }

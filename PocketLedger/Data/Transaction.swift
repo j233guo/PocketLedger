@@ -22,11 +22,16 @@ enum PaymentType: String, Codable, CaseIterable {
 @Model
 class Transaction {
     @Attribute(.unique) var id: UUID = UUID()
-    var transactionType: TransactionType
+    var transactionTypeRawValue: String
     var amount: Double
     var date: Date
     var note: String?
     var paymentType: PaymentType?
+    
+    var transactionType: TransactionType {
+        get { TransactionType(rawValue: transactionTypeRawValue) ?? .expense }
+        set { transactionTypeRawValue = newValue.rawValue }
+    }
     
     @Relationship var category: TransactionCategory?
     @Relationship var card: Card?
@@ -40,7 +45,7 @@ class Transaction {
         card: Card? = nil,
         note: String? = nil
     ) {
-        self.transactionType = transactionType
+        self.transactionTypeRawValue = transactionType.rawValue
         self.amount = amount
         self.date = date
         self.category = category
@@ -70,3 +75,17 @@ struct DefaultTransactionFactory {
         )
     }
 }
+
+let incomeTransactionPredicate: Predicate<Transaction> = {
+    let incomeTypeRawValue = TransactionType.income.rawValue
+    return #Predicate<Transaction> {
+        $0.transactionTypeRawValue == incomeTypeRawValue
+    }
+}()
+
+let expenseTransactionPredicate: Predicate<Transaction> = {
+    let expenseTypeRawValue = TransactionType.expense.rawValue
+    return #Predicate<Transaction> {
+        $0.transactionTypeRawValue == expenseTypeRawValue
+    }
+}()
