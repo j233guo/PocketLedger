@@ -175,8 +175,7 @@ struct AddCardView: View {
                                 lastFourDigitsFieldIsFocused = false
                             }
                         } label: {
-                            Text("Done")
-                                .bold()
+                            Text("Done").bold()
                         }
                     }
                 }
