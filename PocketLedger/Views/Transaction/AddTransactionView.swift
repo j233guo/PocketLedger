@@ -215,20 +215,11 @@ struct AddTransactionView: View {
             .navigationTitle("Add a New Transaction")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        save()
-                    } label: {
-                        Text("Save")
-                            .bold()
-                    }
-                }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("Cancel")
-                    }
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") { save() }
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack {
@@ -237,8 +228,7 @@ struct AddTransactionView: View {
                             amountInputFocused = false
                             notesInputFocused = false
                         } label: {
-                            Text("Done")
-                                .bold()
+                            Text("Done").bold()
                         }
                     }
                 }
