@@ -117,9 +117,12 @@ struct ManageCategoryView: View {
     
     private func addCategory() {
         do {
-            // Get the largest index among all categories first
-            let allCategories = try modelContext.fetch(FetchDescriptor<TransactionCategory>())
-            let newCategoryIndex = allCategories.map { $0.index }.max() ?? 0
+            // Get the largest index among all categories
+            let fetchDescriptor = FetchDescriptor<TransactionCategory>(
+                sortBy: [SortDescriptor(\.index, order: .reverse)]
+            )
+            let allCategories = try modelContext.fetch(fetchDescriptor)
+            let newCategoryIndex = allCategories.first?.index ?? 0
             let newCategory = TransactionCategory(
                 name: newCategoryName,
                 transactionType: transactionType,
@@ -214,6 +217,18 @@ struct ManageCategoryView: View {
             }
             .navigationTitle("Transaction Categories")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button {
+                            newCategoryNameFieldFocused = false
+                        } label: {
+                            Text("Done").bold()
+                        }
+                    }
+                }
+            }
         }
     }
 }

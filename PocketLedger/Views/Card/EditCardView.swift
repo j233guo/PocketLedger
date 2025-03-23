@@ -322,8 +322,7 @@ struct EditCardView: View {
                                 addPerkValueFieldFocused = false
                             }
                         } label: {
-                            Text("Done")
-                                .bold()
+                            Text("Done").bold()
                         }
                     }
                 }
