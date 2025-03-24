@@ -15,17 +15,17 @@ struct CategoryIconLibraryView: View {
     let type: TransactionType
     
     private let iconLibraryDictionary: [(header: String, icons: [String])] = [
-        ("Food and Drink", IconLibrary.foodAndDrink),
-        ("Entertainment", IconLibrary.entertainment),
-        ("Travel and Transportation", IconLibrary.travelAndTransport),
-        ("Sports", IconLibrary.sports),
-        ("Hobbies", IconLibrary.hobbies),
-        ("Shopping", IconLibrary.shopping),
-        ("Finance", IconLibrary.finance),
-        ("Tools and Utilities", IconLibrary.tools),
-        ("Education and Information", IconLibrary.educationAndInformation),
-        ("Healthcare", IconLibrary.healthcare),
-        ("Miscellaneous", IconLibrary.miscellaneous),
+        (String(localized: "Food and Drink", table: "Category"), IconLibrary.foodAndDrink),
+        (String(localized: "Entertainment", table: "Category"), IconLibrary.entertainment),
+        (String(localized: "Travel and Transportation", table: "Category"), IconLibrary.travelAndTransport),
+        (String(localized: "Sports", table: "Category"), IconLibrary.sports),
+        (String(localized: "Hobbies", table: "Category"), IconLibrary.hobbies),
+        (String(localized: "Shopping", table: "Category"), IconLibrary.shopping),
+        (String(localized: "Finance", table: "Category"), IconLibrary.finance),
+        (String(localized: "Tools and Utilities", table: "Category"), IconLibrary.tools),
+        (String(localized: "Education and Information", table: "Category"), IconLibrary.educationAndInformation),
+        (String(localized: "Healthcare", table: "Category"), IconLibrary.healthcare),
+        (String(localized: "Miscellaneous", table: "Category"), IconLibrary.miscellaneous),
     ]
     
     var body: some View {
@@ -57,6 +57,8 @@ struct CategoryIconLibraryView: View {
                 }
             }
         }
+        .navigationTitle(String(localized: "Select an Icon", table: "Category"))
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

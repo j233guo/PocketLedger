@@ -1,102 +1,98 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "All Transactions on This Card" : {
+    "Commonly Used" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "卡上的全部账目"
+            "value" : "常用"
           }
         }
       }
     },
-    "Edit Card" : {
+    "Home" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "编辑卡片"
+            "value" : "主页"
           }
         }
       }
     },
-    "Estimated Reward %@ with Transactions" : {
+    "Log Transaction" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "交易预估奖励%@"
+            "value" : "记账"
           }
         }
       }
     },
-    "Perks on This card" : {
+    "Manage Transaction Categories" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "卡片福利"
+            "value" : "管理账目类别"
           }
         }
       }
     },
-    "Recent Transactions" : {
+    "Monthly Summary" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "近期交易"
+            "value" : "月度总结"
           }
         }
       }
     },
-    "Remove Card" : {
+    "Settings" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "移除卡片"
+            "value" : "设置"
           }
         }
       }
     },
-    "Remove This Card" : {
+    "Transaction Category" : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "移除卡片"
+            "value" : "账目类别"
           }
         }
       }
     },
-    "This card doesn't have any perks registered." : {
+    "You don’t have any transactions this month yet." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "卡上还没有任何福利。"
+            "value" : "你这个月还没有记账。"
           }
         }
       }
     },
-    "This card doesn't have any transactions yet." : {
+    "You received %@ and spent %@ this month." : {
       "localizations" : {
-        "zh-Hans" : {
+        "en" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "卡上还没有任何记账记录。"
+            "state" : "new",
+            "value" : "You received %1$@ and spent %2$@ this month."
           }
-        }
-      }
-    },
-    "This card will be gone forever." : {
-      "localizations" : {
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "这张卡将被永久移除。"
+            "value" : "你本月收入%1$@, 支出%1$@。"
           }
         }
       }

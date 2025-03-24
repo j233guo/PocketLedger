@@ -18,7 +18,7 @@ struct CategoryIconPickerView: View {
             CategoryIconLibraryView(selectedIcon: $selectedIcon, type: type)
         } label: {
             HStack {
-                Text("Icon")
+                Text(String(localized: "Icon", table: "Category"))
                 Spacer()
                 CategoryIconView(icon: selectedIcon, type: type, size: 25)
             }

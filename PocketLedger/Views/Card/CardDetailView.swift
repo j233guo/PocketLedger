@@ -33,7 +33,7 @@ struct CardPerkListRowView: View {
         HStack {
             CategoryIconView(category: perk.category)
                 .padding(.trailing, 5)
-            Text(perk.category?.name ?? String(localized: "Everything", table: "CardDetail"))
+            Text(perk.category?.name ?? String(localized: "Everything", table: "Category"))
                 .font(.subheadline)
                 .fontWeight(.semibold)
             Spacer()

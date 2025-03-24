@@ -50,12 +50,12 @@ struct MonthlySummaryView: View {
     
     private var incomeChartData: ChartData {
         let totalIncome = incomeTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: "Income", value: totalIncome, color: .green)
+        return ChartData(category: TransactionType.income.localizedString, value: totalIncome, color: .green)
     }
     
     private var expenseChartData: ChartData {
         let totalExpense = expenseTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: "Expense", value: totalExpense, color: .orange)
+        return ChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: .orange)
     }
     
     var body: some View {
@@ -69,7 +69,7 @@ struct MonthlySummaryView: View {
             } else {
                 let incomes = formatCurrency(double: incomeChartData.value)
                 let expenses = formatCurrency(double: expenseChartData.value)
-                Text("You received \(incomes) and spent \(expenses) this month.")
+                Text(String(localized: "You received \(incomes) and spent \(expenses) this month.", table: "Home"))
                     .padding(.top, 5)
                     .frame(maxWidth: .infinity)
                 HStack(alignment: .center) {
@@ -80,7 +80,7 @@ struct MonthlySummaryView: View {
                             Circle()
                                 .foregroundStyle(.green)
                                 .frame(width: 15, height: 15)
-                            Text("Income")
+                            Text(TransactionType.income.localizedString)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -88,7 +88,7 @@ struct MonthlySummaryView: View {
                             Circle()
                                 .foregroundStyle(.orange)
                                 .frame(width: 15, height: 15)
-                            Text("Expense")
+                            Text(TransactionType.expense.localizedString)
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }

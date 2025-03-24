@@ -21,8 +21,8 @@ private struct AddCategoryView: View {
         Section {
             if expanded {
                 HStack {
-                    Text("Category Name")
-                    TextField("Name", text: $name)
+                    Text(String(localized: "Category Name", table: "Category"))
+                    TextField(String(localized: "Category Name", table: "Category"), text: $name)
                         .textFieldStyle(.roundedBorder)
                         .multilineTextAlignment(.center)
                         .focused($nameFieldFocused)
@@ -56,7 +56,7 @@ private struct AddCategoryView: View {
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                     } else {
-                        Text("Add a Custom Category")
+                        Text(String(localized: "Add a Custom Category", table: "Category"))
                             .frame(maxWidth: .infinity)
                     }
                 }
@@ -87,7 +87,7 @@ struct ManageCategoryView: View {
     @State private var transactionType: TransactionType = .expense
     @State private var addCategoryViewExpanded = false
     @State private var newCategoryIconName = "ellipsis"
-    @State private var newCategoryName = "New Category"
+    @State private var newCategoryName: String
     
     @FocusState private var newCategoryNameFieldFocused: Bool
     
@@ -113,6 +113,7 @@ struct ManageCategoryView: View {
         _defaultExpenseCategories = Query(filter: defaultExpensePredicate, sort: \.index)
         _customIncomeCategories = Query(filter: customIncomePredicate, sort: \.index)
         _customExpenseCategories = Query(filter: customExpensePredicate, sort: \.index)
+        _newCategoryName = State(initialValue: String(localized: "Custom Category", table: "Category"))
     }
     
     private func addCategory() {
@@ -161,11 +162,9 @@ struct ManageCategoryView: View {
     var body: some View {
         NavigationStack {
             List {
-                Picker("type", selection: $transactionType) {
-                    Text("Expense")
-                        .tag(TransactionType.expense)
-                    Text("Income")
-                        .tag(TransactionType.income)
+                Picker(String(localized: "Transaction Type", table: "Category"), selection: $transactionType) {
+                    Text(TransactionType.expense.localizedString).tag(TransactionType.expense)
+                    Text(TransactionType.income.localizedString).tag(TransactionType.income)
                 }
                 .pickerStyle(.segmented)
                 
@@ -180,9 +179,9 @@ struct ManageCategoryView: View {
                         }
                     }
                 } header: {
-                    Text("Default Categories")
+                    Text(String(localized: "Default Categories", table: "Category"))
                 } footer: {
-                    Text("Default categories cannot be deleted.")
+                    Text(String(localized: "Default categories cannot be deleted.", table: "Category"))
                 }
                 
                 Section {
@@ -192,18 +191,18 @@ struct ManageCategoryView: View {
                         }
                         .onDelete(perform: deleteCategory)
                     } else {
-                        ForEach(customExpenseCategories) {
+                        ForEach(customIncomeCategories) {
                             CategoryListRowView(category: $0)
                         }
                         .onDelete(perform: deleteCategory)
                     }
                 } header: {
-                    Text("Custom Categories")
+                    Text(String(localized: "Custom Categories", table: "Category"))
                 } footer: {
                     if transactionType == .expense && customExpenseCategories.isEmpty {
-                        Text("You don't have any custom expense categories yet.")
+                        Text(String(localized: "You don't have any custom expense categories yet.", table: "Category"))
                     } else if transactionType == .income && customIncomeCategories.isEmpty {
-                        Text("You don't have any custom income categories yet.")
+                        Text(String(localized: "You don't have any custom income categories yet.", table: "Category"))
                     }
                 }
                 
@@ -215,7 +214,7 @@ struct ManageCategoryView: View {
                     nameFieldFocused: $newCategoryNameFieldFocused
                 ) { addCategory() }
             }
-            .navigationTitle("Transaction Categories")
+            .navigationTitle(String(localized: "Transaction Categories", table: "Category"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .keyboard) {

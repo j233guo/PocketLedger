@@ -31,7 +31,7 @@ private struct AddPerkView: View {
                 HStack {
                     let suffix = perkType == .cashback ? "%" : "x"
                     Text(String(localized: "\(perkType.localizedString) Multiplier", table: "AddEditCard"))
-                    TextField("Value", value: $value, formatter: valueFormatter)
+                    TextField(String(localized: "\(perkType.localizedString) Multiplier", table: "AddEditCard"), value: $value, formatter: valueFormatter)
                         .textFieldStyle(.roundedBorder)
                         .multilineTextAlignment(.trailing)
                         .textFieldStyle(.plain)
