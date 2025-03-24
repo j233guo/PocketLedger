@@ -30,6 +30,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		C934C91F2D90F9B400EC978D /* String Catalogs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "String Catalogs";
+			sourceTree = "<group>";
+		};
 		C9C09FA72D7152A00071D39C /* PocketLedger */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PocketLedger;
@@ -75,6 +80,7 @@
 		C9C09F9C2D7152A00071D39C = {
 			isa = PBXGroup;
 			children = (
+				C934C91F2D90F9B400EC978D /* String Catalogs */,
 				C9C09FA72D7152A00071D39C /* PocketLedger */,
 				C9C09FB82D7152A10071D39C /* PocketLedgerTests */,
 				C9C09FC22D7152A10071D39C /* PocketLedgerUITests */,
@@ -108,6 +114,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				C934C91F2D90F9B400EC978D /* String Catalogs */,
 				C9C09FA72D7152A00071D39C /* PocketLedger */,
 			);
 			name = PocketLedger;
@@ -192,6 +199,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = C9C09F9C2D7152A00071D39C;
 			minimizedProjectReferenceProxies = 1;
@@ -328,6 +336,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -384,6 +393,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

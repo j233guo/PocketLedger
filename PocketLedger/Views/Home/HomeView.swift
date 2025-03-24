@@ -15,12 +15,12 @@ struct HomeView: View {
         NavigationStack{
             List {
                 VStack(alignment: .leading) {
-                    Text("Commonly Used")
+                    Text(String(localized: "Commonly Used", table: "Home"))
                         .font(.headline)
                     Button {
                         showAddTransactionView = true
                     } label: {
-                        Text("Add a New Transaction")
+                        Text(String(localized: "Log Transaction", table: "Home"))
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -31,7 +31,7 @@ struct HomeView: View {
                     .padding(.vertical)
             }
             .listStyle(.plain)
-            .navigationTitle("Home")
+            .navigationTitle(String(localized: "Home", table: "Home"))
             .toolbar {
                 ToolbarItem {
                     Button("Settings", systemImage: "gearshape") {

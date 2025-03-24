@@ -49,7 +49,7 @@ private struct AddPerkView: View {
                             expanded = false
                         }
                     } label: {
-                        Text("Cancel")
+                        Text(String(localized: "Cancel", table: "Common"))
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderless)
@@ -65,7 +65,7 @@ private struct AddPerkView: View {
                     }
                 } label: {
                     if expanded {
-                        Text("Add")
+                        Text(String(localized: "Add", table: "Common"))
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                     } else {
@@ -303,10 +303,10 @@ struct EditCardView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(String(localized: "Cancel", table: "Common")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { save() }
+                    Button(String(localized: "Done", table: "Common")) { save() }
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack {
@@ -322,7 +322,7 @@ struct EditCardView: View {
                                 addPerkValueFieldFocused = false
                             }
                         } label: {
-                            Text("Done").bold()
+                            Text(String(localized: "Done", table: "Common")).bold()
                         }
                     }
                 }

@@ -195,10 +195,10 @@ struct EditTransactionView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(String(localized: "Cancel", table: "Common")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { save() }
+                    Button(String(localized: "Done", table: "Common")) { save() }
                 }
             }
             .onAppear {

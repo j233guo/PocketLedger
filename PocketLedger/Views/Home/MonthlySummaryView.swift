@@ -60,10 +60,10 @@ struct MonthlySummaryView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Monthly Summary")
+            Text(String(localized: "Monthly Summary", table: "Home"))
                 .font(.headline)
             if transactions.isEmpty {
-                Text("You do not have any transactions this month yet.")
+                Text(String(localized: "You don’t have any transactions this month yet.", table: "Home"))
                     .padding(.top, 5)
                     .frame(maxWidth: .infinity)
             } else {

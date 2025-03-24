@@ -36,7 +36,7 @@ private struct AddCategoryView: View {
                             expanded = false
                         }
                     } label: {
-                        Text("Cancel")
+                        Text(String(localized: "Cancel", table: "Common"))
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderless)
@@ -52,7 +52,7 @@ private struct AddCategoryView: View {
                     }
                 } label: {
                     if expanded {
-                        Text("Add")
+                        Text(String(localized: "Add", table: "Common"))
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                     } else {
@@ -224,7 +224,7 @@ struct ManageCategoryView: View {
                         Button {
                             newCategoryNameFieldFocused = false
                         } label: {
-                            Text("Done").bold()
+                            Text(String(localized: "Done", table: "Common")).bold()
                         }
                     }
                 }

@@ -155,12 +155,12 @@ struct AddCardView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button(String(localized: "Save", table: "Common")) {
                         save()
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button(String(localized: "Cancel", table: "Common")) {
                         dismiss()
                     }
                 }
@@ -175,7 +175,7 @@ struct AddCardView: View {
                                 lastFourDigitsFieldIsFocused = false
                             }
                         } label: {
-                            Text("Done").bold()
+                            Text(String(localized: "Done", table: "Common")).bold()
                         }
                     }
                 }
