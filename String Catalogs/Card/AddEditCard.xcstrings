@@ -31,16 +31,6 @@
         }
       }
     },
-    "American Express" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "美国运通"
-          }
-        }
-      }
-    },
     "Card Name" : {
       "localizations" : {
         "zh-Hans" : {
@@ -81,42 +71,12 @@
         }
       }
     },
-    "Cashback" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "返现"
-          }
-        }
-      }
-    },
     "Changing perk type will clear all perks on this card." : {
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "更改卡片福利类型会清空当前卡上所有福利。"
-          }
-        }
-      }
-    },
-    "Credit" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "信用卡"
-          }
-        }
-      }
-    },
-    "Debit" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "借记卡"
           }
         }
       }
@@ -157,16 +117,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡号后四位"
-          }
-        }
-      }
-    },
-    "Mastercard" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "万事达"
           }
         }
       }
@@ -231,16 +181,6 @@
         }
       }
     },
-    "Reward Points" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "积分"
-          }
-        }
-      }
-    },
     "This card doesn't have any perks registered." : {
       "localizations" : {
         "zh-Hans" : {
@@ -250,9 +190,6 @@
           }
         }
       }
-    },
-    "VISA" : {
-      "shouldTranslate" : false
     },
     "You can add card perks later in the edit page." : {
       "localizations" : {

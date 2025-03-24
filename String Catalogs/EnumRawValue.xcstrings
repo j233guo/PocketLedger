@@ -1,90 +1,112 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Add" : {
+    "American Express" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "添加"
+            "value" : "美国运通"
           }
         }
       }
     },
-    "Cancel" : {
+    "Cash" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "取消"
+            "value" : "现金"
           }
         }
       }
     },
-    "Cards" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "卡片"
-          }
-        }
-      }
-    },
-    "Confirm" : {
+    "Cashback" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "确认"
+            "value" : "返现"
           }
         }
       }
     },
-    "Done" : {
+    "Credit" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "完成"
+            "value" : "信用卡"
           }
         }
       }
     },
-    "Home" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "主页"
-          }
-        }
-      }
-    },
-    "Save" : {
+    "Debit" : {
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "保存"
+            "value" : "借记卡"
           }
         }
       }
     },
-    "Transactions" : {
+    "Expense" : {
+      "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "账目"
+            "value" : "支出"
           }
         }
       }
+    },
+    "Income" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收入"
+          }
+        }
+      }
+    },
+    "Interac" : {
+      "extractionState" : "manual",
+      "shouldTranslate" : false
+    },
+    "Mastercard" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "万事达"
+          }
+        }
+      }
+    },
+    "Points" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "积分"
+          }
+        }
+      }
+    },
+    "VISA" : {
+      "extractionState" : "manual",
+      "shouldTranslate" : false
     }
   },
   "version" : "1.0"

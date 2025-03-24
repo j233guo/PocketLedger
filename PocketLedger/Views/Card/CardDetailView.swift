@@ -37,7 +37,7 @@ struct CardPerkListRowView: View {
                 .font(.subheadline)
                 .fontWeight(.semibold)
             Spacer()
-            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.rawValue)")
+            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.localizedString)")
         }
     }
 }
@@ -70,7 +70,9 @@ private struct RecentTransactionListRowView: View {
                     Text("-\(formatCurrency(double: transaction.amount))")
                         .font(.subheadline)
                     if let rewardAmount = rewardAmount {
-                        let rewardString = transaction.card?.perkType == .cashback ? "\(formatCurrency(double: rewardAmount)) Cashback" : "\(rewardAmount.decimalStr(2)) Points"
+                        let rewardString = transaction.card?.perkType == .cashback ? 
+                            "\(formatCurrency(double: rewardAmount)) \(CardPerkType.cashback.localizedString)" :
+                            "\(rewardAmount.decimalStr(2)) \(CardPerkType.points.localizedString)"
                         Text("+\(rewardString)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -177,12 +179,11 @@ struct CardDetailView: View {
                     if card.cardType == .credit {
                         Divider()
                         VStack {
-                            if let perkName = card.perkType?.rawValue {
-                                let localizedPerkName = String(localized: String.LocalizationValue(perkName), table: "Card")
-                                Text(String(localized: "Estimated Reward \(localizedPerkName) with Transactions", table: "CardDetail"))
+                            if let perk = card.perkType {
+                                Text(String(localized: "Estimated Reward \(perk.localizedString) with Transactions", table: "CardDetail"))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
-                                let rewardString = card.perkType == .cashback ? "\(formatCurrency(string: totalRewardsOnCardString))" : "\(totalRewardsOnCardString)"
+                                let rewardString = perk == .cashback ? "\(formatCurrency(string: totalRewardsOnCardString))" : "\(totalRewardsOnCardString)"
                                 Text("\(rewardString)")
                                     .font(.title2)
                                     .fontDesign(.monospaced)

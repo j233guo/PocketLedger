@@ -11,12 +11,20 @@ import SwiftData
 enum TransactionType: String, Codable, CaseIterable {
     case expense = "Expense"
     case income = "Income"
+    
+    var localizedString: String {
+        String(localized: String.LocalizationValue(rawValue), table: "EnumRawValue")
+    }
 }
 
 enum PaymentType: String, Codable, CaseIterable {
     case cash = "Cash"
     case debit = "Debit"
-    case credit = "Credit Card"
+    case credit = "Credit"
+    
+    var localizedString: String {
+        String(localized: String.LocalizationValue(rawValue), table: "EnumRawValue")
+    }
 }
 
 @Model

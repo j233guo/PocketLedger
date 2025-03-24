@@ -11,6 +11,10 @@ import SwiftData
 enum CardPerkType: String, Codable, CaseIterable {
     case cashback = "Cashback"
     case points = "Points"
+    
+    var localizedString: String {
+        String(localized: String.LocalizationValue(rawValue), table: "EnumRawValue")
+    }
 }
 
 @Model

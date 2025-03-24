@@ -86,8 +86,8 @@ struct AddCardView: View {
                 
                 Section {
                     Picker(String(localized: "Card Type", table:"AddEditCard"), selection: $cardType) {
-                        Text(String(localized: "Debit", table: "AddEditCard")).tag(CardType.debit)
-                        Text(String(localized: "Credit", table:"AddEditCard")).tag(CardType.credit)
+                        Text(CardType.debit.localizedString).tag(CardType.debit)
+                        Text(CardType.credit.localizedString).tag(CardType.credit)
                     }
                     .onChange(of: cardType) {
                         if cardType == .debit {
@@ -99,9 +99,9 @@ struct AddCardView: View {
                     
                     if cardType == .credit {
                         Picker(String(localized: "Payment Network", table: "AddEditCard"), selection: $paymentNetwork) {
-                            Text(String(localized: "VISA", table: "AddEditCard")).tag(CardPaymentNetwork.visa)
-                            Text(String(localized: "Mastercard", table:"AddEditCard")).tag(CardPaymentNetwork.mastercard)
-                            Text(String(localized: "American Express", table: "AddEditCard")).tag(CardPaymentNetwork.amex)
+                            Text(CardPaymentNetwork.visa.localizedString).tag(CardPaymentNetwork.visa)
+                            Text(CardPaymentNetwork.mastercard.localizedString).tag(CardPaymentNetwork.mastercard)
+                            Text(CardPaymentNetwork.amex.localizedString).tag(CardPaymentNetwork.amex)
                         }
                     }
                 }
@@ -141,10 +141,8 @@ struct AddCardView: View {
                 if cardType == .credit {
                     Section {
                         Picker(String(localized: "Card Perk Type", table: "AddEditCard"), selection: $cardPerkType) {
-                            Text(String(localized: "Reward Points", table: "AddEditCard"))
-                                .tag(CardPerkType.points)
-                            Text(String(localized: "Cashback", table: "AddEditCard"))
-                                .tag(CardPerkType.cashback)
+                            Text(CardPerkType.points.localizedString).tag(CardPerkType.points)
+                            Text(CardPerkType.cashback.localizedString).tag(CardPerkType.cashback)
                         }
                     } footer: {
                         Text(String(localized: "You can add card perks later in the edit page.", table: "AddEditCard"))
