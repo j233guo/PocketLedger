@@ -68,16 +68,16 @@ struct CardTransactionListView: View {
                     withAdd: false
                 )
                 if transactions.isEmpty {
-                    TransactionListEmptyView(message: "You do not have any transactions on this card.")
+                    TransactionListEmptyView(message: String(localized: "You do not have any transactions on this card.", table: "CardTransactionList"))
                 } else {
                     if filteredTransactions.isEmpty {
-                        TransactionListEmptyView(message: "No transactions found based on your filter.")
+                        TransactionListEmptyView(message: String(localized: "No transactions found based on your filter.", table: "CardTransactionList"))
                     } else {
                         GroupedTransactionListView(transactions: transactions)
                     }
                 }
             }
-            .navigationTitle("Transactions on Card")
+            .navigationTitle(String(localized: "Transactions on Card", table: "CardTransactionList"))
         }
     }
 }

@@ -38,7 +38,7 @@ struct CardListView: View {
                         Button {
                             showAddCardView = true
                         } label: {
-                            Label("Add Card", systemImage: "plus")
+                            Label(String(localized: "Add Card", table: "CardList"), systemImage: "plus")
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent)
@@ -51,9 +51,9 @@ struct CardListView: View {
                 
                 if cards.isEmpty {
                     VStack {
-                        Text("Empty Card List")
+                        Text(String(localized: "Empty Card List", table: "CardList"))
                             .font(.title)
-                        Text("Tap \"+\" to add cards")
+                        Text(String(localized: "Add a card with the button above", table: "CardList"))
                             .font(.caption)
                     }
                     .foregroundStyle(.secondary)
@@ -71,7 +71,7 @@ struct CardListView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .navigationTitle("My Cards")
+            .navigationTitle(String(localized: "My Cards", table: "CardList"))
             .sheet(isPresented: $showAddCardView) {
                 AddCardView()
             }

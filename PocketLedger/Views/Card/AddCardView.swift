@@ -70,24 +70,24 @@ struct AddCardView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Card Name", text: $cardName)
+                    TextField(String(localized: "Card Name", table: "AddEditCard"), text: $cardName)
                         .focused($nameFieldIsFocused)
                         .onChange(of: cardName) {
                             showNameEmptyWarning = false
                         }
                 } header: {
-                    Text("Nickname for the card")
+                    Text(String(localized: "Name for the card", table: "AddEditCard"))
                 } footer: {
                     if showNameEmptyWarning {
-                        Text("Please enter a name for the card.")
+                        Text(String(localized: "Please enter a name for the card.", table: "AddEditCard"))
                             .foregroundStyle(.red)
                     }
                 }
                 
                 Section {
-                    Picker("Card Type", selection: $cardType) {
-                        Text("Debit").tag(CardType.debit)
-                        Text("Credit").tag(CardType.credit)
+                    Picker(String(localized: "Card Type", table:"AddEditCard"), selection: $cardType) {
+                        Text(String(localized: "Debit", table: "AddEditCard")).tag(CardType.debit)
+                        Text(String(localized: "Credit", table:"AddEditCard")).tag(CardType.credit)
                     }
                     .onChange(of: cardType) {
                         if cardType == .debit {
@@ -98,10 +98,10 @@ struct AddCardView: View {
                     }
                     
                     if cardType == .credit {
-                        Picker("Payment Network", selection: $paymentNetwork) {
-                            Text("VISA").tag(CardPaymentNetwork.visa)
-                            Text("Mastercard").tag(CardPaymentNetwork.mastercard)
-                            Text("American Express").tag(CardPaymentNetwork.amex)
+                        Picker(String(localized: "Payment Network", table: "AddEditCard"), selection: $paymentNetwork) {
+                            Text(String(localized: "VISA", table: "AddEditCard")).tag(CardPaymentNetwork.visa)
+                            Text(String(localized: "Mastercard", table:"AddEditCard")).tag(CardPaymentNetwork.mastercard)
+                            Text(String(localized: "American Express", table: "AddEditCard")).tag(CardPaymentNetwork.amex)
                         }
                     }
                 }
@@ -128,30 +128,30 @@ struct AddCardView: View {
                         showLastFourDigitsEmptyWarning = false
                     }
                 } header: {
-                    Text("Last four digits of the card")
+                    Text(String(localized: "Last four digits of the card", table: "AddEditCard"))
                 } footer: {
                     if showLastFourDigitsEmptyWarning {
-                        Text("Please enter the last four digits of the card.")
+                        Text(String(localized: "Please enter the last four digits of the card.", table: "AddEditCard"))
                             .foregroundStyle(.red)
                     } else {
-                        Text("For identifying purpose only.")
+                        Text(String(localized: "For identifying purpose only.", table: "AddEditCard"))
                     }
                 }
                 
                 if cardType == .credit {
                     Section {
-                        Picker("Card Perk Type", selection: $cardPerkType) {
-                            Text("Reward Points")
+                        Picker(String(localized: "Card Perk Type", table: "AddEditCard"), selection: $cardPerkType) {
+                            Text(String(localized: "Reward Points", table: "AddEditCard"))
                                 .tag(CardPerkType.points)
-                            Text("Cash Back")
+                            Text(String(localized: "Cashback", table: "AddEditCard"))
                                 .tag(CardPerkType.cashback)
                         }
                     } footer: {
-                        Text("You can add card perks later in the edit page.")
+                        Text(String(localized: "You can add card perks later in the edit page.", table: "AddEditCard"))
                     }
                 }
             }
-            .navigationTitle("Add a New Card")
+            .navigationTitle(String(localized: "Add a New Card", table:"AddEditCard"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

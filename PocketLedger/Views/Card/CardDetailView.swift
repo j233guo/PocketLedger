@@ -17,10 +17,10 @@ private struct CardPerksListView: View {
                 CardPerkListRowView(perk: perk)
             }
         } header: {
-            Text("Perks on This card")
+            Text(String(localized: "Perks on This card", table: "CardDetail"))
         } footer: {
             if perks.isEmpty {
-                Text("This card doesn't have any perks registered.")
+                Text(String(localized: "This card doesn't have any perks registered.", table: "CardDetail"))
             }
         }
     }
@@ -33,7 +33,7 @@ struct CardPerkListRowView: View {
         HStack {
             CategoryIconView(category: perk.category)
                 .padding(.trailing, 5)
-            Text(perk.category?.name ?? "Everything")
+            Text(perk.category?.name ?? String(localized: "Everything", table: "CardDetail"))
                 .font(.subheadline)
                 .fontWeight(.semibold)
             Spacer()
@@ -62,7 +62,7 @@ private struct RecentTransactionListRowView: View {
             HStack {
                 CategoryIconView(category: transaction.category, size: 15)
                     .padding(.trailing, 5)
-                Text(transaction.category?.name ?? "Uncategorized")
+                Text(transaction.category?.name ?? String(localized: "Uncategorized", table: "Category"))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Spacer()
@@ -178,7 +178,8 @@ struct CardDetailView: View {
                         Divider()
                         VStack {
                             if let perkName = card.perkType?.rawValue {
-                                Text("Estimated Reward \(perkName) with Transactions")
+                                let localizedPerkName = String(localized: String.LocalizationValue(perkName), table: "Card")
+                                Text(String(localized: "Estimated Reward \(localizedPerkName) with Transactions", table: "CardDetail"))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
                                 let rewardString = card.perkType == .cashback ? "\(formatCurrency(string: totalRewardsOnCardString))" : "\(totalRewardsOnCardString)"
@@ -205,10 +206,10 @@ struct CardDetailView: View {
                         }
                     }
                 } header: {
-                    Text("Recent Transactions")
+                    Text(String(localized: "Recent Transactions", table: "CardDetail"))
                 } footer: {
                     if recentTransactions.isEmpty {
-                        Text("This card doesn't have any transactions yet.")
+                        Text(String(localized: "This card doesn't have any transactions yet.", table: "CardDetail"))
                     }
                 }
                 
@@ -216,15 +217,15 @@ struct CardDetailView: View {
                     NavigationLink {
                         CardTransactionListView(card: card)
                     } label: {
-                        Text("All Transactions on This Card")
+                        Text(String(localized: "All Transactions on This Card", table: "CardDetail"))
                     }
                 }
                 
                 Section {
-                    Button("Edit Card") {
+                    Button(String(localized: "Edit Card", table: "CardDetail")) {
                         showEditCardView = true
                     }
-                    Button("Remove This Card", role: .destructive) {
+                    Button(String(localized: "Remove This Card", table: "CardDetail"), role: .destructive) {
                         showDeleteConfirmation = true
                     }
                 }
@@ -234,12 +235,12 @@ struct CardDetailView: View {
             .sheet(isPresented: $showEditCardView) {
                 EditCardView(card: card)
             }
-            .confirmationDialog("Delete Card", isPresented: $showDeleteConfirmation) {
-                Button("Confirm", role: .destructive) {
+            .confirmationDialog(String(localized: "Remove Card", table: "CardDetail"), isPresented: $showDeleteConfirmation) {
+                Button(String(localized: "Confirm", table: "Common"), role: .destructive) {
                     deleteCard()
                 }
             } message: {
-                Text("This card will be gone forever.")
+                Text(String(localized: "This card will be gone forever.", table: "CardDetail"))
             }
         }
     }
