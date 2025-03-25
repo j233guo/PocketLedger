@@ -28,7 +28,7 @@ private struct TransactionInfoSection: View {
                                 .foregroundStyle(.secondary)
                         }
                     } else {
-                        Text("Uncategorized Transaction")
+                        Text(String(localized: "Uncategorized Transaction", table: "TransactionDetail"))
                             .font(.headline)
                             .foregroundStyle(.secondary)
                     }
@@ -51,7 +51,7 @@ private struct PaymentInfoSection: View {
         Section {
             VStack(alignment: .leading) {
                 if let card = transaction.card {
-                    Text(transaction.paymentType == .debit ? "Debit Card" : "Credit Card")
+                    Text(transaction.paymentType?.localizedString ?? "")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     HStack {
@@ -66,16 +66,16 @@ private struct PaymentInfoSection: View {
                     if transaction.paymentType == .credit {
                         let rewardAmount = calculateReward(card: card, transaction: transaction)
                         if rewardAmount.isZero || rewardAmount.isNaN {
-                            Text("You did not earn any reward from this transaction.")
+                            Text(String(localized: "You did not earn any reward from this transaction.", table: "TransactionDetail"))
                                 .foregroundStyle(.secondary)
                         } else {
                             if card.perkType == .points {
                                 let formattedRewardAmount = rewardAmount.decimalStr(2)
-                                Text("You earned \(formattedRewardAmount) points from this transaction.")
+                                Text(String(localized: "You earned \(formattedRewardAmount) points from this transaction.", table: "TransactionDetail"))
                                     .foregroundStyle(.secondary)
                             } else if card.perkType == .cashback {
                                 let formattedRewardAmount = formatCurrency(string: rewardAmount.decimalStr(2))
-                                Text("You earned \(formattedRewardAmount) cash back from this transaction.")
+                                Text(String(localized: "You earned \(formattedRewardAmount) cash back from this transaction.", table: "TransactionDetail"))
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -84,10 +84,10 @@ private struct PaymentInfoSection: View {
             }
             .frame(maxWidth: .infinity)
         } header: {
-            Text("Payment Card")
+            Text(String(localized: "Payment Card", table: "TransactionDetail"))
         } footer: {
             if transaction.paymentType == .credit {
-                Text("Credit card rewards are estimations only. Actual values may vary.")
+                Text(String(localized: "Credit card rewards are estimations only. Actual values may vary.", table: "TransactionDetail"))
             }
         }
     }
@@ -132,30 +132,30 @@ struct TransactionDetailView: View {
                 
                 if let note = transaction.note {
                     if !note.isEmpty {
-                        Section("Notes") {
+                        Section(String(localized: "Notes", table: "TransactionDetail")) {
                             Text(note)
                         }
                     }
                 }
                 
                 Section {
-                    Button("Edit Transaction") {
+                    Button(String(localized: "Edit Transaction", table: "TransactionDetail")) {
                         showEditTransactionView = true
                     }
-                    Button("Delete This Transaction", role: .destructive) {
+                    Button(String(localized: "Delete Transaction", table: "TransactionDetail"), role: .destructive) {
                         showDeleteConfirmation = true
                     }
                 }
             }
-            .navigationTitle("Transaction Details")
+            .navigationTitle(String(localized: "Transaction Details", table: "TransactionDetail"))
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showEditTransactionView) {
                 EditTransactionView(transaction: transaction)
             }
-            .confirmationDialog("Confirm Delete", isPresented: $showDeleteConfirmation) {
-                Button("Confirm", role: .destructive, action: deleteTransaction)
+            .confirmationDialog(String(localized: "Delete Transaction", table: "TransactionDetail"), isPresented: $showDeleteConfirmation) {
+                Button(String(localized: "Confirm Delete", table: "TransactionDetail"), role: .destructive, action: deleteTransaction)
             } message: {
-                Text("This transaction will be gone forever.")
+                Text(String(localized: "This transaction will be gone forever.", table: "TransactionDetail"))
             }
         }
     }
