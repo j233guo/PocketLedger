@@ -36,7 +36,10 @@ struct TransactionListView: View {
                     try transactionPredicate.evaluate(transaction)
                 }
             } catch {
-                messageService.create(message: "Error when filtering transaction: \(error.localizedDescription)", type: .error)
+                messageService.create(
+                    message: String(localized: "Error filtering transactions: \(error.localizedDescription)", table: "Message"),
+                    type: .error
+                )
                 return []
             }
         }

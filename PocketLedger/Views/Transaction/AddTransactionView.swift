@@ -97,13 +97,13 @@ struct AddTransactionView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Transaction added successfully!",
+                message: String(localized: "Transaction added successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving transaction: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }

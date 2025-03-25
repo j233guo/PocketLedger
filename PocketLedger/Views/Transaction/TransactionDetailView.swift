@@ -109,13 +109,13 @@ struct TransactionDetailView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Transaction deleted successfully",
+                message: String(localized: "Transaction deleted successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error saving after deleting transaction: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)"),
                 type: .error
             )
         }

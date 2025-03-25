@@ -72,13 +72,13 @@ struct EditTransactionView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Transaction saved successfully!",
+                message: String(localized: "Transaction saved successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving edited transaction: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }

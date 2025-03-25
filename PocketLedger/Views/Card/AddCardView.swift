@@ -54,12 +54,12 @@ struct AddCardView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Card added successfully!",
+                message: String(localized: "Card added successfully", table: "Message"),
                 type: .success
             )
         } catch {
             messageService.create(
-                message: "Encountered error when saving new card: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }

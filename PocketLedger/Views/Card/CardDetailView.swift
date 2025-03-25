@@ -99,13 +99,13 @@ struct CardDetailView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Card deleted successfully",
+                message: String(localized: "Card removed successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving after deleting card: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
@@ -124,7 +124,7 @@ struct CardDetailView: View {
             return try modelContext.fetch(descriptor)
         } catch {
             messageService.create(
-                message: "Encountered error when fetching perks on card: \(error.localizedDescription)",
+                message: String(localized: "Error fetching perks on card: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
             return []
@@ -145,7 +145,7 @@ struct CardDetailView: View {
             return try modelContext.fetch(descriptor)
         } catch {
             messageService.create(
-                message: "Encountered error when fetching recent transactions on card: \(error.localizedDescription)",
+                message: String(localized: "Error fetching recent transactions: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
             return []

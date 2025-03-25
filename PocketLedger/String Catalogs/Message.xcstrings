@@ -1,0 +1,126 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Card added successfully" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功添加卡片"
+          }
+        }
+      }
+    },
+    "Card removed successfully" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功移除卡片"
+          }
+        }
+      }
+    },
+    "Card saved successfully" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功保存卡片"
+          }
+        }
+      }
+    },
+    "Error fetching perks on card: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获取卡片福利出错：%@"
+          }
+        }
+      }
+    },
+    "Error fetching recent transactions: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "获取近期交易出错：%@"
+          }
+        }
+      }
+    },
+    "Error filtering expense transactions: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选支出账目出错：%@"
+          }
+        }
+      }
+    },
+    "Error filtering income transactions: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选收入账目出错：%@"
+          }
+        }
+      }
+    },
+    "Error filtering transactions: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "筛选账目出错：%@"
+          }
+        }
+      }
+    },
+    "Error saving data: %@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存数据出错：%@"
+          }
+        }
+      }
+    },
+    "Transaction added successfully" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功添加账目"
+          }
+        }
+      }
+    },
+    "Transaction deleted successfully" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功删除账目"
+          }
+        }
+      }
+    },
+    "Transaction saved successfully" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功保存账目"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -161,13 +161,13 @@ struct EditCardView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Card saved successfully",
+                message: String(localized: "Card saved successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving edited card: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }

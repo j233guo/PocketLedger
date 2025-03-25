@@ -49,7 +49,7 @@ struct CardTransactionListView: View {
                 }
             } catch {
                 messageService.create(
-                    message: "Encountered error when filtering transaction on card: \(error.localizedDescription)",
+                    message: String(localized: "Error filtering transactions: \(error.localizedDescription)", table: "Message"),
                     type: .error
                 )
                 return []

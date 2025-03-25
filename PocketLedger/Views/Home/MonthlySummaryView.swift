@@ -32,7 +32,10 @@ struct MonthlySummaryView: View {
                 try incomeTransactionPredicate.evaluate(transaction)
             }
         } catch {
-            messageService.create(message: "Error when filtering income transactions: \(error.localizedDescription)", type: .error)
+            messageService.create(
+                message: String(localized: "Error filtering income transactions: \(error.localizedDescription)", table: "Message"),
+                type: .error
+            )
             return []
         }
     }
@@ -43,7 +46,10 @@ struct MonthlySummaryView: View {
                 try expenseTransactionPredicate.evaluate(transaction)
             }
         } catch {
-            messageService.create(message: "Error when filtering expense transactions: \(error.localizedDescription)", type: .error)
+            messageService.create(
+                message: String(localized: "Error filtering expense transactions: \(error.localizedDescription)", table: "Message"),
+                type: .error
+            )
             return []
         }
     }

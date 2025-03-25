@@ -135,7 +135,7 @@ struct ManageCategoryView: View {
             try modelContext.save()
         } catch {
             messageService.create(
-                message: "Encountered error when adding new category: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
@@ -153,7 +153,7 @@ struct ManageCategoryView: View {
             try modelContext.save()
         } catch {
             messageService.create(
-                message: "Encountered error syncing data after deleted category: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
