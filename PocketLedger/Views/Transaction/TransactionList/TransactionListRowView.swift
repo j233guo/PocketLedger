@@ -14,7 +14,7 @@ struct TransactionListRowView: View {
         HStack {
             CategoryIconView(category: transaction.category, size: 20)
                 .padding(.trailing, 10)
-            Text(transaction.category?.name ?? "Uncategorized")
+            Text(transaction.category?.name ?? String(localized: "Uncategorized", table: "Category"))
                 .font(.headline)
             Spacer()
             let sign = transaction.transactionType == .expense ? "-" : "+"

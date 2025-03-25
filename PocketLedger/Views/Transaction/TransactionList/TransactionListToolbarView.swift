@@ -25,7 +25,7 @@ struct TransactionListToolbarView: View {
                             filterExpanded.toggle()
                         }
                     } label: {
-                        Label("Filter", systemImage: "line.3.horizontal.decrease")
+                        Label(String(localized: "Filter", table: "TransactionList"), systemImage: "line.3.horizontal.decrease")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
@@ -35,7 +35,7 @@ struct TransactionListToolbarView: View {
                     Button {
                         onAddTransaction()
                     } label: {
-                        Label("Add Transaction", systemImage: "plus")
+                        Label(String(localized: "Log Transaction", table: "TransactionList"), systemImage: "plus")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
@@ -45,7 +45,7 @@ struct TransactionListToolbarView: View {
             
             if filterExpanded {
                 HStack(alignment: .center) {
-                    Text("Date Range")
+                    Text(String(localized: "Date", table: "TransactionList"))
                         .foregroundStyle(.secondary)
                     DateFilterView(startDate: $startDate, endDate: $endDate)
                 }

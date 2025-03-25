@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "Add a card with the button above" : {
-      "localizations" : {
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "点上方按钮添加卡片"
-          }
-        }
-      }
-    },
     "Add Card" : {
       "localizations" : {
         "zh-Hans" : {
@@ -37,6 +27,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "我的卡片"
+          }
+        }
+      }
+    },
+    "Tap \"Add Card\" button to add your first card." : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点“添加卡片”添加你的第一张卡"
           }
         }
       }

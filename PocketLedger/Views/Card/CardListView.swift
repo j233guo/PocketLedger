@@ -53,7 +53,7 @@ struct CardListView: View {
                     VStack {
                         Text(String(localized: "Empty Card List", table: "CardList"))
                             .font(.title)
-                        Text(String(localized: "Add a card with the button above", table: "CardList"))
+                        Text(String(localized: "Tap \"Add Card\" button to add your first card.", table: "CardList"))
                             .font(.caption)
                     }
                     .foregroundStyle(.secondary)

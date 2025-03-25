@@ -111,7 +111,7 @@ struct EditCardView: View {
         self.card = card
         let idString = card.idString
         let predicate = #Predicate<CardPerk> {
-            $0.card.idString == idString
+            $0.card?.idString == idString
         }
         self._perksOnCard = Query(filter: predicate)
         

@@ -115,7 +115,7 @@ struct CardDetailView: View {
         do {
             let cardIDString = card.idString
             let predicate = #Predicate<CardPerk> { perk in
-                perk.card.idString == cardIDString
+                perk.card?.idString == cardIDString
             }
             let descriptor = FetchDescriptor<CardPerk>(
                 predicate: predicate,

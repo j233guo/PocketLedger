@@ -92,7 +92,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你本月收入%1$@, 支出%1$@。"
+            "value" : "你本月收入%1$@, 支出%2$@。"
           }
         }
       }

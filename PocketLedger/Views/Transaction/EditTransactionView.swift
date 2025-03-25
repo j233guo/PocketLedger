@@ -155,7 +155,7 @@ struct EditTransactionView: View {
                         
                         if paymentType != .cash {
                             Picker(paymentType?.localizedString ?? "", selection: $card) {
-                                Text("Select a Card")
+                                Text(String(localized: "Select a Card", table: "AddEditTransaction"))
                                     .tag(nil as Card?)
                                 if paymentType == .debit {
                                     ForEach(debitCards) { card in
