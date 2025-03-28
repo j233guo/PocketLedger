@@ -11,6 +11,10 @@ import SwiftData
 enum CardPerkType: String, Codable, CaseIterable {
     case cashback = "Cashback"
     case points = "Points"
+    
+    var localizedString: String {
+        String(localized: String.LocalizationValue(rawValue), table: "EnumRawValue")
+    }
 }
 
 @Model
@@ -19,7 +23,7 @@ class CardPerk {
     var value: Double
     var category: TransactionCategory?
     
-    @Relationship(deleteRule: .noAction) var card: Card
+    @Relationship(deleteRule: .noAction) var card: Card?
     
     init(card: Card, perkType: CardPerkType, value: Double, category: TransactionCategory? = nil) {
         self.card = card

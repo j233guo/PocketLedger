@@ -32,18 +32,18 @@ struct CategoryPickerView: View {
     }
     
     var body: some View {
-        Picker("Category", selection: $selectedCategory) {
+        Picker(String(localized: "Category", table: "Category"), selection: $selectedCategory) {
             if nameId == .transaction {
-                Text("Select a Category")
+                Text(String(localized: "Select a Category", table: "Category"))
                     .tag(nil as TransactionCategory?)
             } else if nameId == .cardperk {
-                Text("Everything")
+                Text(String(localized: "Everything", table: "Category"))
                     .tag(nil as TransactionCategory?)
             }
             ForEach(categories) { category in
                 HStack {
                     Image(systemName: category.icon)
-                    Text(category.name)
+                    Text(category.displayName)
                 }.tag(category as TransactionCategory?)
             }
         }

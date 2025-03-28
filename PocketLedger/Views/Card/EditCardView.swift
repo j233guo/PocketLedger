@@ -30,8 +30,8 @@ private struct AddPerkView: View {
             if expanded {
                 HStack {
                     let suffix = perkType == .cashback ? "%" : "x"
-                    Text("\(perkType.rawValue) Multiplier")
-                    TextField("Value", value: $value, formatter: valueFormatter)
+                    Text(String(localized: "\(perkType.localizedString) Multiplier", table: "AddEditCard"))
+                    TextField(String(localized: "\(perkType.localizedString) Multiplier", table: "AddEditCard"), value: $value, formatter: valueFormatter)
                         .textFieldStyle(.roundedBorder)
                         .multilineTextAlignment(.trailing)
                         .textFieldStyle(.plain)
@@ -49,7 +49,7 @@ private struct AddPerkView: View {
                             expanded = false
                         }
                     } label: {
-                        Text("Cancel")
+                        Text(String(localized: "Cancel", table: "Common"))
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderless)
@@ -65,11 +65,11 @@ private struct AddPerkView: View {
                     }
                 } label: {
                     if expanded {
-                        Text("Add")
+                        Text(String(localized: "Add", table: "Common"))
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity)
                     } else {
-                        Text("Add a New Perk")
+                        Text(String(localized: "Add a New Perk", table: "AddEditCard"))
                             .frame(maxWidth: .infinity)
                     }
                 }
@@ -111,7 +111,7 @@ struct EditCardView: View {
         self.card = card
         let idString = card.idString
         let predicate = #Predicate<CardPerk> {
-            $0.card.idString == idString
+            $0.card?.idString == idString
         }
         self._perksOnCard = Query(filter: predicate)
         
@@ -161,13 +161,13 @@ struct EditCardView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Card saved successfully",
+                message: String(localized: "Card saved successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving edited card: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
@@ -177,23 +177,23 @@ struct EditCardView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Card Name", text: $cardName)
+                    TextField(String(localized: "Card Name", table: "AddEditCard"), text: $cardName)
                         .onChange(of: cardName) {
                             showNameEmptyWarning = false
                         }
                 } header: {
-                    Text("Nickname for the card")
+                    Text(String(localized: "Name for the card", table: "AddEditCard"))
                 } footer: {
                     if showNameEmptyWarning {
-                        Text("Please enter a name for the card.")
+                        Text(String(localized: "Please enter a name for the card.", table: "AddEditCard"))
                             .foregroundStyle(.red)
                     }
                 }
                 
                 Section {
-                    Picker("Card Type", selection: $cardType) {
-                        Text("Debit").tag(CardType.debit)
-                        Text("Credit").tag(CardType.credit)
+                    Picker(String(localized: "Card Type", table: "AddEditCard"), selection: $cardType) {
+                        Text(CardType.debit.localizedString).tag(CardType.debit)
+                        Text(CardType.credit.localizedString).tag(CardType.credit)
                     }
                     .onChange(of: cardType) {
                         if cardType == card.cardType {
@@ -208,10 +208,10 @@ struct EditCardView: View {
                     }
                     
                     if cardType == .credit {
-                        Picker("Payment Network", selection: $paymentNetwork) {
-                            Text("VISA").tag(CardPaymentNetwork.visa)
-                            Text("Mastercard").tag(CardPaymentNetwork.mastercard)
-                            Text("American Express").tag(CardPaymentNetwork.amex)
+                        Picker(String(localized: "Payment Network", table: "AddEditCard"), selection: $paymentNetwork) {
+                            Text(CardPaymentNetwork.visa.localizedString).tag(CardPaymentNetwork.visa)
+                            Text(CardPaymentNetwork.mastercard.localizedString).tag(CardPaymentNetwork.mastercard)
+                            Text(CardPaymentNetwork.amex.localizedString).tag(CardPaymentNetwork.amex)
                         }
                     }
                 }
@@ -238,23 +238,21 @@ struct EditCardView: View {
                         showLastFourDigitsEmptyWarning = false
                     }
                 } header: {
-                    Text("Last four digits of the card")
+                    Text(String(localized: "Last four digits of the card", table: "AddEditCard"))
                 } footer: {
                     if showLastFourDigitsEmptyWarning {
-                        Text("Please enter the last four digits of the card.")
+                        Text(String(localized: "Please enter the last four digits of the card.", table: "AddEditCard"))
                             .foregroundStyle(.red)
                     } else {
-                        Text("For identifying purpose only.")
+                        Text(String(localized: "For identifying purpose only.", table: "AddEditCard"))
                     }
                 }
                 
                 if cardType == .credit {
                     Section {
-                        Picker("Card Perk Type", selection: $cardPerkType) {
-                            Text("Reward Points")
-                                .tag(CardPerkType.points)
-                            Text("Cash Back")
-                                .tag(CardPerkType.cashback)
+                        Picker(String(localized: "Card Perk Type", table: "AddEditCard"), selection: $cardPerkType) {
+                            Text(CardPerkType.points.localizedString).tag(CardPerkType.points)
+                            Text(CardPerkType.cashback.localizedString).tag(CardPerkType.cashback)
                         }
                         .onChange(of: cardPerkType) {
                             if cardPerkType != card.perkType && !perksOnCard.isEmpty {
@@ -262,19 +260,19 @@ struct EditCardView: View {
                             }
                         }
                     }
-                    .alert("Card Perk", isPresented: $showPerkResetAlert) {
-                        Button("Don't Proceed", role: .cancel) {
+                    .alert(String(localized: "Card Perk", table: "AddEditCard"), isPresented: $showPerkResetAlert) {
+                        Button(String(localized: "Don't Proceed", table: "AddEditCard"), role: .cancel) {
                             if let perkType = card.perkType {
                                 cardPerkType = perkType
                             }
                             showPerkResetAlert = false
                         }
-                        Button("Proceed", role: .destructive) {
+                        Button(String(localized: "Proceed", table: "AddEditCard"), role: .destructive) {
                             removeAllPerksOnCard()
                             showPerkResetAlert = false
                         }
                     } message: {
-                        Text("Changing perk type will clear all perks on this card.")
+                        Text(String(localized: "Changing perk type will clear all perks on this card.", table: "AddEditCard"))
                     }
                     
                     Section {
@@ -283,10 +281,10 @@ struct EditCardView: View {
                         }
                         .onDelete(perform: deletePerk)
                     } header: {
-                        Text("Perks on This card")
+                        Text(String(localized: "Perks on This card", table: "AddEditCard"))
                     } footer: {
                         if perksOnCard.isEmpty {
-                            Text("This card doesn't have any perks registered.")
+                            Text(String(localized: "This card doesn't have any perks registered.", table: "AddEditCard"))
                         }
                     }
                     
@@ -299,14 +297,14 @@ struct EditCardView: View {
                     ) { addCardPerk() }
                 }
             }
-            .navigationTitle("Edit Card")
+            .navigationTitle(String(localized: "Edit Card", table:"AddEditCard"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(String(localized: "Cancel", table: "Common")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { save() }
+                    Button(String(localized: "Done", table: "Common")) { save() }
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack {
@@ -322,7 +320,7 @@ struct EditCardView: View {
                                 addPerkValueFieldFocused = false
                             }
                         } label: {
-                            Text("Done").bold()
+                            Text(String(localized: "Done", table: "Common")).bold()
                         }
                     }
                 }

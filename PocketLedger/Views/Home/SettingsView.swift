@@ -17,17 +17,17 @@ struct SettingsView: View {
                     NavigationLink {
                         ManageCategoryView()
                     } label: {
-                        Text("Manage Transaction Categories")
+                        Text(String(localized: "Manage Transaction Categories", table: "Home"))
                     }
                 } header: {
-                    Text("Transaction Category")
+                    Text(String(localized: "Transaction Category", table: "Home"))
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(String(localized: "Settings", table:"Home"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button(String(localized: "Done", table: "Common")) { dismiss() }
                 }
             }
         }

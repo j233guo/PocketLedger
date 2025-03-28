@@ -36,7 +36,10 @@ struct TransactionListView: View {
                     try transactionPredicate.evaluate(transaction)
                 }
             } catch {
-                messageService.create(message: "Error when filtering transaction: \(error.localizedDescription)", type: .error)
+                messageService.create(
+                    message: String(localized: "Error filtering transactions: \(error.localizedDescription)", table: "Message"),
+                    type: .error
+                )
                 return []
             }
         }
@@ -55,16 +58,20 @@ struct TransactionListView: View {
                     showAddTransactionView = true
                 }
                 if transactions.isEmpty {
-                    TransactionListEmptyView(message: "Tap \"Add Transaction\" to log your first transaction.")
+                    TransactionListEmptyView(
+                        message: String(localized: "Tap \"Log Transaction\" to log your first transaction.", table: "TransactionList")
+                    )
                 } else {
                     if filteredTransactions.isEmpty {
-                        TransactionListEmptyView(message: "No transactions found based on your filter.")
+                        TransactionListEmptyView(
+                            message: String(localized: "No transactions found based on your filter.", table: "TransactionList")
+                        )
                     } else {
                         GroupedTransactionListView(transactions: filteredTransactions)
                     }
                 }
             }
-            .navigationTitle("Transactions")
+            .navigationTitle(String(localized: "Transactions", table: "TransactionList"))
             .sheet(isPresented: $showAddTransactionView) {
                 AddTransactionView()
             }

@@ -22,6 +22,10 @@ class TransactionCategory: Identifiable {
         set { transactionTypeRawValue = newValue.rawValue }
     }
     
+    var displayName: String {
+        isCustom ? name : String(localized: String.LocalizationValue(name), table: "DefaultCategory")
+    }
+    
     @Relationship(deleteRule: .nullify, inverse: \Transaction.category) var transactions: [Transaction]?
     @Relationship(deleteRule: .cascade, inverse: \CardPerk.category) var cardPerks: [CardPerk]?
     

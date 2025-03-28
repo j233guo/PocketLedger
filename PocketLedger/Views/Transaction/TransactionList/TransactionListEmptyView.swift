@@ -12,7 +12,7 @@ struct TransactionListEmptyView: View {
     
     var body: some View {
         VStack {
-            Text("Empty Transaction List")
+            Text(String(localized: "Empty Transaction List", table: "TransactionList"))
                 .font(.title)
             Text(message)
                 .font(.footnote)

@@ -17,10 +17,10 @@ private struct CardPerksListView: View {
                 CardPerkListRowView(perk: perk)
             }
         } header: {
-            Text("Perks on This card")
+            Text(String(localized: "Perks on This card", table: "CardDetail"))
         } footer: {
             if perks.isEmpty {
-                Text("This card doesn't have any perks registered.")
+                Text(String(localized: "This card doesn't have any perks registered.", table: "CardDetail"))
             }
         }
     }
@@ -33,11 +33,11 @@ struct CardPerkListRowView: View {
         HStack {
             CategoryIconView(category: perk.category)
                 .padding(.trailing, 5)
-            Text(perk.category?.name ?? "Everything")
+            Text(perk.category?.displayName ?? String(localized: "Everything", table: "Category"))
                 .font(.subheadline)
                 .fontWeight(.semibold)
             Spacer()
-            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.rawValue)")
+            Text("\(formattedRewardMultiplier(perk.perkType, perk.value))  \(perk.perkType.localizedString)")
         }
     }
 }
@@ -62,7 +62,7 @@ private struct RecentTransactionListRowView: View {
             HStack {
                 CategoryIconView(category: transaction.category, size: 15)
                     .padding(.trailing, 5)
-                Text(transaction.category?.name ?? "Uncategorized")
+                Text(transaction.category?.displayName ?? String(localized: "Uncategorized", table: "Category"))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Spacer()
@@ -70,7 +70,9 @@ private struct RecentTransactionListRowView: View {
                     Text("-\(formatCurrency(double: transaction.amount))")
                         .font(.subheadline)
                     if let rewardAmount = rewardAmount {
-                        let rewardString = transaction.card?.perkType == .cashback ? "\(formatCurrency(double: rewardAmount)) Cashback" : "\(rewardAmount.decimalStr(2)) Points"
+                        let rewardString = transaction.card?.perkType == .cashback ? 
+                            "\(formatCurrency(double: rewardAmount)) \(CardPerkType.cashback.localizedString)" :
+                            "\(rewardAmount.decimalStr(2)) \(CardPerkType.points.localizedString)"
                         Text("+\(rewardString)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -97,13 +99,13 @@ struct CardDetailView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Card deleted successfully",
+                message: String(localized: "Card removed successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving after deleting card: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
@@ -113,7 +115,7 @@ struct CardDetailView: View {
         do {
             let cardIDString = card.idString
             let predicate = #Predicate<CardPerk> { perk in
-                perk.card.idString == cardIDString
+                perk.card?.idString == cardIDString
             }
             let descriptor = FetchDescriptor<CardPerk>(
                 predicate: predicate,
@@ -122,7 +124,7 @@ struct CardDetailView: View {
             return try modelContext.fetch(descriptor)
         } catch {
             messageService.create(
-                message: "Encountered error when fetching perks on card: \(error.localizedDescription)",
+                message: String(localized: "Error fetching perks on card: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
             return []
@@ -143,7 +145,7 @@ struct CardDetailView: View {
             return try modelContext.fetch(descriptor)
         } catch {
             messageService.create(
-                message: "Encountered error when fetching recent transactions on card: \(error.localizedDescription)",
+                message: String(localized: "Error fetching recent transactions: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
             return []
@@ -177,11 +179,11 @@ struct CardDetailView: View {
                     if card.cardType == .credit {
                         Divider()
                         VStack {
-                            if let perkName = card.perkType?.rawValue {
-                                Text("Estimated Reward \(perkName) with Transactions")
+                            if let perk = card.perkType {
+                                Text(String(localized: "Estimated Reward \(perk.localizedString) with Transactions", table: "CardDetail"))
                                     .font(.subheadline)
                                     .foregroundStyle(.secondary)
-                                let rewardString = card.perkType == .cashback ? "\(formatCurrency(string: totalRewardsOnCardString))" : "\(totalRewardsOnCardString)"
+                                let rewardString = perk == .cashback ? "\(formatCurrency(string: totalRewardsOnCardString))" : "\(totalRewardsOnCardString)"
                                 Text("\(rewardString)")
                                     .font(.title2)
                                     .fontDesign(.monospaced)
@@ -205,10 +207,10 @@ struct CardDetailView: View {
                         }
                     }
                 } header: {
-                    Text("Recent Transactions")
+                    Text(String(localized: "Recent Transactions", table: "CardDetail"))
                 } footer: {
                     if recentTransactions.isEmpty {
-                        Text("This card doesn't have any transactions yet.")
+                        Text(String(localized: "This card doesn't have any transactions yet.", table: "CardDetail"))
                     }
                 }
                 
@@ -216,15 +218,15 @@ struct CardDetailView: View {
                     NavigationLink {
                         CardTransactionListView(card: card)
                     } label: {
-                        Text("All Transactions on This Card")
+                        Text(String(localized: "All Transactions on This Card", table: "CardDetail"))
                     }
                 }
                 
                 Section {
-                    Button("Edit Card") {
+                    Button(String(localized: "Edit Card", table: "CardDetail")) {
                         showEditCardView = true
                     }
-                    Button("Remove This Card", role: .destructive) {
+                    Button(String(localized: "Remove This Card", table: "CardDetail"), role: .destructive) {
                         showDeleteConfirmation = true
                     }
                 }
@@ -234,12 +236,12 @@ struct CardDetailView: View {
             .sheet(isPresented: $showEditCardView) {
                 EditCardView(card: card)
             }
-            .confirmationDialog("Delete Card", isPresented: $showDeleteConfirmation) {
-                Button("Confirm", role: .destructive) {
+            .confirmationDialog(String(localized: "Remove Card", table: "CardDetail"), isPresented: $showDeleteConfirmation) {
+                Button(String(localized: "Confirm", table: "Common"), role: .destructive) {
                     deleteCard()
                 }
             } message: {
-                Text("This card will be gone forever.")
+                Text(String(localized: "This card will be gone forever.", table: "CardDetail"))
             }
         }
     }

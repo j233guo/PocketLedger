@@ -54,12 +54,12 @@ struct AddCardView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Card added successfully!",
+                message: String(localized: "Card added successfully", table: "Message"),
                 type: .success
             )
         } catch {
             messageService.create(
-                message: "Encountered error when saving new card: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
@@ -70,24 +70,24 @@ struct AddCardView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Card Name", text: $cardName)
+                    TextField(String(localized: "Card Name", table: "AddEditCard"), text: $cardName)
                         .focused($nameFieldIsFocused)
                         .onChange(of: cardName) {
                             showNameEmptyWarning = false
                         }
                 } header: {
-                    Text("Nickname for the card")
+                    Text(String(localized: "Name for the card", table: "AddEditCard"))
                 } footer: {
                     if showNameEmptyWarning {
-                        Text("Please enter a name for the card.")
+                        Text(String(localized: "Please enter a name for the card.", table: "AddEditCard"))
                             .foregroundStyle(.red)
                     }
                 }
                 
                 Section {
-                    Picker("Card Type", selection: $cardType) {
-                        Text("Debit").tag(CardType.debit)
-                        Text("Credit").tag(CardType.credit)
+                    Picker(String(localized: "Card Type", table:"AddEditCard"), selection: $cardType) {
+                        Text(CardType.debit.localizedString).tag(CardType.debit)
+                        Text(CardType.credit.localizedString).tag(CardType.credit)
                     }
                     .onChange(of: cardType) {
                         if cardType == .debit {
@@ -98,10 +98,10 @@ struct AddCardView: View {
                     }
                     
                     if cardType == .credit {
-                        Picker("Payment Network", selection: $paymentNetwork) {
-                            Text("VISA").tag(CardPaymentNetwork.visa)
-                            Text("Mastercard").tag(CardPaymentNetwork.mastercard)
-                            Text("American Express").tag(CardPaymentNetwork.amex)
+                        Picker(String(localized: "Payment Network", table: "AddEditCard"), selection: $paymentNetwork) {
+                            Text(CardPaymentNetwork.visa.localizedString).tag(CardPaymentNetwork.visa)
+                            Text(CardPaymentNetwork.mastercard.localizedString).tag(CardPaymentNetwork.mastercard)
+                            Text(CardPaymentNetwork.amex.localizedString).tag(CardPaymentNetwork.amex)
                         }
                     }
                 }
@@ -128,39 +128,37 @@ struct AddCardView: View {
                         showLastFourDigitsEmptyWarning = false
                     }
                 } header: {
-                    Text("Last four digits of the card")
+                    Text(String(localized: "Last four digits of the card", table: "AddEditCard"))
                 } footer: {
                     if showLastFourDigitsEmptyWarning {
-                        Text("Please enter the last four digits of the card.")
+                        Text(String(localized: "Please enter the last four digits of the card.", table: "AddEditCard"))
                             .foregroundStyle(.red)
                     } else {
-                        Text("For identifying purpose only.")
+                        Text(String(localized: "For identifying purpose only.", table: "AddEditCard"))
                     }
                 }
                 
                 if cardType == .credit {
                     Section {
-                        Picker("Card Perk Type", selection: $cardPerkType) {
-                            Text("Reward Points")
-                                .tag(CardPerkType.points)
-                            Text("Cash Back")
-                                .tag(CardPerkType.cashback)
+                        Picker(String(localized: "Card Perk Type", table: "AddEditCard"), selection: $cardPerkType) {
+                            Text(CardPerkType.points.localizedString).tag(CardPerkType.points)
+                            Text(CardPerkType.cashback.localizedString).tag(CardPerkType.cashback)
                         }
                     } footer: {
-                        Text("You can add card perks later in the edit page.")
+                        Text(String(localized: "You can add card perks later in the edit page.", table: "AddEditCard"))
                     }
                 }
             }
-            .navigationTitle("Add a New Card")
+            .navigationTitle(String(localized: "Add a New Card", table:"AddEditCard"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") {
+                    Button(String(localized: "Save", table: "Common")) {
                         save()
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
+                    Button(String(localized: "Cancel", table: "Common")) {
                         dismiss()
                     }
                 }
@@ -175,7 +173,7 @@ struct AddCardView: View {
                                 lastFourDigitsFieldIsFocused = false
                             }
                         } label: {
-                            Text("Done").bold()
+                            Text(String(localized: "Done", table: "Common")).bold()
                         }
                     }
                 }

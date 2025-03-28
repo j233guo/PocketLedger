@@ -11,6 +11,10 @@ import SwiftData
 enum CardType: String, Codable, CaseIterable {
     case debit = "Debit"
     case credit = "Credit"
+    
+    var localizedString: String {
+        String(localized: String.LocalizationValue(rawValue), table: "EnumRawValue")
+    }
 }
 
 enum CardPaymentNetwork: String, Codable, CaseIterable {
@@ -18,6 +22,10 @@ enum CardPaymentNetwork: String, Codable, CaseIterable {
     case visa = "VISA"
     case mastercard = "Mastercard"
     case amex = "American Express"
+    
+    var localizedString: String {
+        String(localized: String.LocalizationValue(rawValue), table: "EnumRawValue")
+    }
 }
 
 @Model

@@ -97,13 +97,13 @@ struct AddTransactionView: View {
         do {
             try modelContext.save()
             messageService.create(
-                message: "Transaction added successfully!",
+                message: String(localized: "Transaction added successfully", table: "Message"),
                 type: .success
             )
             dismiss()
         } catch {
             messageService.create(
-                message: "Encountered error when saving transaction: \(error.localizedDescription)",
+                message: String(localized: "Error saving data: \(error.localizedDescription)", table: "Message"),
                 type: .error
             )
         }
@@ -113,17 +113,15 @@ struct AddTransactionView: View {
         NavigationStack {
             Form {
                 Section {
-                    Picker("Transaction Type", selection: $transactionType) {
-                        Text("Expense")
-                            .tag(TransactionType.expense)
-                        Text("Income")
-                            .tag(TransactionType.income)
+                    Picker(String(localized: "Transaction Type", table: "AddEditTransaction"), selection: $transactionType) {
+                        Text(TransactionType.expense.localizedString).tag(TransactionType.expense)
+                        Text(TransactionType.income.localizedString).tag(TransactionType.income)
                     }
                     .pickerStyle(.palette)
                     CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
                 } footer: {
                     if showCategoryEmptyWarning {
-                        Text("Please select a category.")
+                        Text(String(localized: "Please select a category.", table: "AddEditTransaction"))
                             .foregroundStyle(.red)
                     }
                 }
@@ -135,7 +133,7 @@ struct AddTransactionView: View {
                 }
                 
                 Section {
-                    TextField("Amount", value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    TextField(String(localized: "Amount", table: "AddEditTransaction"), value: $amount, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                         .kerning(2.0)
                         .font(.title)
                         .fontWeight(.semibold)
@@ -145,10 +143,10 @@ struct AddTransactionView: View {
                         .focused($amountInputFocused)
                         .keyboardType(.decimalPad)
                 } header: {
-                    Text("Amount")
+                    Text(String(localized: "Amount", table: "AddEditTransaction"))
                 } footer: {
                     if showAmountEmptyWarning {
-                        Text("Please enter a valid amount.")
+                        Text(String(localized: "Please enter a valid amount.", table: "AddEditTransaction"))
                             .foregroundStyle(.red)
                     }
                 }
@@ -156,21 +154,18 @@ struct AddTransactionView: View {
                     showAmountEmptyWarning = false
                 }
                 
-                DatePicker("Date", selection: $date, displayedComponents: .date)
+                DatePicker(String(localized: "Date", table: "AddEditTransaction"), selection: $date, displayedComponents: .date)
                     .datePickerStyle(.compact)
                 
                 if transactionType == .expense {
                     Section {
-                        Picker("Payment Type", selection: $paymentType) {
-                            Label("Cash", systemImage: "banknote")
-                                .tag(PaymentType.cash)
+                        Picker(String(localized: "Payment Type", table: "AddEditTransaction"), selection: $paymentType) {
+                            Label(PaymentType.cash.localizedString, systemImage: "banknote").tag(PaymentType.cash)
                             if !debitCards.isEmpty {
-                                Label("Debit", systemImage: "creditcard.and.123")
-                                    .tag(PaymentType.debit)
+                                Label(PaymentType.debit.localizedString, systemImage: "creditcard.and.123").tag(PaymentType.debit)
                             }
                             if !creditCards.isEmpty {
-                                Label("Credit Card", systemImage: "creditcard")
-                                    .tag(PaymentType.credit)
+                                Label(PaymentType.credit.localizedString, systemImage: "creditcard").tag(PaymentType.credit)
                             }
                         }
                         .pickerStyle(.menu)
@@ -180,18 +175,16 @@ struct AddTransactionView: View {
                         }
                         
                         if paymentType != .cash {
-                            Picker(paymentType == .debit ? "Debit Card" : "Credit Card", selection: $card) {
-                                Text("Select a Card")
+                            Picker(paymentType.localizedString, selection: $card) {
+                                Text(String(localized: "Select a Card", table: "AddEditTransaction"))
                                     .tag(nil as Card?)
                                 if paymentType == .debit {
                                     ForEach(debitCards) { card in
-                                        Text("\(card.name) ••••\(card.lastFourDigits)")
-                                            .tag(card as Card?)
+                                        Text("\(card.name) ••••\(card.lastFourDigits)").tag(card as Card?)
                                     }
                                 } else if paymentType == .credit {
                                     ForEach(creditCards) { card in
-                                        Text("\(card.name) ••••\(card.lastFourDigits)")
-                                            .tag(card as Card?)
+                                        Text("\(card.name) ••••\(card.lastFourDigits)").tag(card as Card?)
                                     }
                                 }
                             }
@@ -201,25 +194,25 @@ struct AddTransactionView: View {
                         }
                     } footer: {
                         if showCardEmptyWarning && paymentType != .cash {
-                            Text("Please select a card.")
+                            Text(String(localized: "Please select a card.", table: "AddEditTransaction"))
                                 .foregroundStyle(.red)
                         }
                     }
                 }
                 
-                Section("Notes") {
+                Section(String(localized: "Notes", table: "AddEditTransaction")) {
                     TextEditor(text: $note)
                         .focused($notesInputFocused)
                 }
             }
-            .navigationTitle("Add a New Transaction")
+            .navigationTitle(String(localized: "New Transaction", table: "AddEditTransaction"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { dismiss() }
+                    Button(String(localized: "Cancel", table: "Common")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Save") { save() }
+                    Button(String(localized: "Save", table: "Common")) { save() }
                 }
                 ToolbarItem(placement: .keyboard) {
                     HStack {
@@ -228,7 +221,7 @@ struct AddTransactionView: View {
                             amountInputFocused = false
                             notesInputFocused = false
                         } label: {
-                            Text("Done").bold()
+                            Text(String(localized: "Done", table: "Common")).bold()
                         }
                     }
                 }
