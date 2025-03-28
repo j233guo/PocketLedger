@@ -43,7 +43,7 @@ struct CategoryPickerView: View {
             ForEach(categories) { category in
                 HStack {
                     Image(systemName: category.icon)
-                    Text(category.name)
+                    Text(category.displayName)
                 }.tag(category as TransactionCategory?)
             }
         }

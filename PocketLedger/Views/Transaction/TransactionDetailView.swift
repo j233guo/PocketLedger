@@ -23,7 +23,7 @@ private struct TransactionInfoSection: View {
                     if let category = transaction.category {
                         HStack {
                             Image(systemName: category.icon)
-                            Text(category.name)
+                            Text(category.displayName)
                                 .font(.headline)
                                 .foregroundStyle(.secondary)
                         }

@@ -72,7 +72,7 @@ private struct CategoryListRowView: View {
     var body: some View {
         HStack {
             CategoryIconView(category: category)
-            Text(category.name)
+            Text(category.displayName)
                 .font(.headline)
                 .padding(.horizontal)
         }

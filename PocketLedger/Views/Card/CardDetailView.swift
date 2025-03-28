@@ -33,7 +33,7 @@ struct CardPerkListRowView: View {
         HStack {
             CategoryIconView(category: perk.category)
                 .padding(.trailing, 5)
-            Text(perk.category?.name ?? String(localized: "Everything", table: "Category"))
+            Text(perk.category?.displayName ?? String(localized: "Everything", table: "Category"))
                 .font(.subheadline)
                 .fontWeight(.semibold)
             Spacer()
@@ -62,7 +62,7 @@ private struct RecentTransactionListRowView: View {
             HStack {
                 CategoryIconView(category: transaction.category, size: 15)
                     .padding(.trailing, 5)
-                Text(transaction.category?.name ?? String(localized: "Uncategorized", table: "Category"))
+                Text(transaction.category?.displayName ?? String(localized: "Uncategorized", table: "Category"))
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 Spacer()
