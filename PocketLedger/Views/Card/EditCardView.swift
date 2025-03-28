@@ -118,6 +118,9 @@ struct EditCardView: View {
     }
     
     private func addCardPerk() {
+        if card.perkType == nil {
+            card.perkType = cardPerkType
+        }
         let newPerk = CardPerk(
             card: card,
             perkType: card.perkType!,
@@ -149,7 +152,7 @@ struct EditCardView: View {
         }
         guard !showNameEmptyWarning && !showLastFourDigitsEmptyWarning else { return }
         card.name = cardName
-        cardType = cardType
+        card.cardType = cardType
         card.paymentNetwork = paymentNetwork
         card.lastFourDigits = lastFourDigits
         if card.cardType == .credit {
