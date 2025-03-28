@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "常用"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "常用"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "主页"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "主畫面"
           }
         }
       }
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "记账"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增紀錄"
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "管理账目类别"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "管理項目分類"
           }
         }
       }
@@ -48,6 +72,12 @@
             "state" : "translated",
             "value" : "月度总结"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本月總覽"
+          }
         }
       }
     },
@@ -57,6 +87,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
           }
         }
       }
@@ -68,6 +104,12 @@
             "state" : "translated",
             "value" : "账目类别"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目分類"
+          }
         }
       }
     },
@@ -77,6 +119,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你这个月还没有记账。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你這個月還沒有記帳。"
           }
         }
       }
@@ -93,6 +141,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你本月收入%1$@, 支出%2$@。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你本月收入%1$@，支出%2$@。"
           }
         }
       }

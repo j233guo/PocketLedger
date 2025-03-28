@@ -9,6 +9,12 @@
             "state" : "translated",
             "value" : "美国运通"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "美國運通"
+          }
         }
       }
     },
@@ -19,6 +25,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "现金"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現金"
           }
         }
       }
@@ -31,6 +43,12 @@
             "state" : "translated",
             "value" : "返现"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現金回饋"
+          }
         }
       }
     },
@@ -38,6 +56,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "信用卡"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "信用卡"
@@ -53,6 +77,12 @@
             "state" : "translated",
             "value" : "借记卡"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金融卡"
+          }
         }
       }
     },
@@ -64,6 +94,12 @@
             "state" : "translated",
             "value" : "支出"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "支出"
+          }
         }
       }
     },
@@ -71,6 +107,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "收入"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "收入"
@@ -90,6 +132,12 @@
             "state" : "translated",
             "value" : "万事达"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "萬事達"
+          }
         }
       }
     },
@@ -100,6 +148,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "积分"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "點數"
           }
         }
       }

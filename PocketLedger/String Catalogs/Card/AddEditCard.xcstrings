@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "奖励%@倍数"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "回饋%@倍數"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加卡片"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增卡片"
           }
         }
       }
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "添加卡片福利"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增卡片權益"
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡片名称"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片名稱"
           }
         }
       }
@@ -48,6 +72,12 @@
             "state" : "translated",
             "value" : "卡片福利"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片權益"
+          }
         }
       }
     },
@@ -57,6 +87,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡片福利类型"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片權益類型"
           }
         }
       }
@@ -68,6 +104,12 @@
             "state" : "translated",
             "value" : "卡片类型"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片類型"
+          }
         }
       }
     },
@@ -78,12 +120,24 @@
             "state" : "translated",
             "value" : "更改卡片福利类型会清空当前卡上所有福利。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "更改卡片權益類型會清除卡上所有權益。"
+          }
         }
       }
     },
     "Don't Proceed" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消"
@@ -98,6 +152,12 @@
             "state" : "translated",
             "value" : "编辑卡片"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯卡片資料"
+          }
         }
       }
     },
@@ -107,6 +167,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "只做参考用途。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅為參考之用。"
           }
         }
       }
@@ -118,6 +184,12 @@
             "state" : "translated",
             "value" : "卡号后四位"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡號後四位"
+          }
         }
       }
     },
@@ -127,6 +199,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡片名称"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片名稱"
           }
         }
       }
@@ -138,6 +216,12 @@
             "state" : "translated",
             "value" : "卡组织"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡別"
+          }
         }
       }
     },
@@ -147,6 +231,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡片福利"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片權益"
           }
         }
       }
@@ -158,6 +248,12 @@
             "state" : "translated",
             "value" : "请给卡片取个名字。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請給卡片取個名字。"
+          }
         }
       }
     },
@@ -167,6 +263,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请输入卡号后四位。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請輸入卡號後四位。"
           }
         }
       }
@@ -178,6 +280,12 @@
             "state" : "translated",
             "value" : "继续"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "繼續"
+          }
         }
       }
     },
@@ -188,6 +296,12 @@
             "state" : "translated",
             "value" : "卡上目前没有福利。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡上無權益。"
+          }
         }
       }
     },
@@ -197,6 +311,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "之后可以在编辑卡片页面添加福利。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "之後可以在編輯卡片畫面新增權益。"
           }
         }
       }

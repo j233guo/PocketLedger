@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "添加自定义类别"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增自訂分類"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "类别"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分類"
           }
         }
       }
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "类别名称"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分類名稱"
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自定义类别"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂分類"
           }
         }
       }
@@ -49,6 +73,12 @@
             "state" : "translated",
             "value" : "自定义类别"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂分類"
+          }
         }
       }
     },
@@ -58,6 +88,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "默认类别"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設分類"
           }
         }
       }
@@ -69,6 +105,12 @@
             "state" : "translated",
             "value" : "默认类别无法删除。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設分類無法移除。"
+          }
         }
       }
     },
@@ -78,6 +120,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "教育和资讯"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "教育與資訊"
           }
         }
       }
@@ -89,6 +137,12 @@
             "state" : "translated",
             "value" : "娱乐"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "娛樂"
+          }
         }
       }
     },
@@ -99,12 +153,24 @@
             "state" : "translated",
             "value" : "所有类别"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "所有分類"
+          }
         }
       }
     },
     "Finance" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金融"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "金融"
@@ -119,6 +185,12 @@
             "state" : "translated",
             "value" : "餐饮"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "餐飲"
+          }
         }
       }
     },
@@ -128,6 +200,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "健康"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保健"
           }
         }
       }
@@ -139,6 +217,12 @@
             "state" : "translated",
             "value" : "爱好"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "愛好"
+          }
         }
       }
     },
@@ -149,12 +233,24 @@
             "state" : "translated",
             "value" : "图标"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "圖示"
+          }
         }
       }
     },
     "Miscellaneous" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "其他"
@@ -169,6 +265,12 @@
             "state" : "translated",
             "value" : "选择一个类别"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇一個分類"
+          }
         }
       }
     },
@@ -178,6 +280,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择一个图标"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇一個圖示"
           }
         }
       }
@@ -189,6 +297,12 @@
             "state" : "translated",
             "value" : "购物"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "購物"
+          }
         }
       }
     },
@@ -199,12 +313,24 @@
             "state" : "translated",
             "value" : "运动"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "運動"
+          }
         }
       }
     },
     "Tools and Utilities" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工具"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "工具"
@@ -219,6 +345,12 @@
             "state" : "translated",
             "value" : "账目类别"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目分類"
+          }
         }
       }
     },
@@ -228,6 +360,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "交易类型"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "交易類型"
           }
         }
       }
@@ -239,6 +377,12 @@
             "state" : "translated",
             "value" : "旅行和交通"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "旅行與交通"
+          }
         }
       }
     },
@@ -248,6 +392,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未归类"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未分類"
           }
         }
       }
@@ -259,6 +409,12 @@
             "state" : "translated",
             "value" : "你还没有设定自定义消费类别。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你還沒有設定自訂支出分類。"
+          }
         }
       }
     },
@@ -268,6 +424,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你还没有设定自定义收入类别。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你還沒有設定自訂收入分類。"
           }
         }
       }

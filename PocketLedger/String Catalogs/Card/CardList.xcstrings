@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "添加卡片"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增卡片"
+          }
         }
       }
     },
@@ -18,12 +24,24 @@
             "state" : "translated",
             "value" : "无卡片"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無卡片"
+          }
         }
       }
     },
     "My Cards" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我的卡片"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "我的卡片"
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "点“添加卡片”添加你的第一张卡"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按“新增卡片”加入你的首張卡片。"
           }
         }
       }

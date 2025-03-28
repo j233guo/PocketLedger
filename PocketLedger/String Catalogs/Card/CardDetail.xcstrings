@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "卡上的全部账目"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片上的全部項目"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "编辑卡片"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯卡片資料"
           }
         }
       }
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "交易预估奖励%@"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "交易預估回饋%@"
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡片福利"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡片權益"
           }
         }
       }
@@ -48,12 +72,24 @@
             "state" : "translated",
             "value" : "近期交易"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "近期交易項目"
+          }
         }
       }
     },
     "Remove Card" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除卡片"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "移除卡片"
@@ -68,6 +104,12 @@
             "state" : "translated",
             "value" : "移除卡片"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除這張卡片"
+          }
         }
       }
     },
@@ -77,6 +119,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "卡上还没有任何福利。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這張卡尚無任何權益。"
           }
         }
       }
@@ -88,6 +136,12 @@
             "state" : "translated",
             "value" : "卡上还没有任何记账记录。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這張卡尚無任何交易紀錄。"
+          }
         }
       }
     },
@@ -97,6 +151,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这张卡将被永久移除。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這張卡將被永久移除。"
           }
         }
       }

@@ -8,12 +8,24 @@
             "state" : "translated",
             "value" : "成功添加卡片"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功新增卡片"
+          }
         }
       }
     },
     "Card removed successfully" : {
       "localizations" : {
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功移除卡片"
+          }
+        },
+        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功移除卡片"
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "成功保存卡片"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "成功儲存卡片"
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "获取卡片福利出错：%@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "獲取卡片權益失敗：%@"
           }
         }
       }
@@ -48,6 +72,12 @@
             "state" : "translated",
             "value" : "获取近期交易出错：%@"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "獲取近期交易紀錄失敗：%@"
+          }
         }
       }
     },
@@ -57,6 +87,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "筛选支出账目出错：%@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "篩選支出項目失敗：%@"
           }
         }
       }
@@ -68,6 +104,12 @@
             "state" : "translated",
             "value" : "筛选收入账目出错：%@"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "篩選收入項目失敗：%@"
+          }
         }
       }
     },
@@ -77,6 +119,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "筛选账目出错：%@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "篩選交易紀錄失敗：%@"
           }
         }
       }
@@ -88,6 +136,12 @@
             "state" : "translated",
             "value" : "保存数据出错：%@"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "資料儲存失敗：%@"
+          }
         }
       }
     },
@@ -97,6 +151,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功添加账目"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目新增成功"
           }
         }
       }
@@ -108,6 +168,12 @@
             "state" : "translated",
             "value" : "成功删除账目"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目刪除成功"
+          }
         }
       }
     },
@@ -117,6 +183,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功保存账目"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目儲存成功"
           }
         }
       }

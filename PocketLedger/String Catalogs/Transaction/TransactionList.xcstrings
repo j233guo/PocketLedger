@@ -8,6 +8,12 @@
             "state" : "translated",
             "value" : "日期"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日期"
+          }
         }
       }
     },
@@ -17,6 +23,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无账目"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無項目"
           }
         }
       }
@@ -28,6 +40,12 @@
             "state" : "translated",
             "value" : "筛选"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "篩選"
+          }
         }
       }
     },
@@ -37,6 +55,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "记账"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增項目"
           }
         }
       }
@@ -48,6 +72,12 @@
             "state" : "translated",
             "value" : "根据筛选条件未找到任何账目。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "根據篩選條件未找到任何項目。"
+          }
         }
       }
     },
@@ -58,6 +88,12 @@
             "state" : "translated",
             "value" : "点“记账”来开始记账。"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "按“新增項目”來紀錄交易項目。"
+          }
         }
       }
     },
@@ -67,6 +103,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "账目"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目"
           }
         }
       }
