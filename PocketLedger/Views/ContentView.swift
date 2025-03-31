@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var selectedTab = "home"
     
     var body: some View {
-        ZStack(alignment: .top) {
+        ZStack(alignment: .bottom) {
             TabView(selection: $selectedTab) {
                 HomeView()
                     .tabItem {
@@ -41,6 +41,7 @@ struct ContentView: View {
                 )
                 .animation(.easeInOut(duration: 0.3), value: messageService.message)
                 .zIndex(1)
+                .offset(y: -65)
             }
         }
         .onAppear {
