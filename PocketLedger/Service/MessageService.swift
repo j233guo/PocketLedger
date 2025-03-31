@@ -9,10 +9,7 @@ import SwiftUI
 import UIKit
 
 enum MessageType {
-    case success
-    case error
-    case warning
-    case info
+    case success, error, warning, info
 }
 
 class MessageService: ObservableObject {
@@ -31,7 +28,7 @@ class MessageService: ObservableObject {
             self.message = message
             self.type = type
             
-            withAnimation {
+            withAnimation(.easeOut(duration: 0.5)) {
                 self.show = true
             }
             
@@ -48,7 +45,9 @@ class MessageService: ObservableObject {
             
             self.dismissTimer = Timer.scheduledTimer(withTimeInterval: duration, repeats: false) { _ in
                 DispatchQueue.main.async {
-                    self.show = false
+                    withAnimation(.easeIn(duration: 0.25)) {
+                        self.show = false
+                    }
                 }
             }
         }
