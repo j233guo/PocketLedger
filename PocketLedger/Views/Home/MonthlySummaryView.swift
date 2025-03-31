@@ -56,12 +56,12 @@ struct MonthlySummaryView: View {
     
     private var incomeChartData: ChartData {
         let totalIncome = incomeTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: TransactionType.income.localizedString, value: totalIncome, color: .green)
+        return ChartData(category: TransactionType.income.localizedString, value: totalIncome, color: Color("IncomeColor"))
     }
     
     private var expenseChartData: ChartData {
         let totalExpense = expenseTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: .orange)
+        return ChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: Color("ExpenseColor"))
     }
     
     var body: some View {
@@ -84,7 +84,7 @@ struct MonthlySummaryView: View {
                     VStack(alignment: .leading) {
                         HStack {
                             Circle()
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Color("IncomeColor"))
                                 .frame(width: 15, height: 15)
                             Text(TransactionType.income.localizedString)
                                 .font(.caption)
@@ -92,7 +92,7 @@ struct MonthlySummaryView: View {
                         }
                         HStack {
                             Circle()
-                                .foregroundStyle(.orange)
+                                .foregroundStyle(Color("ExpenseColor"))
                                 .frame(width: 15, height: 15)
                             Text(TransactionType.expense.localizedString)
                                 .font(.caption)

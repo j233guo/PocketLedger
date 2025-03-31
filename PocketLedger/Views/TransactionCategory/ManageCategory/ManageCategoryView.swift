@@ -167,6 +167,8 @@ struct ManageCategoryView: View {
                     Text(TransactionType.income.localizedString).tag(TransactionType.income)
                 }
                 .pickerStyle(.segmented)
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
                 
                 Section {
                     if transactionType == .expense {

@@ -11,36 +11,33 @@ private struct TransactionInfoSection: View {
     let transaction: Transaction
     
     var body: some View {
-        Section {
-            VStack(alignment: .center) {
-                let sign = transaction.transactionType == .expense ? "-" : "+"
-                    Text("\(sign)\(formatCurrency(double: transaction.amount))")
-                        .font(.largeTitle)
-                        .bold()
-                        .fontDesign(.monospaced)
-                        .padding()
-                    
-                    if let category = transaction.category {
-                        HStack {
-                            Image(systemName: category.icon)
-                            Text(category.displayName)
-                                .font(.headline)
-                                .foregroundStyle(.secondary)
-                        }
-                    } else {
-                        Text(String(localized: "Uncategorized Transaction", table: "TransactionDetail"))
-                            .font(.headline)
-                            .foregroundStyle(.secondary)
+        VStack(alignment: .center) {
+            let sign = transaction.transactionType == .expense ? "-" : "+"
+                Text("\(sign)\(formatCurrency(double: transaction.amount))")
+                    .font(.largeTitle)
+                    .bold()
+                    .fontDesign(.monospaced)
+                    .padding(.bottom)
+                
+                if let category = transaction.category {
+                    HStack {
+                        Image(systemName: category.icon)
+                        Text(category.displayName)
                     }
-                    
-                    Text(transaction.date.formatted(date: .long, time: .omitted))
-                        .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .font(.headline)
+                } else {
+                    Text(String(localized: "Uncategorized Transaction", table: "TransactionDetail"))
+                        .font(.headline)
                         .foregroundStyle(.secondary)
-                        .padding(.top, 2)
                 }
-                .padding()
-                .frame(maxWidth: .infinity)
+                
+                Text(transaction.date.formatted(date: .long, time: .omitted))
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 2)
             }
+            .frame(maxWidth: .infinity)
         }
     }
 
@@ -124,7 +121,10 @@ struct TransactionDetailView: View {
     var body: some View {
         NavigationStack {
             List {
-                TransactionInfoSection(transaction: transaction)
+                Section {
+                    TransactionInfoSection(transaction: transaction)
+                }
+                .listRowBackground(Color.clear)
                 
                 if transaction.transactionType == .expense && transaction.paymentType != .cash {
                     PaymentInfoSection(transaction: transaction)
@@ -139,13 +139,28 @@ struct TransactionDetailView: View {
                 }
                 
                 Section {
-                    Button(String(localized: "Edit Transaction", table: "TransactionDetail")) {
-                        showEditTransactionView = true
+                    HStack {
+                        Button(role: .destructive) {
+                            showDeleteConfirmation = true
+                        } label: {
+                            Text(String(localized: "Delete", table: "TransactionDetail"))
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        Button {
+                            showEditTransactionView = true
+                        } label: {
+                            Text(String(localized: "Edit", table: "TransactionDetail"))
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
-                    Button(String(localized: "Delete Transaction", table: "TransactionDetail"), role: .destructive) {
-                        showDeleteConfirmation = true
-                    }
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
+                    .frame(height: 44)
                 }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
             }
             .navigationTitle(String(localized: "Transaction Details", table: "TransactionDetail"))
             .navigationBarTitleDisplayMode(.inline)

@@ -20,10 +20,15 @@ struct HomeView: View {
                     Button {
                         showAddTransactionView = true
                     } label: {
-                        Text(String(localized: "Log Transaction", table: "Home"))
-                            .frame(maxWidth: .infinity)
+                        HStack {
+                            Image(systemName: "plus")
+                            Text(String(localized: "Log New Transaction", table: "Home"))
+                        }
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
                 }
                 .padding(.vertical)
                 

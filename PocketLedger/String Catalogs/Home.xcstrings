@@ -45,24 +45,24 @@
         }
       }
     },
-    "Log Transaction" : {
+    "Log New Transaction" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Log Transaction"
+            "value" : "Log New Transaction"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "记账"
+            "value" : "新增账目"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新增紀錄"
+            "value" : "新增項目"
           }
         }
       }

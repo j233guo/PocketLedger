@@ -21,15 +21,17 @@ struct TransactionListRowView: View {
             Text("\(sign)\(formatCurrency(double: transaction.amount))")
                 .font(.headline)
                 .fontDesign(.monospaced)
-                .foregroundStyle(transaction.transactionType == .expense ? .primary : Color.green)
+                .foregroundStyle(transaction.transactionType == .expense ? Color(hex: 0xB22222) : Color(hex: 0x006400))
         }
         .padding(5)
     }
 }
 
 #Preview {
-    let transaction = DefaultTransactionFactory.expenseExample
+    let expenseExample = DefaultTransactionFactory.expenseExample
+    let incomeExample = DefaultTransactionFactory.incomeExample
     List {
-        TransactionListRowView(transaction: transaction)
+        TransactionListRowView(transaction: expenseExample)
+        TransactionListRowView(transaction: incomeExample)
     }
 }

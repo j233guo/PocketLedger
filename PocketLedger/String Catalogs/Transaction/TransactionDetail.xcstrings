@@ -45,6 +45,28 @@
         }
       }
     },
+    "Delete" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除账目"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除項目"
+          }
+        }
+      }
+    },
     "Delete Transaction" : {
       "localizations" : {
         "en" : {
@@ -67,12 +89,12 @@
         }
       }
     },
-    "Edit Transaction" : {
+    "Edit" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Edit Transaction"
+            "value" : "Edit"
           }
         },
         "zh-Hans" : {

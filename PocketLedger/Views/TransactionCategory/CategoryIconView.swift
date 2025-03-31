@@ -33,7 +33,7 @@ struct CategoryIconView: View {
             .aspectRatio(contentMode: .fit)
             .frame(width: size, height: size)
             .padding(size / 5)
-            .background(transactionType == .income ? .green : .orange)
+            .background(transactionType == .income ? Color("IncomeColor") : Color("ExpenseColor"))
             .clipShape(RoundedRectangle(cornerRadius: size / 5))
             .foregroundColor(.white)
     }

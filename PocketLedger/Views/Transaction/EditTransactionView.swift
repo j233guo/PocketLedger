@@ -92,7 +92,11 @@ struct EditTransactionView: View {
                         Text(TransactionType.expense.localizedString).tag(TransactionType.expense)
                         Text(TransactionType.income.localizedString).tag(TransactionType.income)
                     }
-                    .pickerStyle(.palette)
+                    .pickerStyle(.segmented)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    
                     CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
                 } footer: {
                     if showCategoryEmptyWarning {

@@ -19,17 +19,17 @@ struct ContentView: View {
             TabView(selection: $selectedTab) {
                 HomeView()
                     .tabItem {
-                        Label(String(localized: "Home", table: "Common"), systemImage: "house")
+                        Image(systemName: "house")
                     }
                     .tag("home")
                 TransactionListView()
                     .tabItem {
-                        Label(String(localized: "Transactions", table:"Common"), systemImage: "dollarsign.ring.dashed")
+                        Image(systemName: "dollarsign.ring.dashed")
                     }
                     .tag("transactions")
                 CardListView()
                     .tabItem {
-                        Label(String(localized: "Cards", table: "Common"), systemImage: "creditcard")
+                        Image(systemName: "creditcard")
                     }
                     .tag("cards")
             }
