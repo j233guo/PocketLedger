@@ -18,8 +18,8 @@ private struct AddCategoryView: View {
     let addAction: () -> Void
     
     var body: some View {
-        Section {
-            if expanded {
+        if expanded {
+            Section {
                 HStack {
                     Text(String(localized: "Category Name", table: "Category"))
                     TextField(String(localized: "Category Name", table: "Category"), text: $name)
@@ -29,6 +29,8 @@ private struct AddCategoryView: View {
                 }
                 CategoryIconPickerView(type: transactionType, selectedIcon: $icon)
             }
+        }
+        Section {
             HStack {
                 if expanded {
                     Button {
@@ -37,9 +39,10 @@ private struct AddCategoryView: View {
                         }
                     } label: {
                         Text(String(localized: "Cancel", table: "Common"))
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .buttonStyle(.borderless)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
                     
                     Spacer()
                 }
@@ -54,15 +57,20 @@ private struct AddCategoryView: View {
                     if expanded {
                         Text(String(localized: "Add", table: "Common"))
                             .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
                         Text(String(localized: "Add a Custom Category", table: "Category"))
-                            .frame(maxWidth: .infinity)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
             }
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
         }
+        .listSectionSpacing(10)
     }
 }
 

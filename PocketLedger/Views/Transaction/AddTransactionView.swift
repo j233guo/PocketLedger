@@ -121,7 +121,10 @@ struct AddTransactionView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
-                    
+                }
+                .listSectionSpacing(5)
+                
+                Section {
                     CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
                 } footer: {
                     if showCategoryEmptyWarning {

@@ -26,8 +26,8 @@ private struct AddPerkView: View {
     }()
     
     var body: some View {
-        Section {
-            if expanded {
+        if expanded {
+            Section {
                 HStack {
                     let suffix = perkType == .cashback ? "%" : "x"
                     Text(String(localized: "\(perkType.localizedString) Multiplier", table: "AddEditCard"))
@@ -42,6 +42,9 @@ private struct AddPerkView: View {
                 }
                 CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
             }
+        }
+        
+        Section {
             HStack {
                 if expanded {
                     Button {
@@ -50,11 +53,10 @@ private struct AddPerkView: View {
                         }
                     } label: {
                         Text(String(localized: "Cancel", table: "Common"))
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .buttonStyle(.borderless)
-                    
-                    Spacer()
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
                 }
                 Button {
                     withAnimation {
@@ -67,15 +69,20 @@ private struct AddPerkView: View {
                     if expanded {
                         Text(String(localized: "Add", table: "Common"))
                             .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
                         Text(String(localized: "Add a New Perk", table: "AddEditCard"))
-                            .frame(maxWidth: .infinity)
+                            .font(.headline)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
             }
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
         }
+        .listSectionSpacing(10)
     }
 }
 
