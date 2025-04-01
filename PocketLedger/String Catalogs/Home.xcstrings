@@ -287,24 +287,24 @@
         }
       }
     },
-    "You have exceeded your budget by %@." : {
+    "You have exceeded your budget of %@ by %@." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You have exceeded your budget by %@."
+            "value" : "You have exceeded your budget of %1$@ by %2$@."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已经超出预算%@。"
+            "value" : "你的支出已超出预算%2$@，超支%1$@。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已經超出預算%@。"
+            "value" : "你的支出已超出預算%2$@，超支%1$@。"
           }
         }
       }

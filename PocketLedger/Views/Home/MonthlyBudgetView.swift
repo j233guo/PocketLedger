@@ -51,10 +51,21 @@ struct MonthlyBudgetView: View {
             ),
             MonoChartData(
                 category: "Remaining Budget",
-                value: monthlyBudget - totalMonthlyExpense,
+                value: max(monthlyBudget - totalMonthlyExpense, 0),
                 color: .blue
             )
         ]
+    }
+    
+    private func setMonthlyBudget() {
+        guard newBudget >= 0 else {
+            return
+        }
+        UserDefaults.standard.set(newBudget, forKey: "monthlyBudget")
+        budgetFieldFocused = false
+        withAnimation {
+            expandEditBudget = false
+        }
     }
     
     var body: some View {
@@ -63,15 +74,15 @@ struct MonthlyBudgetView: View {
                 Text(String(localized: "Monthly Budget", table: "Home"))
                     .font(.headline)
                 
+                let budget = formatCurrency(double: monthlyBudget)
                 if budgetExceeded {
                     let exceededAmount = formatCurrency(double: -(monthlyBudget - totalMonthlyExpense))
-                    Text(String(localized: "You have exceeded your budget by \(exceededAmount).", table: "Home"))
+                    Text(String(localized: "You have exceeded your budget of \(budget) by \(exceededAmount).", table: "Home"))
                         .font(.subheadline)
                         .padding(.top, 5)
                         .frame(maxWidth: .infinity)
                 } else {
                     let expense = formatCurrency(double: totalMonthlyExpense)
-                    let budget = formatCurrency(double: monthlyBudget)
                     Text(String(localized: "You've spent \(expense) of your \(budget) budget this month.", table: "Home"))
                         .font(.subheadline)
                         .padding(.top, 5)
@@ -136,10 +147,7 @@ struct MonthlyBudgetView: View {
                     Spacer()
                     Button {
                         if expandEditBudget {
-                            monthlyBudget = newBudget
-                            withAnimation {
-                                expandEditBudget = false
-                            }
+                            setMonthlyBudget()
                         } else {
                             newBudget = monthlyBudget
                             withAnimation {
