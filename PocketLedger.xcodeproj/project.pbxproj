@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C933D3672D9BC2B50015F937 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C933D3662D9BC2B50015F937 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C9C09FB62D7152A10071D39C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -24,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C933D3662D9BC2B50015F937 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C9C09FA52D7152A00071D39C /* PocketLedger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketLedger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C09FB52D7152A10071D39C /* PocketLedgerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketLedgerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9C09FBF2D7152A10071D39C /* PocketLedgerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketLedgerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 		C9C09F9C2D7152A00071D39C = {
 			isa = PBXGroup;
 			children = (
+				C933D3662D9BC2B50015F937 /* README.md */,
 				C9C09FA72D7152A00071D39C /* PocketLedger */,
 				C9C09FB82D7152A10071D39C /* PocketLedgerTests */,
 				C9C09FC22D7152A10071D39C /* PocketLedgerUITests */,
@@ -214,6 +220,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C933D3672D9BC2B50015F937 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
