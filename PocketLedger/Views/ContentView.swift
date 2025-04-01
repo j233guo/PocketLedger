@@ -5,6 +5,7 @@
 //  Created by Jiaming Guo on 2025-02-28.
 //
 
+import Combine
 import SwiftUI
 
 private enum MainTab: String, CaseIterable {
@@ -36,10 +37,10 @@ private struct TabButton: View {
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    
     @EnvironmentObject var messageService: MessageService
     
     @State private var selectedTab: MainTab = .home
+    @StateObject private var keyboardResponder = KeyboardResponder()
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -69,16 +70,18 @@ struct ContentView: View {
                     .offset(y: -5)
                 }
                 
-                HStack {
-                    ForEach(MainTab.allCases, id: \.self) {
-                        Spacer()
-                        TabButton(tab: $0, selectedTab: $selectedTab)
-                        Spacer()
+                if !keyboardResponder.isVisible {
+                    HStack {
+                        ForEach(MainTab.allCases, id: \.self) {
+                            Spacer()
+                            TabButton(tab: $0, selectedTab: $selectedTab)
+                            Spacer()
+                        }
                     }
+                    .padding(.vertical, 10)
+                    .background(.thinMaterial)
+                    .shadow(radius: 2)
                 }
-                .padding(.top, 12)
-                .background(.thinMaterial)
-                .shadow(radius: 2)
             }
         }
         .onAppear {

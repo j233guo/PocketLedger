@@ -1,6 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Budget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Budget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "预算"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預算"
+          }
+        }
+      }
+    },
     "Commonly Used" : {
       "localizations" : {
         "en" : {
@@ -19,6 +41,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "常用"
+          }
+        }
+      }
+    },
+    "Edit Budget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Budget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑预算"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯預算"
           }
         }
       }
@@ -89,6 +133,28 @@
         }
       }
     },
+    "Monthly Budget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly Budget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本月预算"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本月預算"
+          }
+        }
+      }
+    },
     "Monthly Summary" : {
       "localizations" : {
         "en" : {
@@ -107,6 +173,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本月總覽"
+          }
+        }
+      }
+    },
+    "New Budget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Budget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新设预算"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新設預算"
+          }
+        }
+      }
+    },
+    "Set Budget" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set Budget"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设为预算"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定預算"
           }
         }
       }
@@ -177,6 +287,28 @@
         }
       }
     },
+    "You have exceeded your budget by %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have exceeded your budget by %@."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已经超出预算%@。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已經超出預算%@。"
+          }
+        }
+      }
+    },
     "You received %@ and spent %@ this month." : {
       "localizations" : {
         "en" : {
@@ -195,6 +327,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "你本月收入%1$@，支出%2$@。"
+          }
+        }
+      }
+    },
+    "You've spent %@ of your %@ budget." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You've spent %1$@ of your %2$@ budget."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已经花费了%2$@预算中的%1$@."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "你已經花費了%2$@預算中的%1$@。"
           }
         }
       }

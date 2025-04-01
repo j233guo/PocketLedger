@@ -34,11 +34,14 @@ struct HomeView: View {
                 
                 MonthlySummaryView()
                     .padding(.vertical)
+                
+                MonthlyBudgetView()
+                    .padding(.vertical)
             }
             .listStyle(.plain)
             .navigationTitle(String(localized: "Home", table: "Home"))
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Settings", systemImage: "gearshape") {
                         showSettingsView = true
                     }

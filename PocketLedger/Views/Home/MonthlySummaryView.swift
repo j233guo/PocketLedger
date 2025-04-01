@@ -54,14 +54,14 @@ struct MonthlySummaryView: View {
         }
     }
     
-    private var incomeChartData: ChartData {
+    private var incomeChartData: MonoChartData {
         let totalIncome = incomeTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: TransactionType.income.localizedString, value: totalIncome, color: Color("IncomeColor"))
+        return MonoChartData(category: TransactionType.income.localizedString, value: totalIncome, color: Color("IncomeColor"))
     }
     
-    private var expenseChartData: ChartData {
+    private var expenseChartData: MonoChartData {
         let totalExpense = expenseTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: Color("ExpenseColor"))
+        return MonoChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: Color("ExpenseColor"))
     }
     
     var body: some View {

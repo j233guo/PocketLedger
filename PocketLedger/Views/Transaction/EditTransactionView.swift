@@ -200,6 +200,17 @@ struct EditTransactionView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(String(localized: "Done", table: "Common")) { save() }
                 }
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button {
+                            amountInputFocused = false
+                            notesInputFocused = false
+                        } label: {
+                            Text(String(localized: "Done", table: "Common")).bold()
+                        }
+                    }
+                }
             }
             .onAppear {
                 transactionType = transaction.transactionType

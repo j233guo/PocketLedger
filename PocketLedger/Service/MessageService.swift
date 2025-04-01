@@ -12,7 +12,7 @@ enum MessageType {
     case success, error, warning, info
 }
 
-class MessageService: ObservableObject {
+final class MessageService: ObservableObject {
     @Published var show: Bool = false
     @Published var message: String = ""
     @Published var type: MessageType = .success
