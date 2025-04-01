@@ -60,7 +60,7 @@ struct MessageBannerView: View {
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 3)
         .padding(.horizontal)
-        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
+        .transition(.move(edge: .bottom).combined(with: .opacity))
     }
 }
 

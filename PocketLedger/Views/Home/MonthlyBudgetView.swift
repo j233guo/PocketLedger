@@ -66,17 +66,19 @@ struct MonthlyBudgetView: View {
                 if budgetExceeded {
                     let exceededAmount = formatCurrency(double: -(monthlyBudget - totalMonthlyExpense))
                     Text(String(localized: "You have exceeded your budget by \(exceededAmount).", table: "Home"))
+                        .font(.subheadline)
                         .padding(.top, 5)
                         .frame(maxWidth: .infinity)
                 } else {
                     let expense = formatCurrency(double: totalMonthlyExpense)
                     let budget = formatCurrency(double: monthlyBudget)
-                    Text(String(localized: "You've spent \(expense) of your \(budget) budget.", table: "Home"))
+                    Text(String(localized: "You've spent \(expense) of your \(budget) budget this month.", table: "Home"))
+                        .font(.subheadline)
                         .padding(.top, 5)
                         .frame(maxWidth: .infinity)
                 }
                 
-                Group {
+                HStack {
                     GeometryReader { geometry in
                         HStack {
                             Spacer()
@@ -85,6 +87,7 @@ struct MonthlyBudgetView: View {
                         }
                     }
                 }
+                .padding(.vertical)
                 .frame(maxWidth: .infinity)
                 
                 
@@ -105,7 +108,7 @@ struct MonthlyBudgetView: View {
                             .buttonBorderShape(.circle)
                             TextField(String(localized: "Budget", table: "Home"), value: $newBudget, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                                 .kerning(2.0)
-                                .font(.title)
+                                .font(.title2)
                                 .fontWeight(.semibold)
                                 .fontDesign(.monospaced)
                                 .multilineTextAlignment(.center)
@@ -122,35 +125,37 @@ struct MonthlyBudgetView: View {
                             .buttonBorderShape(.circle)
                             Spacer()
                         }
-                        
-                        HStack {
-                            Spacer()
-                            Button {
-                                monthlyBudget = newBudget
-                                withAnimation(.easeInOut) {
-                                    expandEditBudget = false
-                                }
-                            } label: {
-                                Text(String(localized: "Set Budget", table: "Home"))
-                            }
-                            .buttonStyle(.bordered)
-                            .buttonBorderShape(.capsule)
-                        }
                     }
-                } else {
-                    HStack {
-                        Spacer()
-                        Button {
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .bottom).combined(with: .opacity),
+                        removal: .move(edge: .top).combined(with: .opacity)
+                    ))
+                }
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        if expandEditBudget {
+                            monthlyBudget = newBudget
+                            withAnimation {
+                                expandEditBudget = false
+                            }
+                        } else {
                             newBudget = monthlyBudget
-                            withAnimation(.easeInOut) {
+                            withAnimation {
                                 expandEditBudget = true
                             }
-                        } label: {
-                            Text(String(localized: "Edit Budget", table: "Home"))
                         }
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.capsule)
+                    } label: {
+                        if expandEditBudget {
+                            Text(String(localized: "Set Budget", table: "Home"))
+                        } else {
+                            Text(String(localized: "Edit Budget", table: "Home"))
+                                .font(.footnote)
+                        }
                     }
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
                 }
             }
             .toolbar {

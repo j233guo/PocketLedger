@@ -39,6 +39,7 @@ struct HomeView: View {
                     .padding(.vertical)
             }
             .listStyle(.plain)
+            .contentMargins(.bottom, 100)
             .navigationTitle(String(localized: "Home", table: "Home"))
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

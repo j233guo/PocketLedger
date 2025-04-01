@@ -246,6 +246,7 @@ struct CardDetailView: View {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
             }
+            .contentMargins(.bottom, 100)
             .navigationTitle(card.name)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showEditCardView) {

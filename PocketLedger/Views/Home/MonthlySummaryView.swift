@@ -70,14 +70,17 @@ struct MonthlySummaryView: View {
                 .font(.headline)
             if transactions.isEmpty {
                 Text(String(localized: "You don’t have any transactions this month yet.", table: "Home"))
+                    .font(.subheadline)
                     .padding(.top, 5)
                     .frame(maxWidth: .infinity)
             } else {
                 let incomes = formatCurrency(double: incomeChartData.value)
                 let expenses = formatCurrency(double: expenseChartData.value)
                 Text(String(localized: "You received \(incomes) and spent \(expenses) this month.", table: "Home"))
+                    .font(.subheadline)
                     .padding(.top, 5)
                     .frame(maxWidth: .infinity)
+
                 HStack(alignment: .center) {
                     PieChartView(data: [incomeChartData, expenseChartData], size: 100)
                         .padding(.trailing)

@@ -71,6 +71,7 @@ struct CardListView: View {
                         }
                     }
                     .listStyle(.insetGrouped)
+                    .contentMargins(.bottom, 100)
                 }
             }
             .navigationTitle(String(localized: "My Cards", table: "CardList"))

@@ -331,24 +331,24 @@
         }
       }
     },
-    "You've spent %@ of your %@ budget." : {
+    "You've spent %@ of your %@ budget this month." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "You've spent %1$@ of your %2$@ budget."
+            "value" : "You've spent %1$@ of your %2$@ budget this month."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已经花费了%2$@预算中的%1$@."
+            "value" : "这个月你已经花费了%2$@预算中的%1$@。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "你已經花費了%2$@預算中的%1$@。"
+            "value" : "這個月你已經花費了%2$@預算中的%1$@。"
           }
         }
       }

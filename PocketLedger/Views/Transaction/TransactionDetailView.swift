@@ -162,6 +162,7 @@ struct TransactionDetailView: View {
                 .listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
             }
+            .contentMargins(.bottom, 100)
             .navigationTitle(String(localized: "Transaction Details", table: "TransactionDetail"))
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showEditTransactionView) {
