@@ -70,7 +70,7 @@ struct ContentView: View {
                     .offset(y: -5)
                 }
                 
-                if !keyboardResponder.isVisible {
+                if !keyboardResponder.keyboardVisible {
                     HStack {
                         ForEach(MainTab.allCases, id: \.self) {
                             Spacer()

@@ -28,19 +28,22 @@ import SwiftUI
 /// }
 /// ```
 final class KeyboardResponder: ObservableObject {
-    @Published var isVisible: Bool = false
+    @Published var keyboardVisible: Bool = false
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
-            .sink { _ in
-                self.isVisible = true
-            }
-            .store(in: &cancellables)
+        let keyboardWillShow = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .map { _ in true }
+        let keyboardWillHide = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .map { _ in false }
         
-        NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-            .sink { _ in
-                self.isVisible = false
+        Publishers.Merge(keyboardWillShow, keyboardWillHide)
+            .receive(on: RunLoop.main)
+            .sink { [weak self] visible in
+                // Defer the update to the next run loop iteration
+                DispatchQueue.main.async {
+                    self?.keyboardVisible = visible
+                }
             }
             .store(in: &cancellables)
     }
