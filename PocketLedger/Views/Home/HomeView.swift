@@ -20,20 +20,29 @@ struct HomeView: View {
                     Button {
                         showAddTransactionView = true
                     } label: {
-                        Text(String(localized: "Log Transaction", table: "Home"))
-                            .frame(maxWidth: .infinity)
+                        HStack {
+                            Image(systemName: "plus")
+                            Text(String(localized: "Log New Transaction", table: "Home"))
+                        }
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    .buttonStyle(.borderedProminent)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
                 }
                 .padding(.vertical)
                 
                 MonthlySummaryView()
                     .padding(.vertical)
+                
+                MonthlyBudgetView()
+                    .padding(.vertical)
             }
             .listStyle(.plain)
+            .contentMargins(.bottom, 100)
             .navigationTitle(String(localized: "Home", table: "Home"))
             .toolbar {
-                ToolbarItem {
+                ToolbarItem(placement: .topBarTrailing) {
                     Button("Settings", systemImage: "gearshape") {
                         showSettingsView = true
                     }

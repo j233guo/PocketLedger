@@ -54,14 +54,14 @@ struct MonthlySummaryView: View {
         }
     }
     
-    private var incomeChartData: ChartData {
+    private var incomeChartData: MonoChartData {
         let totalIncome = incomeTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: TransactionType.income.localizedString, value: totalIncome, color: .green)
+        return MonoChartData(category: TransactionType.income.localizedString, value: totalIncome, color: Color("IncomeColor"))
     }
     
-    private var expenseChartData: ChartData {
+    private var expenseChartData: MonoChartData {
         let totalExpense = expenseTransactions.reduce(0.0) { $0 + $1.amount }
-        return ChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: .orange)
+        return MonoChartData(category: TransactionType.expense.localizedString, value: totalExpense, color: Color("ExpenseColor"))
     }
     
     var body: some View {
@@ -70,21 +70,24 @@ struct MonthlySummaryView: View {
                 .font(.headline)
             if transactions.isEmpty {
                 Text(String(localized: "You don’t have any transactions this month yet.", table: "Home"))
+                    .font(.subheadline)
                     .padding(.top, 5)
                     .frame(maxWidth: .infinity)
             } else {
                 let incomes = formatCurrency(double: incomeChartData.value)
                 let expenses = formatCurrency(double: expenseChartData.value)
                 Text(String(localized: "You received \(incomes) and spent \(expenses) this month.", table: "Home"))
+                    .font(.subheadline)
                     .padding(.top, 5)
                     .frame(maxWidth: .infinity)
+
                 HStack(alignment: .center) {
                     PieChartView(data: [incomeChartData, expenseChartData], size: 100)
                         .padding(.trailing)
                     VStack(alignment: .leading) {
                         HStack {
                             Circle()
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Color("IncomeColor"))
                                 .frame(width: 15, height: 15)
                             Text(TransactionType.income.localizedString)
                                 .font(.caption)
@@ -92,7 +95,7 @@ struct MonthlySummaryView: View {
                         }
                         HStack {
                             Circle()
-                                .foregroundStyle(.orange)
+                                .foregroundStyle(Color("ExpenseColor"))
                                 .frame(width: 15, height: 15)
                             Text(TransactionType.expense.localizedString)
                                 .font(.caption)

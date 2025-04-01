@@ -92,7 +92,14 @@ struct EditTransactionView: View {
                         Text(TransactionType.expense.localizedString).tag(TransactionType.expense)
                         Text(TransactionType.income.localizedString).tag(TransactionType.income)
                     }
-                    .pickerStyle(.palette)
+                    .pickerStyle(.segmented)
+                    .listRowInsets(EdgeInsets())
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                }
+                .listSectionSpacing(5)
+                
+                Section {
                     CategoryPickerView(selectedCategory: $transactionCategory, transactionType: transactionType)
                 } footer: {
                     if showCategoryEmptyWarning {
@@ -192,6 +199,17 @@ struct EditTransactionView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button(String(localized: "Done", table: "Common")) { save() }
+                }
+                ToolbarItem(placement: .keyboard) {
+                    HStack {
+                        Spacer()
+                        Button {
+                            amountInputFocused = false
+                            notesInputFocused = false
+                        } label: {
+                            Text(String(localized: "Done", table: "Common")).bold()
+                        }
+                    }
                 }
             }
             .onAppear {

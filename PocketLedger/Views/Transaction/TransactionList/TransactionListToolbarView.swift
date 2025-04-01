@@ -25,22 +25,32 @@ struct TransactionListToolbarView: View {
                             filterExpanded.toggle()
                         }
                     } label: {
-                        Label(String(localized: "Filter", table: "TransactionList"), systemImage: "line.3.horizontal.decrease")
-                            .frame(maxWidth: .infinity)
+                        HStack {
+                            Image(systemName: "line.3.horizontal.decrease")
+                            Text(String(localized: "Filter", table: "TransactionList"))
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
                 }
                 
                 if withAdd {
                     Button {
                         onAddTransaction()
                     } label: {
-                        Label(String(localized: "Log Transaction", table: "TransactionList"), systemImage: "plus")
-                            .frame(maxWidth: .infinity)
+                        HStack {
+                            Image(systemName: "plus")
+                            Text(String(localized: "Log Transaction", table: "TransactionList"))
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
                 }
             }
+            .fontWeight(.semibold)
             .frame(maxWidth: .infinity)
             
             if filterExpanded {

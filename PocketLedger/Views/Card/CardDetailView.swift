@@ -223,14 +223,30 @@ struct CardDetailView: View {
                 }
                 
                 Section {
-                    Button(String(localized: "Edit Card", table: "CardDetail")) {
-                        showEditCardView = true
+                    HStack {
+                        Button(role: .destructive) {
+                            showDeleteConfirmation = true
+                        } label: {
+                            Text(String(localized: "Remove Card", table: "CardDetail"))
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        Button {
+                            showEditCardView = true
+                        } label: {
+                            Text(String(localized: "Edit Card", table: "CardDetail"))
+                                .font(.headline)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
                     }
-                    Button(String(localized: "Remove This Card", table: "CardDetail"), role: .destructive) {
-                        showDeleteConfirmation = true
-                    }
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
+                    .frame(height: 44)
                 }
+                .listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
             }
+            .contentMargins(.bottom, 100)
             .navigationTitle(card.name)
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showEditCardView) {

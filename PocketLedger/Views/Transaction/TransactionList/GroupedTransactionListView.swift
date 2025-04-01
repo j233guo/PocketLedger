@@ -35,6 +35,7 @@ struct GroupedTransactionListView: View {
                 }
             }
         }
+        .contentMargins(.bottom, 100)
     }
 }
 

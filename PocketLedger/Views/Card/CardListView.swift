@@ -41,8 +41,10 @@ struct CardListView: View {
                             Label(String(localized: "Add Card", table: "CardList"), systemImage: "plus")
                                 .frame(maxWidth: .infinity)
                         }
-                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(.bordered)
+                        .buttonBorderShape(.capsule)
                     }
+                    .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
                     Divider()
                 }
@@ -69,6 +71,7 @@ struct CardListView: View {
                         }
                     }
                     .listStyle(.insetGrouped)
+                    .contentMargins(.bottom, 100)
                 }
             }
             .navigationTitle(String(localized: "My Cards", table: "CardList"))
