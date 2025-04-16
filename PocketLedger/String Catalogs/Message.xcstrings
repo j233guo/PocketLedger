@@ -24,7 +24,6 @@
       }
     },
     "Card removed successfully" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -69,7 +68,6 @@
       }
     },
     "Error fetching perks on card: %@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -92,7 +90,6 @@
       }
     },
     "Error fetching recent transactions: %@" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -247,7 +244,6 @@
       }
     },
     "Transaction saved successfully" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -442,6 +442,28 @@
         }
       }
     },
+    "There is already a category with this name." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is already a category with this name."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已经有一个同名的类别了。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已經有一個同名的分類了。"
+          }
+        }
+      }
+    },
     "Tools and Utilities" : {
       "localizations" : {
         "en" : {

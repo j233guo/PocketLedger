@@ -12,10 +12,11 @@ private struct AddPerkView: View {
     @Binding var expanded: Bool
     @Binding var value: Double
     @Binding var category: TransactionCategory?
+    @Binding var showDuplicateCategoryWarning: Bool
     @FocusState.Binding var valueFieldFocused: Bool
     
     let perkType: CardPerkType
-    let addAction: () -> Void
+    let addAction: () -> Bool
     
     private let valueFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -31,6 +32,7 @@ private struct AddPerkView: View {
                 Button {
                     withAnimation {
                         expanded = false
+                        showDuplicateCategoryWarning = false
                     }
                 } label: {
                     Text(String(localized: "Cancel", table: "Common"))
@@ -47,8 +49,12 @@ private struct AddPerkView: View {
                 
                 Button {
                     withAnimation {
-                        addAction()
-                        expanded = false
+                        if addAction() {
+                            expanded = false
+                            showDuplicateCategoryWarning = false
+                        } else {
+                            showDuplicateCategoryWarning = true
+                        }
                     }
                 } label: {
                     Text(expanded ? String(localized: "Add", table: "Common") :
@@ -102,6 +108,11 @@ private struct AddPerkView: View {
                 }
                 CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
             }
+        } footer: {
+            if showDuplicateCategoryWarning {
+                Text(String(localized: "There is already a perk with this category.", table: "AddEditCard"))
+                    .foregroundStyle(.red)
+            }
         }
     }
     
@@ -135,6 +146,7 @@ struct EditCardView: View {
     @State private var addPerkExpanded = false
     @State private var addPerkValue: Double = 1.0
     @State private var addPerkCategory: TransactionCategory? = nil
+    @State private var showPerkDuplicateCategoryWarning: Bool = false
     
     @FocusState private var nameFieldIsFocused: Bool
     @FocusState private var lastFourDigitsFieldIsFocused: Bool
@@ -153,9 +165,12 @@ struct EditCardView: View {
         self._perksOnCard = Query(filter: predicate)
     }
     
-    private func addCardPerk() {
+    private func addCardPerk() -> Bool {
         if card.perkType == nil {
             card.perkType = cardPerkType
+        }
+        if card.perks?.firstIndex(where: { $0.category?.id == addPerkCategory?.id }) != nil {
+            return false
         }
         let newPerk = CardPerk(
             card: card,
@@ -164,6 +179,7 @@ struct EditCardView: View {
             category: addPerkCategory
         )
         modelContext.insert(newPerk)
+        return true
     }
     
     private func deletePerk(at offsets: IndexSet) {
@@ -332,6 +348,7 @@ struct EditCardView: View {
                         expanded: $addPerkExpanded,
                         value: $addPerkValue,
                         category: $addPerkCategory,
+                        showDuplicateCategoryWarning: $showPerkDuplicateCategoryWarning,
                         valueFieldFocused: $addPerkValueFieldFocused,
                         perkType: cardPerkType
                     ) { addCardPerk() }

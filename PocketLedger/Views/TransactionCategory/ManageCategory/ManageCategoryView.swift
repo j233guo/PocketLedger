@@ -13,9 +13,10 @@ private struct AddCategoryView: View {
     let transactionType: TransactionType
     @Binding var icon: String
     @Binding var name: String
+    @Binding var showCategoryNameDuplicatedWarning: Bool
     @FocusState.Binding var nameFieldFocused: Bool
     
-    let addAction: () -> Void
+    let addAction: () -> Bool
     
     var addCategoryButton: some View {
         HStack {
@@ -23,6 +24,7 @@ private struct AddCategoryView: View {
                 Button {
                     withAnimation {
                         expanded = false
+                        showCategoryNameDuplicatedWarning = false
                     }
                 } label: {
                     Text(String(localized: "Cancel", table: "Common"))
@@ -39,8 +41,12 @@ private struct AddCategoryView: View {
                 
                 Button {
                     withAnimation {
-                        addAction()
-                        expanded = false
+                        if addAction() {
+                            expanded = false
+                            showCategoryNameDuplicatedWarning = false
+                        } else {
+                            showCategoryNameDuplicatedWarning = true
+                        }
                     }
                 } label: {
                     Text(String(localized: "Add", table: "Common"))
@@ -86,6 +92,11 @@ private struct AddCategoryView: View {
                         .focused($nameFieldFocused)
                 }
                 CategoryIconPickerView(type: transactionType, selectedIcon: $icon)
+            } footer: {
+                if showCategoryNameDuplicatedWarning {
+                    Text(String(localized: "There is already a category with this name.", table: "Category"))
+                        .foregroundStyle(.red)
+                }
             }
         }
         Section {
@@ -119,6 +130,7 @@ struct ManageCategoryView: View {
     @State private var addCategoryViewExpanded = false
     @State private var newCategoryIconName = "ellipsis"
     @State private var newCategoryName: String
+    @State private var showCategoryNameDuplicateWarning: Bool = false
     
     @FocusState private var newCategoryNameFieldFocused: Bool
     
@@ -147,13 +159,16 @@ struct ManageCategoryView: View {
         _newCategoryName = State(initialValue: String(localized: "Custom Category", table: "Category"))
     }
     
-    private func addCategory() {
+    private func addCategory() -> Bool {
         do {
             // Get the largest index among all categories
             let fetchDescriptor = FetchDescriptor<TransactionCategory>(
                 sortBy: [SortDescriptor(\.index, order: .reverse)]
             )
             let allCategories = try modelContext.fetch(fetchDescriptor)
+            if allCategories.firstIndex(where: { $0.name == newCategoryName }) != nil {
+                return false
+            }
             let newCategoryIndex = allCategories.first?.index ?? 0
             let newCategory = TransactionCategory(
                 name: newCategoryName,
@@ -170,6 +185,7 @@ struct ManageCategoryView: View {
                 type: .error
             )
         }
+        return true
     }
     
     private func deleteCategory(at offsets: IndexSet) {
@@ -228,6 +244,7 @@ struct ManageCategoryView: View {
                     transactionType: transactionType,
                     icon: $newCategoryIconName,
                     name: $newCategoryName,
+                    showCategoryNameDuplicatedWarning: $showCategoryNameDuplicateWarning,
                     nameFieldFocused: $newCategoryNameFieldFocused
                 ) { addCategory() }
                 
