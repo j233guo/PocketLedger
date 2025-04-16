@@ -17,6 +17,64 @@ private struct AddCategoryView: View {
     
     let addAction: () -> Void
     
+    var addCategoryButton: some View {
+        HStack {
+            if expanded {
+                Button {
+                    withAnimation {
+                        expanded = false
+                    }
+                } label: {
+                    Text(String(localized: "Cancel", table: "Common"))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .foregroundStyle(.primary)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .leading),
+                    removal: .move(edge: .trailing)
+                ))
+                .animation(.default, value: expanded)
+                
+                Button {
+                    withAnimation {
+                        addAction()
+                        expanded = false
+                    }
+                } label: {
+                    Text(String(localized: "Add", table: "Common"))
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .trailing),
+                    removal: .move(edge: .leading)
+                ))
+                .animation(.default, value: expanded)
+            } else {
+                Button {
+                    withAnimation {
+                        expanded = true
+                    }
+                } label: {
+                    Text(String(localized: "Add a Custom Category", table: "Category"))
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .top).combined(with: .opacity),
+                    removal: .move(edge: .bottom).combined(with: .opacity)
+                ))
+                .animation(.default, value: expanded)
+            }
+        }
+    }
+    
     var body: some View {
         if expanded {
             Section {
@@ -31,44 +89,9 @@ private struct AddCategoryView: View {
             }
         }
         Section {
-            HStack {
-                if expanded {
-                    Button {
-                        withAnimation {
-                            expanded = false
-                        }
-                    } label: {
-                        Text(String(localized: "Cancel", table: "Common"))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
-                    
-                    Spacer()
-                }
-                Button {
-                    withAnimation {
-                        if expanded {
-                            addAction()
-                        }
-                        expanded.toggle()
-                    }
-                } label: {
-                    if expanded {
-                        Text(String(localized: "Add", table: "Common"))
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        Text(String(localized: "Add a Custom Category", table: "Category"))
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-            }
-            .listRowBackground(Color.clear)
-            .listRowInsets(EdgeInsets())
+            addCategoryButton
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
         }
         .listSectionSpacing(10)
     }
@@ -180,22 +203,6 @@ struct ManageCategoryView: View {
                 
                 Section {
                     if transactionType == .expense {
-                        ForEach(defaultExpenseCategories) {
-                            CategoryListRowView(category: $0)
-                        }
-                    } else {
-                        ForEach(defaultIncomeCategories) {
-                            CategoryListRowView(category: $0)
-                        }
-                    }
-                } header: {
-                    Text(String(localized: "Default Categories", table: "Category"))
-                } footer: {
-                    Text(String(localized: "Default categories cannot be deleted.", table: "Category"))
-                }
-                
-                Section {
-                    if transactionType == .expense {
                         ForEach(customExpenseCategories) {
                             CategoryListRowView(category: $0)
                         }
@@ -223,6 +230,22 @@ struct ManageCategoryView: View {
                     name: $newCategoryName,
                     nameFieldFocused: $newCategoryNameFieldFocused
                 ) { addCategory() }
+                
+                Section {
+                    if transactionType == .expense {
+                        ForEach(defaultExpenseCategories) {
+                            CategoryListRowView(category: $0)
+                        }
+                    } else {
+                        ForEach(defaultIncomeCategories) {
+                            CategoryListRowView(category: $0)
+                        }
+                    }
+                } header: {
+                    Text(String(localized: "Default Categories", table: "Category"))
+                } footer: {
+                    Text(String(localized: "Default categories cannot be deleted.", table: "Category"))
+                }
             }
             .navigationTitle(String(localized: "Transaction Categories", table: "Category"))
             .navigationBarTitleDisplayMode(.inline)
