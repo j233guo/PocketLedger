@@ -397,6 +397,28 @@
         }
       }
     },
+    "There is already a perk with this category." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is already a perk with this category."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡上已经有一个此类别的福利了。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "卡上已有一個此類別的權益了。"
+          }
+        }
+      }
+    },
     "This card doesn't have any perks registered." : {
       "localizations" : {
         "en" : {

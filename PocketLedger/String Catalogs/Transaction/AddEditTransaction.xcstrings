@@ -46,7 +46,6 @@
       }
     },
     "Edit Transaction" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
