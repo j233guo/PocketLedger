@@ -20,7 +20,7 @@ private struct TabButton: View {
     
     var body: some View {
         Button {
-            withAnimation(.easeInOut(duration: 0.2)) {
+            withAnimation(.easeIn(duration: 0.2)) {
                 selectedTab = tab
             }
         } label: {
@@ -48,13 +48,19 @@ struct ContentView: View {
                 switch selectedTab {
                 case .home:
                     HomeView()
-                        .transition(.opacity)
+                        .transition(.asymmetric(
+                            insertion: .opacity,
+                            removal: .move(edge: .leading).combined(with: .opacity)))
                 case .transactions:
                     TransactionListView()
-                        .transition(.opacity)
+                        .transition(.asymmetric(
+                            insertion: .opacity,
+                            removal: .move(edge: .bottom).combined(with: .opacity)))
                 case .cards:
                     CardListView()
-                        .transition(.opacity)
+                        .transition(.asymmetric(
+                            insertion: .opacity,
+                            removal: .move(edge: .trailing).combined(with: .opacity)))
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -32,7 +32,8 @@ struct TransactionListToolbarView: View {
                         .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
+                    .buttonBorderShape(.roundedRectangle)
+                    .foregroundStyle(.primary)
                 }
                 
                 if withAdd {
@@ -47,7 +48,7 @@ struct TransactionListToolbarView: View {
                         .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.borderedProminent)
-                    .buttonBorderShape(.capsule)
+                    .buttonBorderShape(.roundedRectangle)
                 }
             }
             .fontWeight(.semibold)
@@ -60,6 +61,9 @@ struct TransactionListToolbarView: View {
                     DateFilterView(startDate: $startDate, endDate: $endDate)
                 }
                 .padding(.vertical,5)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .top),
+                    removal: .move(edge: .top)).combined(with: .opacity))
             }
             Divider()
         }

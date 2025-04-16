@@ -42,7 +42,8 @@ struct CardListView: View {
                                 .frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.bordered)
-                        .buttonBorderShape(.capsule)
+                        .buttonBorderShape(.roundedRectangle)
+                        .foregroundStyle(.primary)
                     }
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)
