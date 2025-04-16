@@ -63,8 +63,80 @@ struct MonthlyBudgetView: View {
         }
         UserDefaults.standard.set(newBudget, forKey: "monthlyBudget")
         budgetFieldFocused = false
-        withAnimation {
-            expandEditBudget = false
+    }
+    
+    private var editBudgetView: some View {
+        VStack {
+            if expandEditBudget {
+                VStack(alignment: .center) {
+                    Text(String(localized: "New Budget", table: "Home"))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    HStack {
+                        Spacer()
+                        Button {
+                            newBudget -= 10
+                        } label: {
+                            Image(systemName: "minus")
+                                .frame(width: 20, height: 20)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.circle)
+                        TextField(String(localized: "Budget", table: "Home"), value: $newBudget, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                            .kerning(2.0)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                            .fontDesign(.monospaced)
+                            .multilineTextAlignment(.center)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .focused($budgetFieldFocused)
+                            .keyboardType(.decimalPad)
+                        Button {
+                            newBudget += 10
+                        } label: {
+                            Image(systemName: "plus")
+                                .frame(width: 20, height: 20)
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .buttonBorderShape(.circle)
+                        Spacer()
+                    }
+                }
+                .transition(.asymmetric(
+                    insertion: .move(edge: .leading).combined(with: .opacity),
+                    removal: .move(edge: .top).combined(with: .opacity)
+                ))
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        setMonthlyBudget()
+                        withAnimation {
+                            expandEditBudget = false
+                        }
+                    } label: {
+                        Text(String(localized: "Set Budget", table: "Home"))
+                    }
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.roundedRectangle)
+                    .foregroundStyle(.primary)
+                }
+                .transition(.move(edge: .bottom).combined(with: .opacity))
+            } else {
+                HStack {
+                    Spacer()
+                    Button {
+                        newBudget = monthlyBudget
+                        withAnimation {
+                            expandEditBudget = true
+                        }
+                    } label: {
+                        Text(String(localized: "Edit Budget", table: "Home"))
+                    }
+                    .buttonStyle(.borderless)
+                }
+                .transition(.move(edge: .trailing).combined(with: .opacity))
+            }
         }
     }
     
@@ -101,70 +173,7 @@ struct MonthlyBudgetView: View {
                 .padding(.vertical)
                 .frame(maxWidth: .infinity)
                 
-                
-                if expandEditBudget {
-                    VStack(alignment: .center) {
-                        Text(String(localized: "New Budget", table: "Home"))
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        HStack {
-                            Spacer()
-                            Button {
-                                newBudget -= 10
-                            } label: {
-                                Image(systemName: "minus")
-                                    .frame(width: 20, height: 20)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .buttonBorderShape(.circle)
-                            TextField(String(localized: "Budget", table: "Home"), value: $newBudget, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
-                                .kerning(2.0)
-                                .font(.title2)
-                                .fontWeight(.semibold)
-                                .fontDesign(.monospaced)
-                                .multilineTextAlignment(.center)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
-                                .focused($budgetFieldFocused)
-                                .keyboardType(.decimalPad)
-                            Button {
-                                newBudget += 10
-                            } label: {
-                                Image(systemName: "plus")
-                                    .frame(width: 20, height: 20)
-                            }
-                            .buttonStyle(.borderedProminent)
-                            .buttonBorderShape(.circle)
-                            Spacer()
-                        }
-                    }
-                    .transition(.asymmetric(
-                        insertion: .move(edge: .bottom).combined(with: .opacity),
-                        removal: .move(edge: .top).combined(with: .opacity)
-                    ))
-                }
-                
-                HStack {
-                    Spacer()
-                    Button {
-                        if expandEditBudget {
-                            setMonthlyBudget()
-                        } else {
-                            newBudget = monthlyBudget
-                            withAnimation {
-                                expandEditBudget = true
-                            }
-                        }
-                    } label: {
-                        if expandEditBudget {
-                            Text(String(localized: "Set Budget", table: "Home"))
-                        } else {
-                            Text(String(localized: "Edit Budget", table: "Home"))
-                                .font(.footnote)
-                        }
-                    }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
-                }
+                editBudgetView
             }
             .toolbar {
                 ToolbarItem(placement: .keyboard) {
