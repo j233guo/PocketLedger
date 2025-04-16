@@ -25,9 +25,69 @@ private struct AddPerkView: View {
         return formatter
     }()
     
-    var body: some View {
-        if expanded {
-            Section {
+    var addPerkButton: some View {
+        HStack {
+            if expanded {
+                Button {
+                    withAnimation {
+                        expanded = false
+                    }
+                } label: {
+                    Text(String(localized: "Cancel", table: "Common"))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .foregroundStyle(.primary)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .leading),
+                    removal: .move(edge: .trailing)
+                ))
+                .animation(.default, value: expanded)
+                
+                Button {
+                    withAnimation {
+                        addAction()
+                        expanded = false
+                    }
+                } label: {
+                    Text(expanded ? String(localized: "Add", table: "Common") :
+                            String(localized: "Add a New Perk", table: "AddEditCard"))
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .trailing),
+                    removal: .move(edge: .leading)
+                ))
+                .animation(.default, value: expanded)
+            } else {
+                Button {
+                    withAnimation {
+                        expanded = true
+                    }
+                } label: {
+                    Text(expanded ? String(localized: "Add", table: "Common") :
+                            String(localized: "Add a New Perk", table: "AddEditCard"))
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .top).combined(with: .opacity),
+                    removal: .move(edge: .bottom).combined(with: .opacity)
+                ))
+                .animation(.default, value: expanded)
+            }
+        }
+    }
+    
+    var addForm: some View {
+        Section {
+            if expanded {
                 HStack {
                     let suffix = perkType == .cashback ? "%" : "x"
                     Text(String(localized: "\(perkType.localizedString) Multiplier", table: "AddEditCard"))
@@ -43,44 +103,14 @@ private struct AddPerkView: View {
                 CategoryPickerView(selectedCategory: $category, transactionType: .expense, nameId: .cardperk)
             }
         }
-        
+    }
+    
+    var body: some View {
+        addForm
         Section {
-            HStack {
-                if expanded {
-                    Button {
-                        withAnimation {
-                            expanded = false
-                        }
-                    } label: {
-                        Text(String(localized: "Cancel", table: "Common"))
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                    .buttonStyle(.bordered)
-                    .buttonBorderShape(.capsule)
-                }
-                Button {
-                    withAnimation {
-                        if expanded {
-                            addAction()
-                        }
-                        expanded.toggle()
-                    }
-                } label: {
-                    if expanded {
-                        Text(String(localized: "Add", table: "Common"))
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    } else {
-                        Text(String(localized: "Add a New Perk", table: "AddEditCard"))
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    }
-                }
-                .buttonStyle(.bordered)
-                .buttonBorderShape(.capsule)
-            }
-            .listRowBackground(Color.clear)
-            .listRowInsets(EdgeInsets())
+            addPerkButton
+                .listRowBackground(Color.clear)
+                .listRowInsets(EdgeInsets())
         }
         .listSectionSpacing(10)
     }
@@ -121,7 +151,6 @@ struct EditCardView: View {
             $0.card?.idString == idString
         }
         self._perksOnCard = Query(filter: predicate)
-        
     }
     
     private func addCardPerk() {
@@ -290,6 +319,7 @@ struct EditCardView: View {
                             CardPerkListRowView(perk: perk)
                         }
                         .onDelete(perform: deletePerk)
+                        .id("perksList")
                     } header: {
                         Text(String(localized: "Perks on This card", table: "AddEditCard"))
                     } footer: {
