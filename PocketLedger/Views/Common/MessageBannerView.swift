@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MessageBannerView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var messageService: MessageService
+    
+    @State private var offset: CGSize = .zero
     
     let message: String
     let type: MessageType
@@ -44,6 +47,9 @@ struct MessageBannerView: View {
     }
     
     var body: some View {
+        let dragAmount = offset.width
+        let fade = max(0.0, 1.0 - abs(dragAmount) / 150)
+        
         HStack {
             Image(systemName: iconName)
                 .font(.title)
@@ -60,7 +66,22 @@ struct MessageBannerView: View {
         .cornerRadius(8)
         .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 3)
         .padding(.horizontal)
-        .transition(.move(edge: .top).combined(with: .opacity))
+        .offset(x: dragAmount, y: 0)
+        .opacity(fade)
+        .gesture(
+            DragGesture()
+                .onChanged { gesture in
+                    offset = gesture.translation
+                }
+                .onEnded { gesture in
+                    if abs(gesture.translation.width) > 150 {
+                        messageService.dismiss()
+                    }
+                    offset = .zero
+                }
+        )
+        .animation(.spring(), value: offset)
+        
     }
 }
 
