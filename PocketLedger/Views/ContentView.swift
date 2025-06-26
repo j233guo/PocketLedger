@@ -14,27 +14,6 @@ private enum MainTab: String, CaseIterable {
     case cards = "creditcard"
 }
 
-private struct TabButton: View {
-    let tab: MainTab
-    @Binding var selectedTab: MainTab
-    
-    var body: some View {
-        Button {
-            withAnimation(.easeIn(duration: 0.2)) {
-                selectedTab = tab
-            }
-        } label: {
-            Image(systemName: tab.rawValue)
-                .symbolVariant(selectedTab == tab ? .fill : .none)
-                .font(.system(size: 23))
-                .scaleEffect(selectedTab == tab ? 1.25 : 1.0)
-                .foregroundStyle(selectedTab == tab ? .primary : .secondary)
-                .frame(width: 45, height: 45)
-        }
-        .buttonStyle(.plain)
-    }
-}
-
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var messageService: MessageService
@@ -43,27 +22,20 @@ struct ContentView: View {
     @StateObject private var keyboardResponder = KeyboardResponder()
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Group {
-                switch selectedTab {
-                case .home:
+        ZStack(alignment: .top) {
+            TabView {
+                Tab("", systemImage: MainTab.home.rawValue) {
                     HomeView()
-                        .transition(.asymmetric(
-                            insertion: .opacity,
-                            removal: .move(edge: .leading).combined(with: .opacity)))
-                case .transactions:
+                }
+                
+                Tab("", systemImage: MainTab.transactions.rawValue) {
                     TransactionListView()
-                        .transition(.asymmetric(
-                            insertion: .opacity,
-                            removal: .move(edge: .bottom).combined(with: .opacity)))
-                case .cards:
+                }
+                
+                Tab("", systemImage: MainTab.cards.rawValue) {
                     CardListView()
-                        .transition(.asymmetric(
-                            insertion: .opacity,
-                            removal: .move(edge: .trailing).combined(with: .opacity)))
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             VStack(alignment: .trailing) {
                 if messageService.show {
@@ -73,20 +45,7 @@ struct ContentView: View {
                     )
                     .animation(.easeInOut(duration: 0.3), value: messageService.message)
                     .zIndex(1)
-                    .offset(y: -5)
-                }
-                
-                if !keyboardResponder.keyboardVisible {
-                    HStack {
-                        ForEach(MainTab.allCases, id: \.self) {
-                            Spacer()
-                            TabButton(tab: $0, selectedTab: $selectedTab)
-                            Spacer()
-                        }
-                    }
-                    .padding(.vertical, 10)
-                    .background(.thinMaterial)
-                    .shadow(radius: 2)
+                    .offset(y: 35)
                 }
             }
         }

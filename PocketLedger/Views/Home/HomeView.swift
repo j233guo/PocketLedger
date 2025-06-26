@@ -28,7 +28,7 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .buttonStyle(.bordered)
-                    .buttonBorderShape(.roundedRectangle)
+                    .buttonBorderShape(.capsule)
                     .foregroundStyle(.primary)
                 }
                 .padding(.vertical)

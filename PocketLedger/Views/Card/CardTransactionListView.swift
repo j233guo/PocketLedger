@@ -60,13 +60,17 @@ struct CardTransactionListView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                TransactionListToolbarView(
-                    filterExpanded: $filterExpanded,
-                    startDate: $startDate,
-                    endDate: $endDate,
-                    withFilter: true,
-                    withAdd: false
-                )
+                HStack(alignment: .center) {
+                    Text(String(localized: "Date", table: "TransactionList"))
+                        .foregroundStyle(.secondary)
+                        .padding(.horizontal)
+                    DateFilterView(startDate: $startDate, endDate: $endDate)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical,5)
+                .padding(.horizontal)
+                .background(Color(.systemGroupedBackground))
+                
                 if transactions.isEmpty {
                     TransactionListEmptyView(message: String(localized: "You do not have any transactions on this card.", table: "CardTransactionList"))
                 } else {
@@ -78,6 +82,7 @@ struct CardTransactionListView: View {
                 }
             }
             .navigationTitle(String(localized: "Transactions on Card", table: "CardTransactionList"))
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
