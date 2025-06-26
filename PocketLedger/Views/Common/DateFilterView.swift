@@ -12,16 +12,16 @@ struct DateFilterView: View {
     @Binding var endDate: Date
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             DatePicker("Start", selection: $startDate, displayedComponents: .date)
                 .datePickerStyle(.compact)
                 .labelsHidden()
             Text("-")
                 .foregroundColor(.secondary)
+                .frame(maxWidth: .infinity)
             DatePicker("End", selection: $endDate, in: startDate..., displayedComponents: .date)
                 .labelsHidden()
         }
-        .frame(maxWidth: .infinity)
     }
 }
 

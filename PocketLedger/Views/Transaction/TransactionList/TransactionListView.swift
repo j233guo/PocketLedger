@@ -47,28 +47,53 @@ struct TransactionListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                TransactionListToolbarView(
-                    filterExpanded: $filterExpanded,
-                    startDate: $startDate,
-                    endDate: $endDate,
-                    withFilter: !transactions.isEmpty,
-                    withAdd: true
-                ) {
-                    showAddTransactionView = true
-                }
-                if transactions.isEmpty {
-                    TransactionListEmptyView(
-                        message: String(localized: "Tap \"Log Transaction\" to log your first transaction.", table: "TransactionList")
-                    )
-                } else {
-                    if filteredTransactions.isEmpty {
+            ZStack(alignment: .bottom) {
+                VStack(spacing: 0) {
+                    HStack(alignment: .center) {
+                        Text(String(localized: "Date", table: "TransactionList"))
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal)
+                        DateFilterView(startDate: $startDate, endDate: $endDate)
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical,5)
+                    .padding(.horizontal)
+                    .background(Color(.systemGroupedBackground))
+                    
+                    Divider()
+                    
+                    if transactions.isEmpty {
                         TransactionListEmptyView(
-                            message: String(localized: "No transactions found based on your filter.", table: "TransactionList")
+                            message: String(localized: "Tap \"Log Transaction\" to log your first transaction.", table: "TransactionList")
                         )
                     } else {
-                        GroupedTransactionListView(transactions: filteredTransactions)
+                        if filteredTransactions.isEmpty {
+                            TransactionListEmptyView(
+                                message: String(localized: "No transactions found based on your filter.", table: "TransactionList")
+                            )
+                        } else {
+                            GroupedTransactionListView(transactions: filteredTransactions)
+                        }
                     }
+                }
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        showAddTransactionView = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "plus")
+                                .fontWeight(.bold)
+                            Text(String(localized: "Log Transaction", table: "TransactionList"))
+                                .multilineTextAlignment(.center)
+                                .fontWeight(.semibold)
+                        }
+                        .padding(5)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .offset(x: -20, y: -20)
                 }
             }
             .navigationTitle(String(localized: "Transactions", table: "TransactionList"))

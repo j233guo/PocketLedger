@@ -32,26 +32,7 @@ struct CardListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                VStack {
-                    HStack {
-                        Button {
-                            showAddCardView = true
-                        } label: {
-                            Label(String(localized: "Add Card", table: "CardList"), systemImage: "plus")
-                                .frame(maxWidth: .infinity)
-                        }
-                        .buttonStyle(.bordered)
-                        .buttonBorderShape(.roundedRectangle)
-                        .foregroundStyle(.primary)
-                    }
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
-                    Divider()
-                }
-                .padding(.horizontal)
-                .background(Color(.systemGroupedBackground))
-                
+            ZStack(alignment: .bottom) {
                 if cards.isEmpty {
                     VStack {
                         Text(String(localized: "Empty Card List", table: "CardList"))
@@ -73,6 +54,24 @@ struct CardListView: View {
                     }
                     .listStyle(.insetGrouped)
                     .contentMargins(.bottom, 100)
+                }
+                
+                HStack {
+                    Spacer()
+                    Button {
+                        showAddCardView = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "plus")
+                                .fontWeight(.bold)
+                            Text(String(localized: "Add Card", table: "CardList"))
+                                .fontWeight(.bold)
+                        }
+                        .padding(5)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .offset(x: -20, y: -20)
                 }
             }
             .navigationTitle(String(localized: "My Cards", table: "CardList"))

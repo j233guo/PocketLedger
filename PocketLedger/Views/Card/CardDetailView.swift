@@ -231,6 +231,7 @@ struct CardDetailView: View {
                                 .font(.headline)
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
+                        
                         Button {
                             showEditCardView = true
                         } label: {

@@ -45,28 +45,6 @@
         }
       }
     },
-    "Filter" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Filter"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "筛选"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "篩選"
-          }
-        }
-      }
-    },
     "Log Transaction" : {
       "localizations" : {
         "en" : {
