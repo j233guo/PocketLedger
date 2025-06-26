@@ -46,6 +46,7 @@ struct ContentView: View {
                     .animation(.easeInOut(duration: 0.3), value: messageService.message)
                     .zIndex(1)
                     .offset(y: 35)
+                    .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
         }

@@ -52,4 +52,11 @@ final class MessageService: ObservableObject {
             }
         }
     }
+    
+    func dismiss() {
+        dismissTimer?.invalidate()
+        DispatchQueue.main.async {
+            self.show = false
+        }
+    }
 }
